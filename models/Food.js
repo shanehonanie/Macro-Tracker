@@ -42,6 +42,10 @@ const FoodSchema = new Schema({
 	fiber: {
 		type: Number,
 		required: true
+	},
+	createdBy: {
+		type: Schema.Types.ObjectId,
+		ref: 'users'
 	}
 });
 
