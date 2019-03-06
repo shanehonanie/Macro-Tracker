@@ -69,7 +69,9 @@ router.post(
 					{ name: req.body.name },
 					{ $set: foodFields },
 					{ new: true }
-				).then(food => res.json(profile)); //Update Success
+				)
+					.then(food => res.json(food)) //Update Success
+					.catch(err => res.status(404).json(err));
 			} else {
 				//Create
 
@@ -81,7 +83,10 @@ router.post(
 					}
 				});
 				//Save Profile
-				new Food(foodFields).save().then(food => res.json(food));
+				new Food(foodFields)
+					.save()
+					.then(food => res.json(food))
+					.catch(err => res.status(404).json(err));
 			}
 		});
 	}
