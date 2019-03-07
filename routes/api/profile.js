@@ -193,14 +193,6 @@ router.post(
 	'/foodsHistory/:food_item_id',
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
-		const newFoodItem = {
-			mealOfDay: req.body.mealOfDay,
-			description: req.body.description,
-			date: Date.now()
-		};
-
-		console.log('food_id', req.params.food_item_id);
-
 		Profile.findOne({ user: req.user.id }).then(profile => {
 			// Get edit index
 			const editIndex = profile.foodsHistory
