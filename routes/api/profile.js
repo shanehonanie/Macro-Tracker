@@ -152,6 +152,7 @@ router.post(
 // @route POST api/profile/foodsHistory
 // @desc Add Food item to profile
 // @access Private
+// TODO: Add edit capability
 router.post(
 	'/foodsHistory',
 	passport.authenticate('jwt', { session: false }),
