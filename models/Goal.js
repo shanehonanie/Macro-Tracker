@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const GoalSchema = new Schema({
+	user: {
+		type: Schema.Types.ObjectId,
+		ref: 'users'
+	},
 	dailyCalories: {
 		type: Number,
 		default: 2000
