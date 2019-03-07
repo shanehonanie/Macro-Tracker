@@ -149,7 +149,7 @@ router.post(
 	}
 );
 
-// @route POST api/profile/food
+// @route POST api/profile/foodsHistory
 // @desc Add Food item to profile
 // @access Private
 router.post(
@@ -180,6 +180,31 @@ router.post(
 
 					profile.save().then(profile => res.json(profile));
 				})
+				.catch(err => res.status(404).json(err));
+		});
+	}
+);
+
+// @route DELETE POST api/profile/foodsHistory/:food_item_id
+// @desc Delete Food item to profile
+// @access Private
+router.delete(
+	'/foodsHistory/:food_item_id',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			// Get remove index
+			const removeIndex = profile.foodsHistory
+				.map(item => item.id)
+				.indexOf(req.params.food_item_id);
+
+			// Splice out of array
+			profile.foodsHistory.splice(removeIndex, 1);
+
+			// Save
+			profile
+				.save()
+				.then(profile => res.json(profile))
 				.catch(err => res.status(404).json(err));
 		});
 	}
