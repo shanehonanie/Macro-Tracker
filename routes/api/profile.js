@@ -185,7 +185,7 @@ router.post(
 	}
 );
 
-// @route DELETE POST api/profile/foodsHistory/:food_item_id
+// @route DELETE api/profile/foodsHistory/:food_item_id
 // @desc Delete Food item to profile
 // @access Private
 router.delete(
