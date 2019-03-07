@@ -186,6 +186,43 @@ router.post(
 	}
 );
 
+// @route POST api/profile/foodsHistory/:food_item_id
+// @desc Edit exisiting Food item in foodHistory array
+// @access Private
+router.post(
+	'/foodsHistory/:food_item_id',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		const newFoodItem = {
+			mealOfDay: req.body.mealOfDay,
+			description: req.body.description,
+			date: Date.now()
+		};
+
+		console.log('food_id', req.params.food_item_id);
+
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			// Get edit index
+			const editIndex = profile.foodsHistory
+				.map(item => item.id)
+				.indexOf(req.params.food_item_id);
+
+			// Edit the fields if they exist in req.body
+			if (req.body.mealOfDay)
+				profile.foodsHistory[editIndex].mealOfDay = req.body.mealOfDay;
+			if (req.body.description)
+				profile.foodsHistory[editIndex].description = req.body.description;
+			if (req.body.date) profile.foodsHistory[editIndex].date = req.body.date;
+
+			// Save
+			profile
+				.save()
+				.then(profile => res.json(profile))
+				.catch(err => res.status(404).json(err));
+		});
+	}
+);
+
 // @route DELETE api/profile/foodsHistory/:food_item_id
 // @desc Delete Food item to profile
 // @access Private
