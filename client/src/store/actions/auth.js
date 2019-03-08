@@ -43,19 +43,24 @@ export const checkAuthTimeout = expirationTime => {
 export const auth = (name, email, password, password2, isSignUp) => {
 	return dispatch => {
 		dispatch(authStart());
-		const newUser = {
-			name: name,
-			email: email,
-			password: password,
-			password2: password2
-		};
+		let newUser = {};
 		//console.log('isSignUp in actions', isSignUp);
-		let url = 'api/users/register';
-		if (!isSignUp) {
+		let url = '';
+		if (isSignUp) {
+			url = 'api/users/register';
+			newUser = {
+				name: name,
+				email: email,
+				password: password,
+				password2: password2
+			};
+		} else {
 			url = 'api/users/login';
+			newUser = {
+				email: email,
+				password: password
+			};
 		}
-
-		//console.log('url', url);
 
 		axios
 			.post(url, newUser)
