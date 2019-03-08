@@ -1,42 +1,50 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+//import { Redirect } from 'react-router-dom';
+
 import classnames from 'classnames';
+import * as actions from '../../store/actions/index';
 
 export class Register extends Component {
-	// constructor() {
-	// 	super();
-	// }
-
 	state = {
 		name: '',
 		email: '',
 		password: '',
 		password2: '',
-		errors: {}
+		error: {},
+		isSignUp: true
 	};
 
-	onChangeHandler = event => {
+	// componentDidMount() {
+	// 	if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
+	// 		this.props.onSetAuthRedirectPath();
+	// 	}
+	// }
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.error) {
+			this.setState({ error: nextProps.error });
+		}
+	}
+
+	inputChangedHandler = event => {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
 	onSubmitHandler = event => {
 		event.preventDefault();
 
-		const newUser = {
-			name: this.state.name,
-			email: this.state.email,
-			password: this.state.password,
-			password2: this.state.password2
-		};
-
-		axios
-			.post('api/users/register', newUser)
-			.then(res => console.log(res.data))
-			.catch(err => this.setState({ errors: err.response.data }));
+		this.props.onAuth(
+			this.state.name,
+			this.state.email,
+			this.state.password,
+			this.state.password2,
+			this.state.isSignup
+		);
 	};
 
 	render() {
-		const { errors } = this.state;
+		const { error } = this.state;
 
 		return (
 			<div className='register'>
@@ -52,60 +60,60 @@ export class Register extends Component {
 									<input
 										type='text'
 										className={classnames('form-control form-control-lg', {
-											'is-invalid': errors.name
+											'is-invalid': error.name
 										})}
 										placeholder='Name'
 										name='name'
 										value={this.state.name}
-										onChange={this.onChangeHandler}
+										onChange={this.inputChangedHandler}
 									/>
-									{errors.name && (
-										<div className='invalid-feedback'>{errors.name}</div>
+									{error.name && (
+										<div className='invalid-feedback'>{error.name}</div>
 									)}
 								</div>
 								<div className='form-group'>
 									<input
 										type='email'
 										className={classnames('form-control form-control-lg', {
-											'is-invalid': errors.email
+											'is-invalid': error.email
 										})}
 										placeholder='Email Address'
 										name='email'
 										value={this.state.email}
-										onChange={this.onChangeHandler}
+										onChange={this.inputChangedHandler}
 									/>
-									{errors.email && (
-										<div className='invalid-feedback'>{errors.email}</div>
+									{error.email && (
+										<div className='invalid-feedback'>{error.email}</div>
 									)}
 								</div>
 								<div className='form-group'>
 									<input
 										type='password'
 										className={classnames('form-control form-control-lg', {
-											'is-invalid': errors.password
+											'is-invalid': error.password
 										})}
 										placeholder='Password'
 										name='password'
 										value={this.state.password}
-										onChange={this.onChangeHandler}
+										onChange={this.inputChangedHandler}
 									/>
-									{errors.password && (
-										<div className='invalid-feedback'>{errors.password}</div>
+									{error.password && (
+										<div className='invalid-feedback'>{error.password}</div>
 									)}
 								</div>
 								<div className='form-group'>
 									<input
 										type='password'
 										className={classnames('form-control form-control-lg', {
-											'is-invalid': errors.password2
+											'is-invalid': error.password2
 										})}
 										placeholder='Confirm Password'
 										name='password2'
 										value={this.state.password2}
-										onChange={this.onChangeHandler}
+										onChange={this.inputChangedHandler}
 									/>
-									{errors.password2 && (
-										<div className='invalid-feedback'>{errors.password2}</div>
+									{error.password2 && (
+										<div className='invalid-feedback'>{error.password2}</div>
 									)}
 								</div>
 								<input type='submit' className='btn btn-info btn-block mt-4' />
@@ -118,4 +126,24 @@ export class Register extends Component {
 	}
 }
 
-export default Register;
+const mapStateToProps = state => {
+	return {
+		loading: state.auth.loading,
+		error: state.auth.error,
+		isAuthenticated: state.auth.token !== null
+		//authRedirectPath: state.auth.authRedirectPath
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onAuth: (name, email, password, password2, isSignup) =>
+			dispatch(actions.auth(name, email, password, password2, isSignup))
+		//onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Register);
