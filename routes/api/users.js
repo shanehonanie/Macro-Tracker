@@ -19,7 +19,7 @@ const User = require('../../models/User');
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
 // @route GET api/users/register
-// @desc Register User
+// @desc Register User and return JWT Token
 // @access Public
 router.post('/register', (req, res) => {
 	const { errors, isValid } = validateRegisterInput(req.body);
@@ -48,7 +48,24 @@ router.post('/register', (req, res) => {
 					newUser.password = hash;
 					newUser
 						.save()
-						.then(user => res.json(user))
+						.then(user => {
+							const payload = { id: user.id, name: user.name };
+
+							// Create & Sign the token
+							jwt.sign(
+								payload,
+								keys.secretOrKey,
+								{ expiresIn: 3600 },
+								(err, token) => {
+									res.json({
+										success: true,
+										user: user.name,
+										id: user.id,
+										token: 'Bearer ' + token
+									});
+								}
+							);
+						})
 						.catch(err => console.log(err));
 				});
 			});
