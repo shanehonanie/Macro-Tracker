@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export class Register extends Component {
-	constructor() {
-		super();
-	}
+	// constructor() {
+	// 	super();
+	// }
 
 	state = {
 		name: '',
@@ -14,11 +15,23 @@ export class Register extends Component {
 	};
 
 	onChangeHandler = event => {
-		this.setState({ [event.target.name]: [event.target.value] });
+		this.setState({ [event.target.name]: event.target.value });
 	};
 
 	onSubmitHandler = event => {
 		event.preventDefault();
+
+		const newUser = {
+			name: this.state.name,
+			email: this.state.email,
+			password: this.state.password,
+			password2: this.state.password2
+		};
+
+		axios
+			.post('api/users/register', newUser)
+			.then(res => console.log(res.data))
+			.catch(err => console.log(err.response.data));
 	};
 
 	render() {

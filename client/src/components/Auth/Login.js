@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 export class Login extends Component {
-	constructor() {
-		super();
-	}
+	// constructor() {
+	// 	super();
+	// }
 
 	state = {
 		email: '',
@@ -12,7 +12,7 @@ export class Login extends Component {
 	};
 
 	onChangeHandler = event => {
-		this.setState({ [event.target.name]: [event.target.value] });
+		this.setState({ [event.target.name]: event.target.value });
 	};
 
 	onSubmitHandler = event => {
