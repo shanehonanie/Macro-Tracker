@@ -6,7 +6,7 @@ export class Navbar extends Component {
 			<nav className='navbar navbar-expand-sm navbar-dark bg-dark mb-4'>
 				<div className='container'>
 					<a className='navbar-brand' href='landing.html'>
-						DevConnector
+						MacroTracker
 					</a>
 					<button
 						className='navbar-toggler'
@@ -18,11 +18,29 @@ export class Navbar extends Component {
 					</button>
 
 					<div className='collapse navbar-collapse' id='mobile-nav'>
+						<ul className='navbar-nav ml-auto'>
+							<li className='nav-item'>
+								<a className='nav-link' href='profiles.html'>
+									{' '}
+									Profile
+								</a>
+							</li>
+						</ul>
+
+						<ul className='navbar-nav auto'>
+							<li className='nav-item'>
+								<a className='nav-link' href='profiles.html'>
+									{' '}
+									Goals
+								</a>
+							</li>
+						</ul>
+
 						<ul className='navbar-nav mr-auto'>
 							<li className='nav-item'>
 								<a className='nav-link' href='profiles.html'>
 									{' '}
-									Developers
+									Food Database
 								</a>
 							</li>
 						</ul>
