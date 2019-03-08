@@ -12,31 +12,40 @@ const GoalSchema = new Schema({
 		default: 2000
 	},
 	dailyProtein: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	dailyFat: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	dailyCarbs: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	dailyFiber: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	fitnessWeeklyWorkouts: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	fitnessCaloriesBurnedPerWeek: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	fitnessCardioDaysPerWeek: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	fitnessWeightTrainingDaysPerWeek: {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	fitnessMinutessPerWorkout: {
-		type: Number
+		type: Number,
+		default: 0
 	}
 });
 
