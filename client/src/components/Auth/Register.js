@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import classnames from 'classnames';
 import * as actions from '../../store/actions/index';
@@ -15,11 +15,11 @@ export class Register extends Component {
 		isSignUp: true
 	};
 
-	// componentDidMount() {
-	// 	if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
-	// 		this.props.onSetAuthRedirectPath();
-	// 	}
-	// }
+	componentDidMount() {
+		if (this.props.authRedirectPath !== '/') {
+			this.props.onSetAuthRedirectPath();
+		}
+	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.error) {
@@ -39,15 +39,21 @@ export class Register extends Component {
 			this.state.email,
 			this.state.password,
 			this.state.password2,
-			this.state.isSignup
+			this.state.isSignUp
 		);
 	};
 
 	render() {
 		const { error } = this.state;
 
+		let authRedirect = null;
+		if (this.props.isAuthenticated) {
+			authRedirect = <Redirect to={this.props.authRedirectPath} />;
+		}
+
 		return (
 			<div className='register'>
+				{authRedirect}
 				<div className='container'>
 					<div className='row'>
 						<div className='col-md-8 m-auto'>
@@ -130,16 +136,16 @@ const mapStateToProps = state => {
 	return {
 		loading: state.auth.loading,
 		error: state.auth.error,
-		isAuthenticated: state.auth.token !== null
-		//authRedirectPath: state.auth.authRedirectPath
+		isAuthenticated: state.auth.token !== null,
+		authRedirectPath: state.auth.authRedirectPath
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
 		onAuth: (name, email, password, password2, isSignup) =>
-			dispatch(actions.auth(name, email, password, password2, isSignup))
-		//onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+			dispatch(actions.auth(name, email, password, password2, isSignup)),
+		onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
 	};
 };
 
