@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
 import Landing from './components/Layout/Landing';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+import * as actions from './store/actions/index';
 
 import './App.css';
 
 class App extends Component {
+	componentDidMount() {
+		this.props.onTryAutoSignin();
+	}
+
 	render() {
 		return (
 			<div className='App'>
@@ -25,4 +31,15 @@ class App extends Component {
 	}
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+	return {
+		onTryAutoSignin: () => dispatch(actions.authCheckState())
+	};
+};
+
+export default withRouter(
+	connect(
+		null,
+		mapDispatchToProps
+	)(App)
+);

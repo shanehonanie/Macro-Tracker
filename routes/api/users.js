@@ -61,7 +61,8 @@ router.post('/register', (req, res) => {
 										success: true,
 										user: user.name,
 										id: user.id,
-										token: 'Bearer ' + token
+										token: 'Bearer ' + token,
+										expiresIn: 3600
 									});
 								}
 							);
@@ -109,7 +110,10 @@ router.post('/login', (req, res) => {
 					(err, token) => {
 						res.json({
 							success: true,
-							token: 'Bearer ' + token
+							user: user.name,
+							id: user.id,
+							token: 'Bearer ' + token,
+							expiresIn: 3600
 						});
 					}
 				);

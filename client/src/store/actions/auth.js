@@ -43,9 +43,10 @@ export const checkAuthTimeout = expirationTime => {
 export const auth = (name, email, password, password2, isSignUp) => {
 	return dispatch => {
 		dispatch(authStart());
+
 		let newUser = {};
-		//console.log('isSignUp in actions', isSignUp);
 		let url = '';
+
 		if (isSignUp) {
 			url = 'api/users/register';
 			newUser = {
@@ -65,29 +66,19 @@ export const auth = (name, email, password, password2, isSignUp) => {
 		axios
 			.post(url, newUser)
 			.then(response => {
-				//console.log('response.data', response);
+				console.log('expiresIn', response.data.expiresIn);
+				const expirationDate = new Date(
+					new Date().getTime() + response.data.expiresIn * 1000
+				);
+				localStorage.setItem('token', response.data.token);
+				localStorage.setItem('expirationDate', expirationDate);
+				localStorage.setItem('userId', response.data.id);
 				dispatch(authSuccess(response.data.token, response.data.id));
-				//dispatch(checkAuthTimeout(response.data.expiresIn));
+				dispatch(checkAuthTimeout(response.data.expiresIn));
 			})
 			.catch(err => {
 				dispatch(authFail(err.response.data));
 			});
-		// axios
-		// 	.post(url, authData)
-		// 	.then(response => {
-		// 		//console.log(response);
-		// 		const expirationDate = new Date(
-		// 			new Date().getTime() + response.data.expiresIn * 1000
-		// 		);
-		// 		localStorage.setItem('token', response.data.idToken);
-		// 		localStorage.setItem('expirationDate', expirationDate);
-		// 		localStorage.setItem('userId', response.data.localId);
-		// 		dispatch(authSuccess(response.data.idToken, response.data.localId));
-		// 		dispatch(checkAuthTimeout(response.data.expiresIn));
-		// 	})
-		// 	.catch(err => {
-		// 		dispatch(authFail(err.response.data.error));
-		// 	});
 	};
 };
 
