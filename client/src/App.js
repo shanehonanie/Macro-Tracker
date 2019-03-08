@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
@@ -12,17 +12,15 @@ import './App.css';
 class App extends Component {
 	render() {
 		return (
-			<BrowserRouter>
-				<div className='App'>
-					<Navbar />
-					<Route exact path='/' component={Landing} />
-					<div className='container'>
-						<Route exact path='/register' component={Register} />
-						<Route exact path='/login' component={Login} />
-					</div>
-					<Footer />
+			<div className='App'>
+				<Navbar />
+				<Route exact path='/' component={Landing} />
+				<div className='container'>
+					<Route exact path='/register' component={Register} />
+					<Route exact path='/login' component={Login} />
 				</div>
-			</BrowserRouter>
+				<Footer />
+			</div>
 		);
 	}
 }
