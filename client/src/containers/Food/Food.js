@@ -20,15 +20,18 @@ export class Food extends Component {
 	};
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.errors) {
-			this.setState({ errors: nextProps.errors });
+		if (nextProps.error) {
+			this.setState({ error: nextProps.error });
+			// console.log('componentWillReceieve');
+			// console.log('this.state.error', this.state.error);
+			//console.log('nextProps', nextProps);
 		}
 	}
 
 	submitHandler = event => {
 		event.preventDefault();
 
-		console.log('[Food.js] submitHandler this.props.userId', this.props.userId);
+		//console.log('[Food.js] submitHandler this.props.userId', this.props.userId);
 		const foodData = {
 			name: this.state.name,
 			brand: this.state.brand,
@@ -40,10 +43,9 @@ export class Food extends Component {
 			protein: this.state.protein,
 			carbs: this.state.carbs,
 			fiber: this.state.fiber
-			//user: this.props.userId //from authReducer
 		};
 
-		this.props.createFood(foodData, this.props.token);
+		this.props.onCreateFood(foodData, this.props.token);
 	};
 
 	inputChangedHandler = event => {
@@ -71,6 +73,14 @@ export class Food extends Component {
 									onChange={this.inputChangedHandler}
 									error={error.name}
 									info='Name of food'
+								/>
+								<TextFieldGroup
+									placeholder='* Brand'
+									name='brand'
+									value={this.state.brand}
+									onChange={this.inputChangedHandler}
+									error={error.brand}
+									info='Brand of food'
 								/>
 								<TextFieldGroup
 									placeholder='* Portion'
@@ -120,7 +130,6 @@ export class Food extends Component {
 									error={error.carbs}
 									info='Carbs in food'
 								/>
-
 								<TextFieldGroup
 									placeholder='* Fiber'
 									name='fiber'
@@ -129,7 +138,6 @@ export class Food extends Component {
 									error={error.fiber}
 									info='Fiber in food'
 								/>
-
 								<input
 									type='submit'
 									value='Submit'
@@ -146,17 +154,15 @@ export class Food extends Component {
 
 const mapStateToProps = state => {
 	return {
-		error: state.auth.error,
-		token: state.auth.token,
-		userId: state.auth.userId //might not be needed
+		error: state.food.error,
+		token: state.auth.token
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onAuth: (name, email, password, password2, isSignup) =>
-			dispatch(actions.auth(name, email, password, password2, isSignup)),
-		onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+		onCreateFood: (foodData, token) =>
+			dispatch(actions.addFood(foodData, token))
 	};
 };
 

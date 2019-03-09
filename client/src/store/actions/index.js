@@ -4,6 +4,6 @@
 // 	initIngredients
 // } from './burgerBuilder';
 
-// export { purchaseBurger, purchaseInit, fetchOrders } from './order';
+export { addFood } from './food';
 
 export { auth, logout, setAuthRedirectPath, authCheckState } from './auth';
