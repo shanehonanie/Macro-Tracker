@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import classnames from 'classnames';
 import * as actions from '../../store/actions/index';
+import TextFieldGroup from '../../components/UI/TextFieldGroup';
 
 export class Register extends Component {
 	state = {
@@ -44,8 +44,6 @@ export class Register extends Component {
 	};
 
 	render() {
-		const { error } = this.state;
-
 		let authRedirect = null;
 		if (this.props.isAuthenticated) {
 			authRedirect = <Redirect to={this.props.authRedirectPath} />;
@@ -62,66 +60,37 @@ export class Register extends Component {
 								Create your MacroTracker account
 							</p>
 							<form noValidate onSubmit={this.onSubmitHandler}>
-								<div className='form-group'>
-									<input
-										type='text'
-										className={classnames('form-control form-control-lg', {
-											'is-invalid': error.name
-										})}
-										placeholder='Name'
-										name='name'
-										value={this.state.name}
-										onChange={this.inputChangedHandler}
-									/>
-									{error.name && (
-										<div className='invalid-feedback'>{error.name}</div>
-									)}
-								</div>
-								<div className='form-group'>
-									<input
-										type='email'
-										className={classnames('form-control form-control-lg', {
-											'is-invalid': error.email
-										})}
-										placeholder='Email Address'
-										name='email'
-										value={this.state.email}
-										onChange={this.inputChangedHandler}
-									/>
-									{error.email && (
-										<div className='invalid-feedback'>{error.email}</div>
-									)}
-								</div>
-								<div className='form-group'>
-									<input
-										type='password'
-										className={classnames('form-control form-control-lg', {
-											'is-invalid': error.password
-										})}
-										placeholder='Password'
-										name='password'
-										value={this.state.password}
-										onChange={this.inputChangedHandler}
-									/>
-									{error.password && (
-										<div className='invalid-feedback'>{error.password}</div>
-									)}
-								</div>
-								<div className='form-group'>
-									<input
-										type='password'
-										className={classnames('form-control form-control-lg', {
-											'is-invalid': error.password2
-										})}
-										placeholder='Confirm Password'
-										name='password2'
-										value={this.state.password2}
-										onChange={this.inputChangedHandler}
-									/>
-									{error.password2 && (
-										<div className='invalid-feedback'>{error.password2}</div>
-									)}
-								</div>
+								<TextFieldGroup
+									placeholder='Name'
+									name='name'
+									value={this.state.name}
+									onChange={this.inputChangedHandler}
+									error={this.state.error.name}
+								/>
+								<TextFieldGroup
+									placeholder='Email Address'
+									name='email'
+									type='email'
+									value={this.state.email}
+									onChange={this.inputChangedHandler}
+									error={this.state.error.email}
+								/>
+								<TextFieldGroup
+									placeholder='Password'
+									name='password'
+									type='password'
+									value={this.state.password}
+									onChange={this.inputChangedHandler}
+									error={this.state.error.password}
+								/>
+								<TextFieldGroup
+									placeholder='Confirm Password'
+									name='password2'
+									type='password'
+									value={this.state.password2}
+									onChange={this.inputChangedHandler}
+									error={this.state.error.password2}
+								/>
 								<input type='submit' className='btn btn-info btn-block mt-4' />
 							</form>
 						</div>

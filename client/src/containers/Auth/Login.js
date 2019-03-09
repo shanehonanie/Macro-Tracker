@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import classnames from 'classnames';
 import * as actions from '../../store/actions/index';
+import TextFieldGroup from '../../components/UI/TextFieldGroup';
 
 export class Login extends Component {
 	state = {
@@ -22,6 +22,9 @@ export class Login extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.error) {
 			this.setState({ error: nextProps.error });
+			// console.log('componentWillReceieve');
+			// console.log('this.state.error', this.state.error);
+			// console.log('nextProps', nextProps);
 		}
 	}
 
@@ -42,7 +45,8 @@ export class Login extends Component {
 	};
 
 	render() {
-		const { error } = this.state;
+		//const { error } = this.state;
+		//console.log('error', error);
 
 		let authRedirect = null;
 		if (this.props.isAuthenticated) {
@@ -60,36 +64,22 @@ export class Login extends Component {
 								Sign in to your MacroTracker account
 							</p>
 							<form noValidate onSubmit={this.onSubmitHandler}>
-								<div className='form-group'>
-									<input
-										type='email'
-										className={classnames('form-control form-control-lg', {
-											'is-invalid': error.email
-										})}
-										placeholder='Email Address'
-										name='email'
-										value={this.state.email}
-										onChange={this.inputChangedHandler}
-									/>
-									{error.email && (
-										<div className='invalid-feedback'>{error.email}</div>
-									)}
-								</div>
-								<div className='form-group'>
-									<input
-										type='password'
-										className={classnames('form-control form-control-lg', {
-											'is-invalid': error.password
-										})}
-										placeholder='Password'
-										name='password'
-										value={this.state.password}
-										onChange={this.inputChangedHandler}
-									/>
-									{error.password && (
-										<div className='invalid-feedback'>{error.password}</div>
-									)}
-								</div>
+								<TextFieldGroup
+									placeholder='Email Address'
+									name='email'
+									type='email'
+									value={this.state.email}
+									onChange={this.inputChangedHandler}
+									error={this.state.error.email}
+								/>
+								<TextFieldGroup
+									placeholder='Password'
+									name='password'
+									type='password'
+									value={this.state.password}
+									onChange={this.inputChangedHandler}
+									error={this.state.error.password}
+								/>
 								<input type='submit' className='btn btn-info btn-block mt-4' />
 							</form>
 						</div>

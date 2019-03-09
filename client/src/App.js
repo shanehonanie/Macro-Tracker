@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Navbar from './components/Layout/Navbar';
-import Footer from './components/Layout/Footer';
-import Landing from './components/Layout/Landing';
-import Register from './components/Auth/Register';
-import Login from './components/Auth/Login';
+import Navbar from './containers/Layout/Navbar';
+import Footer from './containers/Layout/Footer';
+import Landing from './containers/Layout/Landing';
+import Register from './containers/Auth/Register';
+import Login from './containers/Auth/Login';
 import * as actions from './store/actions/index';
 
 import './App.css';
