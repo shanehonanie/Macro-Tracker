@@ -7,6 +7,7 @@ import Footer from './containers/Layout/Footer';
 import Landing from './containers/Layout/Landing';
 import Register from './containers/Auth/Register';
 import Login from './containers/Auth/Login';
+import Food from './containers/Food/Food';
 import * as actions from './store/actions/index';
 
 import './App.css';
@@ -24,6 +25,7 @@ class App extends Component {
 				<div className='container'>
 					<Route exact path='/register' component={Register} />
 					<Route exact path='/login' component={Login} />
+					<Route exact path='/food' component={Food} />
 				</div>
 				<Footer />
 			</div>
