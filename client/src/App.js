@@ -8,6 +8,7 @@ import Landing from './containers/Layout/Landing';
 import Register from './containers/Auth/Register';
 import Login from './containers/Auth/Login';
 import Food from './containers/Food/Food';
+import Goal from './containers/Goal/Goal';
 import * as actions from './store/actions/index';
 
 import './App.css';
@@ -26,6 +27,7 @@ class App extends Component {
 					<Route exact path='/register' component={Register} />
 					<Route exact path='/login' component={Login} />
 					<Route exact path='/food' component={Food} />
+					<Route exact path='/goal' component={Goal} />
 				</div>
 				<Footer />
 			</div>

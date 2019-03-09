@@ -3,6 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 
+// Load Validation
+const validatorGoalInput = require('../../validation/goal');
+
 // Load Goal Model
 const Goal = require('../../models/Goal');
 
@@ -39,6 +42,14 @@ router.post(
 	'/',
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
+		const { errors, isValid } = validatorGoalInput(req.body);
+
+		//Check Validation
+		if (!isValid) {
+			// Return any errors with 400 status
+			return res.status(400).json(errors);
+		}
+
 		//assign fields to newGoal if they exist in req.body, user always exists
 		const goalFields = {};
 		goalFields.user = req.user.id;

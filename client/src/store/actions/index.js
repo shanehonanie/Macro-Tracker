@@ -1,8 +1,4 @@
-// export {
-// 	addIngredient,
-// 	removeIngredient,
-// 	initIngredients
-// } from './burgerBuilder';
+export { addGoal } from './goal';
 
 export { addFood } from './food';
 

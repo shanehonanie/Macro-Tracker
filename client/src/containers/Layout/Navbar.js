@@ -63,7 +63,7 @@ export class Navbar extends Component {
 
 						<ul className='navbar-nav auto'>
 							<li className='nav-item'>
-								<Link className='nav-link' to='/goals'>
+								<Link className='nav-link' to='/goal'>
 									{' '}
 									Goals
 								</Link>
