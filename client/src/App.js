@@ -9,6 +9,8 @@ import Register from './containers/Auth/Register';
 import Login from './containers/Auth/Login';
 import Food from './containers/Food/Food';
 import Goal from './containers/Goal/Goal';
+import Profile from './containers/Profile/Profile';
+import CreateProfile from './containers/Profile/CreateProfile';
 import * as actions from './store/actions/index';
 
 import './App.css';
@@ -28,6 +30,8 @@ class App extends Component {
 					<Route exact path='/login' component={Login} />
 					<Route exact path='/food' component={Food} />
 					<Route exact path='/goal' component={Goal} />
+					<Route exact path='/profile' component={Profile} />
+					<Route exact path='/createProfile' component={CreateProfile} />
 				</div>
 				<Footer />
 			</div>

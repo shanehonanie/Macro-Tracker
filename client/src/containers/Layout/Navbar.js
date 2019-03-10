@@ -52,7 +52,7 @@ export class Navbar extends Component {
 					</button>
 
 					<div className='collapse navbar-collapse' id='mobile-nav'>
-						<ul className='navbar-nav ml-auto'>
+						<ul className='navbar-nav auto'>
 							<li className='nav-item'>
 								<Link className='nav-link' to='/profile'>
 									{' '}
@@ -70,11 +70,20 @@ export class Navbar extends Component {
 							</li>
 						</ul>
 
-						<ul className='navbar-nav mr-auto'>
+						<ul className='navbar-nav auto'>
 							<li className='nav-item'>
 								<Link className='nav-link' to='/food'>
 									{' '}
 									Food Database
+								</Link>
+							</li>
+						</ul>
+
+						<ul className='navbar-nav auto'>
+							<li className='nav-item'>
+								<Link className='nav-link' to='/createProfile'>
+									{' '}
+									Create Profile
 								</Link>
 							</li>
 						</ul>

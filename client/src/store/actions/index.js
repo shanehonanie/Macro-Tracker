@@ -1,5 +1,7 @@
+export { auth, logout, setAuthRedirectPath, authCheckState } from './auth';
+
 export { addGoal } from './goal';
 
 export { addFood } from './food';
 
-export { auth, logout, setAuthRedirectPath, authCheckState } from './auth';
+export { addProfile, addFoodsHistory } from './profile';

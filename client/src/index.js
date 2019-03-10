@@ -11,6 +11,7 @@ import * as serviceWorker from './serviceWorker';
 import authReducer from './store/reducers/auth';
 import foodReducer from './store/reducers/food';
 import goalReducer from './store/reducers/goal';
+import profileReducer from './store/reducers/profile';
 
 const composeEnhancers =
 	process.env.NODE_ENV === 'development'
@@ -20,7 +21,8 @@ const composeEnhancers =
 const rootReducer = combineReducers({
 	auth: authReducer,
 	food: foodReducer,
-	goal: goalReducer
+	goal: goalReducer,
+	profile: profileReducer
 });
 
 const store = createStore(
