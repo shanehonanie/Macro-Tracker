@@ -4,4 +4,4 @@ export { addGoal } from './goal';
 
 export { addFood } from './food';
 
-export { addProfile, addFoodsHistory } from './profile';
+export { addProfile, addFoodsHistory, fetchCurrentProfile } from './profile';

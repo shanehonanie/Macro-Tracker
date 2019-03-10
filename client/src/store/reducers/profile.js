@@ -29,6 +29,26 @@ const reducer = (state = initialState, action) => {
 				loading: false
 			};
 
+		case actionTypes.FETCH_PROFILE_START:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case actionTypes.FETCH_PROFILE_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				profile: action.profileData
+			};
+		case actionTypes.FETCH_PROFILE_FAIL:
+			return {
+				...state,
+				error: action.error,
+				loading: false
+			};
+
 		case actionTypes.ADD_FOODS_HISTORY_START:
 			return {
 				...state,

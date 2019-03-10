@@ -84,3 +84,46 @@ export const addFoodsHistory = (foodsHistoryData, token) => {
 			});
 	};
 };
+
+export const fetchCurrentProfileStart = () => {
+	return {
+		type: actionTypes.FETCH_PROFILE_START
+	};
+};
+
+export const fetchCurrentProfileSuccess = profileData => {
+	return {
+		type: actionTypes.FETCH_PROFILE_SUCCESS,
+		profileData: profileData
+		//error: null
+	};
+};
+
+export const fetchCurrentProfileFail = error => {
+	return {
+		type: actionTypes.FETCH_PROFILE_FAIL,
+		error: error
+	};
+};
+
+export const fetchCurrentProfile = token => {
+	return dispatch => {
+		dispatch(fetchCurrentProfileStart());
+
+		var headers = {
+			'Content-Type': 'application/json',
+			Authorization: token
+		};
+
+		axios
+			.get('/api/profile', { headers: headers })
+			.then(response => {
+				//console.log('[profile.js] action response.data', response.data);
+				dispatch(fetchCurrentProfileSuccess(response.data));
+			})
+			.catch(err => {
+				console.log('[profile.js] actions error', err);
+				dispatch(fetchCurrentProfileFail(err.response.data));
+			});
+	};
+};
