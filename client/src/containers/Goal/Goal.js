@@ -26,8 +26,8 @@ export class Goal extends Component {
 
 		if (!this.props.loading && this.props.goal) {
 			goalNutritionForm = (
-				<table className='table'>
-					<thead>
+				<table className='table table-striped'>
+					<thead className='thead-dark'>
 						<tr>
 							<th>Daily Nutrition Goals</th>
 							<th>
@@ -67,8 +67,8 @@ export class Goal extends Component {
 			);
 
 			goalFitnessForm = (
-				<table className='table'>
-					<thead>
+				<table className='table table-striped'>
+					<thead className='thead-dark'>
 						<tr>
 							<th>Fitness</th>
 							<th>
