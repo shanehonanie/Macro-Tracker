@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-	goals: [],
+	goal: null,
 	error: null,
 	loading: false
 };
@@ -15,17 +15,32 @@ const reducer = (state = initialState, action) => {
 				loading: true
 			};
 		case actionTypes.ADD_GOAL_SUCCESS:
-			const newGoal = {
-				...action.goalData,
-				id: action.goalId
-			};
 			return {
 				...state,
 				loading: false,
 				error: null,
-				goals: state.goals.concat(newGoal)
+				goal: action.goalData
 			};
 		case actionTypes.ADD_GOAL_FAIL:
+			return {
+				...state,
+				error: action.error,
+				loading: false
+			};
+		case actionTypes.FETCH_GOAL_START:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case actionTypes.FETCH_GOAL_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				goal: action.goalData
+			};
+		case actionTypes.FETCH_GOAL_FAIL:
 			return {
 				...state,
 				error: action.error,

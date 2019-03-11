@@ -1,6 +1,6 @@
 export { auth, logout, setAuthRedirectPath, authCheckState } from './auth';
 
-export { addGoal } from './goal';
+export { addGoal, fetchGoals } from './goal';
 
 export { addFood } from './food';
 

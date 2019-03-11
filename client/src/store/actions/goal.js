@@ -34,11 +34,53 @@ export const addGoal = (goalData, token) => {
 			.post('/api/goals', goalData, { headers: headers })
 			.then(response => {
 				console.log('[goals.js] action response.data', response.data);
-				dispatch(addGoalSuccess(response.data.name, goalData));
+				dispatch(addGoalSuccess(goalData));
 			})
 			.catch(err => {
 				console.log('[goal.js] actions error', err);
 				dispatch(addGoalFail(err.response.data));
+			});
+	};
+};
+
+export const fetchGoalStart = () => {
+	return {
+		type: actionTypes.FETCH_GOAL_START
+	};
+};
+
+export const fetchGoalSuccess = goalData => {
+	return {
+		type: actionTypes.FETCH_GOAL_SUCCESS,
+		goalData: goalData
+	};
+};
+
+export const fetchGoalFail = error => {
+	return {
+		type: actionTypes.FETCH_GOAL_FAIL,
+		error: error
+	};
+};
+
+export const fetchGoals = token => {
+	return dispatch => {
+		dispatch(fetchGoalStart());
+
+		var headers = {
+			'Content-Type': 'application/json',
+			Authorization: token
+		};
+
+		axios
+			.get('/api/goals', { headers: headers })
+			.then(response => {
+				//console.log('[goal.js] action response.data', response.data);
+				dispatch(fetchGoalSuccess(response.data));
+			})
+			.catch(err => {
+				//console.log('[goal.js] actions error', err);
+				dispatch(fetchGoalFail(err.response.data));
 			});
 	};
 };
