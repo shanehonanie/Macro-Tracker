@@ -59,18 +59,17 @@ export class EditGoal extends Component {
 		console.log('event', event);
 
 		const goalData = {
-			dailyCalories: String(this.state.dailyCalories),
-			dailyProtein: String(this.state.dailyProtein),
-			dailyFat: String(this.state.dailyFat),
-			dailyCarbs: String(this.state.dailyCarbs),
-			dailyFiber: String(this.state.dailyFiber),
-			fitnessWeeklyWorkouts: String(this.state.fitnessWeeklyWorkouts),
+			dailyCalories: this.state.dailyCalories,
+			dailyProtein: this.state.dailyProtein,
+			dailyFat: this.state.dailyFat,
+			dailyCarbs: this.state.dailyCarbs,
+			dailyFiber: this.state.dailyFiber,
+			fitnessWeeklyWorkouts: this.state.fitnessWeeklyWorkouts,
 			fitnessCaloriesBurnedPerWeek: this.state.fitnessCaloriesBurnedPerWeek,
-			fitnessCardioDaysPerWeek: String(this.state.fitnessCardioDaysPerWeek),
-			fitnessWeightTrainingDaysPerWeek: String(
-				this.state.fitnessWeightTrainingDaysPerWeek
-			),
-			fitnessMinutessPerWorkout: String(this.state.fitnessMinutessPerWorkout)
+			fitnessCardioDaysPerWeek: this.state.fitnessCardioDaysPerWeek,
+			fitnessWeightTrainingDaysPerWeek: this.state
+				.fitnessWeightTrainingDaysPerWeek,
+			fitnessMinutessPerWorkout: this.state.fitnessMinutessPerWorkout
 		};
 
 		this.props.onCreateGoal(goalData, this.props.token);
