@@ -44,7 +44,7 @@ export class CreateProfile extends Component {
 	};
 
 	inputChangedHandler = event => {
-		console.log('inputChangedHandler event', console.log(event));
+		//console.log('inputChangedHandler event', console.log(event));
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
