@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				error: null,
-				goal: action.goalData
+				goal: action.goalsData
 			};
 		case actionTypes.ADD_GOAL_FAIL:
 			return {
