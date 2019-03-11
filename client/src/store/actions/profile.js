@@ -95,7 +95,6 @@ export const fetchCurrentProfileSuccess = profileData => {
 	return {
 		type: actionTypes.FETCH_PROFILE_SUCCESS,
 		profileData: profileData
-		//error: null
 	};
 };
 

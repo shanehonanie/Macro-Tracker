@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
 import TextFieldGroup from '../../components/UI/TextFieldGroup';
+import Spinner from '../../components/UI/Spinner';
 
 export class CreateProfile extends Component {
 	state = {
@@ -12,11 +13,16 @@ export class CreateProfile extends Component {
 
 	// Get the current user's profile upon loading
 	componentDidMount() {
-		// console.log('this.props', this.props);
+		// console.log('[CreateProfile.js] componentDidMount');
 		this.props.onGetCurrentProfile(this.props.token);
+	}
 
-		if (this.props.profile) {
-			// console.log('Set State in compDidMount');
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		//if first time loaded or it state.handle is empty and other 2 are not null, set handle
+		if (
+			(prevProps.profile === null && this.props.profile) ||
+			(prevState.handle === '' && prevProps.profile && this.props.profile)
+		) {
 			this.setState({ handle: this.props.profile.handle });
 		}
 	}
@@ -25,13 +31,6 @@ export class CreateProfile extends Component {
 		if (nextProps.error) {
 			this.setState({ error: nextProps.error });
 		}
-
-		// if (nextProps.profile.handle !== null) {
-		//this.setState({ handle: this.props.profile.handle });
-		// console.log('inside if');
-		// console.log('nextProps.profile.handle', nextProps.profile.handle);
-		// console.log('profile', this.props.profile);
-		// }
 	}
 
 	submitHandler = event => {
@@ -45,15 +44,20 @@ export class CreateProfile extends Component {
 	};
 
 	inputChangedHandler = event => {
+		console.log('inputChangedHandler event', console.log(event));
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
 	render() {
 		const { error } = this.state;
 
-		let createForm = <h1>Form</h1>;
+		let createForm = this.props.loading ? (
+			<Spinner />
+		) : (
+			<p>Profile can't be loaded</p>
+		);
 
-		if (this.props.profile) {
+		if (!this.props.loading && this.props.profile) {
 			createForm = (
 				<div className='create-profile'>
 					<div className='container'>
@@ -67,7 +71,7 @@ export class CreateProfile extends Component {
 										placeholder='* Handle/Username'
 										name='handle'
 										value={this.state.handle}
-										onChange={this.inputChangedHandler}
+										onChange={e => this.inputChangedHandler(e)}
 										error={error.handle}
 										info='Handle/Username'
 									/>
@@ -92,7 +96,8 @@ const mapStateToProps = state => {
 	return {
 		error: state.profile.error,
 		token: state.auth.token,
-		profile: state.profile.profile
+		profile: state.profile.profile,
+		loading: state.profile.loading
 	};
 };
 
