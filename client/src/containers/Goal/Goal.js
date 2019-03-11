@@ -2,154 +2,118 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
-import TextFieldGroup from '../../components/UI/TextFieldGroup';
+import Spinner from '../../components/UI/Spinner';
 
 export class Goal extends Component {
-	state = {
-		dailyCalories: '',
-		dailyProtein: '',
-		dailyFat: '',
-		dailyCarbs: '',
-		dailyFiber: '',
-		fitnessWeeklyWorkouts: '',
-		fitnessCaloriesBurnedPerWeek: '',
-		fitnessCardioDaysPerWeek: '',
-		fitnessWeightTrainingDaysPerWeek: '',
-		fitnessMinutessPerWorkout: '',
-		error: {}
-	};
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.error) {
-			this.setState({ error: nextProps.error });
-		}
+	componentDidMount() {
+		// console.log('[CreateProfile.js] componentDidMount');
+		this.props.onGetGoals(this.props.token);
 	}
 
-	submitHandler = event => {
-		event.preventDefault();
-
-		const goalData = {
-			dailyCalories: this.state.dailyCalories,
-			dailyProtein: this.state.dailyProtein,
-			dailyFat: this.state.dailyFat,
-			dailyCarbs: this.state.dailyCarbs,
-			dailyFiber: this.state.dailyFiber,
-			fitnessWeeklyWorkouts: this.state.fitnessWeeklyWorkouts,
-			fitnessCaloriesBurnedPerWeek: this.state.fitnessCaloriesBurnedPerWeek,
-			fitnessCardioDaysPerWeek: this.state.fitnessCardioDaysPerWeek,
-			fitnessWeightTrainingDaysPerWeek: this.state
-				.fitnessWeightTrainingDaysPerWeek,
-			fitnessMinutessPerWorkout: this.state.fitnessMinutessPerWorkout
-		};
-
-		this.props.onCreateGoal(goalData, this.props.token);
-	};
-
-	inputChangedHandler = event => {
-		this.setState({ [event.target.name]: event.target.value });
+	editButtonHandler = event => {
+		// event.preventDefault();
+		this.props.history.push('/editGoal');
 	};
 
 	render() {
-		const { error } = this.state;
+		let goalNutritionForm = this.props.loading ? (
+			<Spinner />
+		) : (
+			<p>Goals can't be loaded</p>
+		);
 
+		let goalFitnessForm = null;
+
+		if (!this.props.loading && this.props.goal) {
+			goalNutritionForm = (
+				<table className='table'>
+					<thead>
+						<tr>
+							<th>Daily Nutrition Goals</th>
+							<th>
+								<button
+									type='button'
+									className='btn btn-primary'
+									onClick={this.editButtonHandler}
+								>
+									Edit
+								</button>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Calories</td>
+							<td>{this.props.goal.dailyCalories}</td>
+						</tr>
+						<tr>
+							<td>Protein</td>
+							<td>{this.props.goal.dailyProtein}</td>
+						</tr>
+						<tr>
+							<td>Fat</td>
+							<td>{this.props.goal.dailyFat}</td>
+						</tr>
+						<tr>
+							<td>Carbs</td>
+							<td>{this.props.goal.dailyCarbs}</td>
+						</tr>
+						<tr>
+							<td>Fiber</td>
+							<td>{this.props.goal.dailyFiber}</td>
+						</tr>
+					</tbody>
+				</table>
+			);
+
+			goalFitnessForm = (
+				<table className='table'>
+					<thead>
+						<tr>
+							<th>Fitness</th>
+							<th>
+								<button
+									type='button'
+									className='btn btn-primary'
+									onClick={this.editButtonHandler}
+								>
+									Edit
+								</button>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Workouts / Week</td>
+							<td>{this.props.goal.fitnessWeeklyWorkouts + ' workouts'}</td>
+						</tr>
+						<tr>
+							<td>Calories Burned / Week</td>
+							<td>
+								{this.props.goal.fitnessCaloriesBurnedPerWeek + ' calories'}
+							</td>
+						</tr>
+						<tr>
+							<td>Cardio Days / Week</td>
+							<td>{this.props.goal.fitnessCardioDaysPerWeek + ' days'}</td>
+						</tr>
+						<tr>
+							<td>Weight Training Days / Week</td>
+							<td>
+								{this.props.goal.fitnessWeightTrainingDaysPerWeek + ' days'}
+							</td>
+						</tr>
+						<tr>
+							<td>Minutes / Workout</td>
+							<td>{this.props.goal.fitnessMinutessPerWorkout + ' mins'}</td>
+						</tr>
+					</tbody>
+				</table>
+			);
+		}
 		return (
-			<div className='create-profile'>
-				<div className='container'>
-					<div className='row'>
-						<div className='col-md-8 m-auto'>
-							<h1 className='display-4 text-center'>Add to Your Goals</h1>
-							<p className='lead text-center'>Let us know your goals</p>
-							<small className='d-block pb-3'>* = required fields</small>
-							<form onSubmit={this.submitHandler}>
-								<TextFieldGroup
-									placeholder='Daily Calories'
-									name='dailyCalories'
-									value={this.state.dailyCalories}
-									onChange={this.inputChangedHandler}
-									error={error.dailyCalories}
-									info='Daily Calories'
-								/>
-								<TextFieldGroup
-									placeholder='Daily Protein'
-									name='dailyProtein'
-									value={this.state.dailyProtein}
-									onChange={this.inputChangedHandler}
-									error={error.dailyProtein}
-									info='Daily Protein'
-								/>
-								<TextFieldGroup
-									placeholder='Daily Fat'
-									name='dailyFat'
-									value={this.state.dailyFat}
-									onChange={this.inputChangedHandler}
-									error={error.dailyFat}
-									info='Daily fat'
-								/>
-								<TextFieldGroup
-									placeholder='Daily Carbohydrates'
-									name='dailyCarbs'
-									value={this.state.dailyCarbs}
-									onChange={this.inputChangedHandler}
-									error={error.dailyCarbs}
-									info='Daily Carbohydrates'
-								/>
-								<TextFieldGroup
-									placeholder='Daily Fiber'
-									name='dailyFiber'
-									value={this.state.dailyFiber}
-									onChange={this.inputChangedHandler}
-									error={error.dailyFiber}
-									info='Daily Fiber'
-								/>
-								<TextFieldGroup
-									placeholder='# of Weekly Fitness Workouts'
-									name='fitnessWeeklyWorkouts'
-									value={this.state.fitnessWeeklyWorkouts}
-									onChange={this.inputChangedHandler}
-									error={error.fitnessWeeklyWorkouts}
-									info='# of Weekly Fitness Workouts'
-								/>
-								<TextFieldGroup
-									placeholder='# of Weekly Calories Burned Per Workout'
-									name='fitnessCaloriesBurnedPerWeek'
-									value={this.state.fitnessCaloriesBurnedPerWeek}
-									onChange={this.inputChangedHandler}
-									error={error.fitnessCaloriesBurnedPerWeek}
-									info='# of Weekly Calories Burned Per Workout'
-								/>
-								<TextFieldGroup
-									placeholder='# of Cardio Days Per Week'
-									name='fitnessCardioDaysPerWeek'
-									value={this.state.fitnessCardioDaysPerWeek}
-									onChange={this.inputChangedHandler}
-									error={error.fitnessCardioDaysPerWeek}
-									info='# of Cardio Days Per Week'
-								/>
-								<TextFieldGroup
-									placeholder='# of Weight Training Days Per Week'
-									name='fitnessWeightTrainingDaysPerWeek'
-									value={this.state.fitnessWeightTrainingDaysPerWeek}
-									onChange={this.inputChangedHandler}
-									error={error.fitnessWeightTrainingDaysPerWeek}
-									info='# of Weight Training Days Per Week'
-								/>
-								<TextFieldGroup
-									placeholder='# of Minutes per Workout'
-									name='fitnessMinutessPerWorkout'
-									value={this.state.fitnessMinutessPerWorkout}
-									onChange={this.inputChangedHandler}
-									error={error.fitnessMinutessPerWorkout}
-									info='# of Minutes per Workout'
-								/>
-								<input
-									type='submit'
-									value='Submit'
-									className='btn btn-info btn-block mt-4'
-								/>
-							</form>
-						</div>
-					</div>
-				</div>
+			<div>
+				{goalNutritionForm} {goalFitnessForm}
 			</div>
 		);
 	}
@@ -157,15 +121,15 @@ export class Goal extends Component {
 
 const mapStateToProps = state => {
 	return {
-		error: state.goal.error,
-		token: state.auth.token
+		token: state.auth.token,
+		goal: state.goal.goal,
+		loading: state.goal.loading
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onCreateGoal: (goalData, token) =>
-			dispatch(actions.addGoal(goalData, token))
+		onGetGoals: token => dispatch(actions.fetchGoals(token))
 	};
 };
 
