@@ -4,11 +4,6 @@ import { Link } from 'react-router-dom';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 const Navbar = props => {
-	// logoutHandler = event => {
-	// 	event.preventDefault();
-	// 	//this.props.onLogout();
-	// 	console.log('[Navbar.js] logoutHandler');
-	// };
 	const authLinks = (
 		<div className='collapse navbar-collapse' id='mobile-nav'>
 			<NavigationItem name={'Dashboard'} to='/dashboard' />
@@ -41,17 +36,10 @@ const Navbar = props => {
 				>
 					<span className='navbar-toggler-icon' />
 				</button>
-
 				{props.isUserAuthenticated ? authLinks : guestLinks}
 			</div>
 		</nav>
 	);
 };
-
-// const mapDispatchToProps = dispatch => {
-// 	return {
-// 		onLogout: () => dispatch(actions.logout())
-// 	};
-// };
 
 export default Navbar;
