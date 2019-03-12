@@ -7,6 +7,7 @@ import Footer from './containers/Layout/Footer';
 import Landing from './containers/Layout/Landing';
 import Register from './containers/Auth/Register';
 import Login from './containers/Auth/Login';
+import Logout from './containers/Auth/Logout';
 import Food from './containers/Food/Food';
 import Goal from './containers/Goal/Goal';
 import EditGoal from './containers/Goal/EditGoal';
@@ -41,6 +42,7 @@ class App extends Component {
 					<Route exact path='/profile' component={Profile} />
 					<Route exact path='/createProfile' component={CreateProfile} />
 					<Route exact path='/dashboard' component={Dashboard} />
+					<Route exact path='/logout' component={Logout} />
 					<Redirect to='/dashboard' />
 				</Switch>
 			);
@@ -48,7 +50,7 @@ class App extends Component {
 
 		return (
 			<div className='App'>
-				<Navbar />
+				<Navbar isUserAuthenticated={this.props.isAuthenticated} />
 				{routes}
 				<Footer />
 			</div>
