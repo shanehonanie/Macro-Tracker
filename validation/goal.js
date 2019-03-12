@@ -4,7 +4,6 @@ const isEmptyNumber = require('./is-empty');
 
 module.exports = function validateGoalInput(data) {
 	let errors = {};
-	console.log('data', data);
 
 	data.dailyCalories = !isEmptyNumber(data.dailyCalories)
 		? data.dailyCalories
