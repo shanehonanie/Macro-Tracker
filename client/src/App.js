@@ -12,6 +12,7 @@ import Goal from './containers/Goal/Goal';
 import EditGoal from './containers/Goal/EditGoal';
 import Profile from './containers/Profile/Profile';
 import CreateProfile from './containers/Profile/CreateProfile';
+import Dashboard from './containers/Dashboard/Dashboard';
 import * as actions from './store/actions/index';
 
 import './App.css';
@@ -34,6 +35,7 @@ class App extends Component {
 					<Route exact path='/editGoal' component={EditGoal} />
 					<Route exact path='/profile' component={Profile} />
 					<Route exact path='/createProfile' component={CreateProfile} />
+					<Route exact path='/dashboard' component={Dashboard} />
 				</div>
 				<Footer />
 			</div>
