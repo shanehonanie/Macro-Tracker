@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Navbar from './containers/Layout/Navbar';
@@ -23,25 +23,44 @@ class App extends Component {
 	}
 
 	render() {
-		return (
-			<div className='App'>
-				<Navbar />
+		let routes = (
+			<Switch>
+				<Route exact path='/register' component={Register} />
+				<Route exact path='/login' component={Login} />
 				<Route exact path='/' component={Landing} />
-				<div className='container'>
-					<Route exact path='/register' component={Register} />
-					<Route exact path='/login' component={Login} />
+				<Redirect to='/' />
+			</Switch>
+		);
+
+		if (this.props.isAuthenticated) {
+			routes = (
+				<Switch>
 					<Route exact path='/food' component={Food} />
 					<Route exact path='/goal' component={Goal} />
 					<Route exact path='/editGoal' component={EditGoal} />
 					<Route exact path='/profile' component={Profile} />
 					<Route exact path='/createProfile' component={CreateProfile} />
 					<Route exact path='/dashboard' component={Dashboard} />
-				</div>
+					<Redirect to='/dashboard' />
+				</Switch>
+			);
+		}
+
+		return (
+			<div className='App'>
+				<Navbar />
+				{routes}
 				<Footer />
 			</div>
 		);
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		isAuthenticated: state.auth.token != null
+	};
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -51,7 +70,7 @@ const mapDispatchToProps = dispatch => {
 
 export default withRouter(
 	connect(
-		null,
+		mapStateToProps,
 		mapDispatchToProps
 	)(App)
 );
