@@ -12,28 +12,77 @@ export class Navbar extends Component {
 
 	render() {
 		const authLinks = (
-			<ul className='navbar-nav ml-auto'>
-				<li className='nav-item'>
-					<a href='' onClick={this.logoutHandler} className='href'>
-						Logout
-					</a>
-				</li>
-			</ul>
+			<div className='collapse navbar-collapse' id='mobile-nav'>
+				<ul className='navbar-nav auto'>
+					<li className='nav-item'>
+						<Link className='nav-link' to='/dashboard'>
+							{' '}
+							Dashboard
+						</Link>
+					</li>
+				</ul>
+
+				<ul className='navbar-nav auto'>
+					<li className='nav-item'>
+						<Link className='nav-link' to='/profile'>
+							{' '}
+							Profile
+						</Link>
+					</li>
+				</ul>
+
+				<ul className='navbar-nav auto'>
+					<li className='nav-item'>
+						<Link className='nav-link' to='/goal'>
+							{' '}
+							Goals
+						</Link>
+					</li>
+				</ul>
+
+				<ul className='navbar-nav auto'>
+					<li className='nav-item'>
+						<Link className='nav-link' to='/food'>
+							{' '}
+							Food Database
+						</Link>
+					</li>
+				</ul>
+
+				<ul className='navbar-nav auto'>
+					<li className='nav-item'>
+						<Link className='nav-link' to='/createProfile'>
+							{' '}
+							Edit Profile
+						</Link>
+					</li>
+				</ul>
+
+				<ul className='navbar-nav ml-auto'>
+					<li className='nav-item'>
+						<a href='' onClick={this.logoutHandler} className='href'>
+							Logout
+						</a>
+					</li>
+				</ul>
+			</div>
 		);
 
 		const guestLinks = (
-			<ul className='navbar-nav ml-auto'>
-				<li className='nav-item'>
-					<Link className='nav-link' to='/register'>
-						Sign Up
-					</Link>
-				</li>
-				<li className='nav-item'>
-					<Link className='nav-link' to='/login'>
-						Login
-					</Link>
-				</li>
-			</ul>
+			<div className='collapse navbar-collapse' id='mobile-nav'>
+				<ul className='navbar-nav ml-auto'>
+					<li className='nav-item'>
+						<Link className='nav-link' to='/register'>
+							Sign Up
+						</Link>
+					</li>
+					<li className='nav-item'>
+						<Link className='nav-link' to='/login'>
+							Login
+						</Link>
+					</li>
+				</ul>
+			</div>
 		);
 
 		return (
@@ -51,53 +100,7 @@ export class Navbar extends Component {
 						<span className='navbar-toggler-icon' />
 					</button>
 
-					<div className='collapse navbar-collapse' id='mobile-nav'>
-						<ul className='navbar-nav auto'>
-							<li className='nav-item'>
-								<Link className='nav-link' to='/dashboard'>
-									{' '}
-									Dashboard
-								</Link>
-							</li>
-						</ul>
-
-						<ul className='navbar-nav auto'>
-							<li className='nav-item'>
-								<Link className='nav-link' to='/profile'>
-									{' '}
-									Profile
-								</Link>
-							</li>
-						</ul>
-
-						<ul className='navbar-nav auto'>
-							<li className='nav-item'>
-								<Link className='nav-link' to='/goal'>
-									{' '}
-									Goals
-								</Link>
-							</li>
-						</ul>
-
-						<ul className='navbar-nav auto'>
-							<li className='nav-item'>
-								<Link className='nav-link' to='/food'>
-									{' '}
-									Food Database
-								</Link>
-							</li>
-						</ul>
-
-						<ul className='navbar-nav auto'>
-							<li className='nav-item'>
-								<Link className='nav-link' to='/createProfile'>
-									{' '}
-									Create Profile
-								</Link>
-							</li>
-						</ul>
-						{this.props.isAuthenticated ? authLinks : guestLinks}
-					</div>
+					{this.props.isAuthenticated ? authLinks : guestLinks}
 				</div>
 			</nav>
 		);
