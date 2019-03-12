@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Navbar from './containers/Layout/Navbar';
-import Footer from './containers/Layout/Footer';
-import Landing from './containers/Layout/Landing';
+import Navbar from './components/Layout/Navbar';
+import Footer from './components/Layout/Footer';
+import Landing from './components/Layout/Landing';
 import Register from './containers/Auth/Register';
 import Login from './containers/Auth/Login';
 import Logout from './containers/Auth/Logout';
