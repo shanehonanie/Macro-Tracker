@@ -54,9 +54,14 @@ export class EditGoal extends Component {
 		}
 	}
 
+	goBackHandler = event => {
+		//console.log('[EditGoal.js] goBackHandler history', this.props.history);
+		this.props.history.goBack();
+	};
+
 	submitHandler = event => {
 		event.preventDefault();
-		console.log('event', event);
+		//console.log('event', event);
 
 		const goalData = {
 			dailyCalories: this.state.dailyCalories,
@@ -94,6 +99,9 @@ export class EditGoal extends Component {
 					<div className='container'>
 						<div className='row'>
 							<div className='col-md-8 m-auto'>
+								<button className='btn btn-dark' onClick={this.goBackHandler}>
+									Go Back
+								</button>
 								<h1 className='display-4 text-center'>Edit Your Goals</h1>
 								<p className='lead text-center'>Let us know your goals</p>
 								<small className='d-block pb-3'>* = required fields</small>
