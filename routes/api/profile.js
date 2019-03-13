@@ -85,8 +85,8 @@ router.get(
 
 		Profile.findOne({ user: req.user.id })
 			.populate('user', ['name'])
-			.populate('foodsHistory.food', ['name'])
-			//.populate('foodsHistory.food') //All data
+			//.populate('foodsHistory.food', ['name'])
+			.populate('foodsHistory.food') //All data
 			.then(profile => {
 				if (!profile) {
 					errors.noProfile = 'Profile not found for this user';
