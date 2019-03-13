@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
-import TextFieldGroup from '../../components/UI/TextFieldGroup';
-import SelectListGroup from '../../components/UI/SelectListGroup';
-import TextAreaFieldGroup from '../../components/UI/TextAreaFieldGroup';
+import Table from './Table';
+// import TextFieldGroup from '../../components/UI/TextFieldGroup';
+// import SelectListGroup from '../../components/UI/SelectListGroup';
+// import TextAreaFieldGroup from '../../components/UI/TextAreaFieldGroup';
 
 export class AddFood extends Component {
 	state = {
 		food: '',
 		mealOfDay: '',
 		description: '',
-		//date: '',
+		date: '',
 		error: {}
 	};
+
+	componentDidMount() {
+		this.props.onGetCurrentProfile(this.props.token);
+	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.error) {
@@ -38,64 +43,65 @@ export class AddFood extends Component {
 	};
 
 	render() {
-		const { error } = this.state;
+		let breakfestItems = null;
+		let displayTable = null;
 
-		// Select options for status
-		const options = [
-			{ label: '* Meal of Day', value: 0 },
-			{ label: 'Breakfest', value: 'Breakfest' },
-			{ label: 'Lunch', value: 'Lunch' },
-			{ label: 'Dinner', value: 'Dinner' },
-			{ label: 'Snack 1', value: 'Snack 1' },
-			{ label: 'Snack 2', value: 'Snack 2' },
-			{ label: 'Snack 3', value: 'Snack 3' },
-			{ label: 'Snack 4', value: 'Snack 4' },
-			{ label: 'Snack 5', value: 'Snack 5' },
-			{ label: 'Other', value: 'Other' }
-		];
+		if (this.props.profile !== null) {
+			breakfestItems = this.props.profile.foodsHistory;
+			displayTable = <Table data={breakfestItems} />;
+
+			console.log('breakfestItems', breakfestItems[0].food.name);
+		}
 
 		return (
-			<div className='create-profile'>
+			<div className='add-food'>
 				<div className='container'>
-					<div className='row'>
-						<div className='col-md-8 m-auto'>
-							<h1 className='display-4 text-center'>Add to Food History</h1>
-							<p className='lead text-center'>Fill out the food information</p>
-							<small className='d-block pb-3'>* = required fields</small>
-							<form onSubmit={this.submitHandler}>
-								<TextFieldGroup
-									placeholder='* Food Name'
-									name='food'
-									value={this.state.food}
-									onChange={this.inputChangedHandler}
-									error={error.food}
-									info='Name of food'
-								/>
-								<SelectListGroup
-									placeholder='* Meal of Day'
-									name='mealOfDay'
-									value={this.state.mealOfDay}
-									onChange={this.inputChangedHandler}
-									options={options}
-									error={error.mealOfDay}
-									info='Select the meal of the day'
-								/>
-								<TextAreaFieldGroup
-									placeholder='* Short Description'
-									name='description'
-									value={this.state.description}
-									onChange={this.inputChangedHandler}
-									error={error.description}
-									info='Note if needed'
-								/>
-								<input
-									type='submit'
-									value='Submit'
-									className='btn btn-info btn-block mt-4'
-								/>
-							</form>
-						</div>
-					</div>
+					<table className='table table-striped'>
+						<thead className='thead'>
+							<tr>
+								<th colSpan='3'>Breakfest</th>
+								<th>Calories</th>
+								<th>Protein</th>
+								<th>Carbs</th>
+								<th>Fat</th>
+								<th>Fiber</th>
+							</tr>
+						</thead>
+						<tbody>{displayTable}</tbody>
+					</table>
+				</div>
+
+				<div className='container'>
+					<table className='table'>
+						<tbody>
+							<tr>
+								<th>Totals</th>
+								<td>1</td>
+								<td>2</td>
+								<td>3</td>
+							</tr>
+							<tr>
+								<th>Your Daily Goal</th>
+								<td>John</td>
+								<td>Peter</td>
+								<td>John</td>
+							</tr>
+							<tr>
+								<th>Remaining</th>
+								<td>Carter</td>
+								<td>Parker</td>
+								<td>Rambo</td>
+							</tr>
+							<tr>
+								<th />
+								<th>Calories</th>
+								<th>Protein</th>
+								<th>Carbs</th>
+								<th>Fat</th>
+								<th>Fiber</th>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		);
@@ -104,15 +110,18 @@ export class AddFood extends Component {
 
 const mapStateToProps = state => {
 	return {
-		error: state.profile.error,
-		token: state.auth.token
+		token: state.auth.token,
+		profile: state.profile.profile,
+		loading: state.profile.loading,
+		error: state.profile.error
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
 		onCreateFoodsHistory: (foodsHistoryData, token) =>
-			dispatch(actions.addFoodsHistory(foodsHistoryData, token))
+			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
+		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token))
 	};
 };
 
