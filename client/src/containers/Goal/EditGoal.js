@@ -55,11 +55,7 @@ export class EditGoal extends Component {
 	}
 
 	goBackHandler = event => {
-<<<<<<< HEAD
 		//console.log('[EditGoal.js] goBackHandler history', this.props.history);
-=======
-		console.log('[EditGoal.js] goBackHandler history', this.props.history);
->>>>>>> 190a1093d2befa4e76310a21db7d866bd016064b
 		this.props.history.goBack();
 	};
 
