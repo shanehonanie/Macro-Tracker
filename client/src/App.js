@@ -11,8 +11,8 @@ import Logout from './containers/Auth/Logout';
 import Food from './containers/Food/Food';
 import Goal from './containers/Goal/Goal';
 import EditGoal from './containers/Goal/EditGoal';
+import AddFood from './containers/Food/AddFood';
 import Profile from './containers/Profile/Profile';
-import CreateProfile from './containers/Profile/CreateProfile';
 import Dashboard from './containers/Dashboard/Dashboard';
 import * as actions from './store/actions/index';
 
@@ -39,8 +39,8 @@ class App extends Component {
 					<Route exact path='/food' component={Food} />
 					<Route exact path='/goal' component={Goal} />
 					<Route exact path='/editGoal' component={EditGoal} />
+					<Route exact path='/addFood' component={AddFood} />
 					<Route exact path='/profile' component={Profile} />
-					<Route exact path='/createProfile' component={CreateProfile} />
 					<Route exact path='/dashboard' component={Dashboard} />
 					<Route exact path='/logout' component={Logout} />
 					<Redirect to='/dashboard' />

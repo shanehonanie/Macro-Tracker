@@ -3,17 +3,29 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
 import TextFieldGroup from '../../components/UI/TextFieldGroup';
-import SelectListGroup from '../../components/UI/SelectListGroup';
-import TextAreaFieldGroup from '../../components/UI/TextAreaFieldGroup';
+import Spinner from '../../components/UI/Spinner';
 
 export class Profile extends Component {
 	state = {
-		food: '',
-		mealOfDay: '',
-		description: '',
-		//date: '',
+		handle: '',
 		error: {}
 	};
+
+	// Get the current user's profile upon loading
+	componentDidMount() {
+		// console.log('[Profile.js] componentDidMount');
+		this.props.onGetCurrentProfile(this.props.token);
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		//if first time loaded or it state.handle is empty and other 2 are not null, set handle
+		if (
+			(prevProps.profile === null && this.props.profile) ||
+			(prevState.handle === '' && prevProps.profile && this.props.profile)
+		) {
+			this.setState({ handle: this.props.profile.handle });
+		}
+	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.error) {
@@ -24,95 +36,76 @@ export class Profile extends Component {
 	submitHandler = event => {
 		event.preventDefault();
 
-		const foodsHistoryData = {
-			food: this.state.food,
-			mealOfDay: this.state.mealOfDay,
-			description: this.state.description
+		const profileData = {
+			handle: this.state.handle
 		};
 
-		this.props.onCreateFoodsHistory(foodsHistoryData, this.props.token);
+		this.props.onCreateProfile(profileData, this.props.token);
 	};
 
 	inputChangedHandler = event => {
+		//console.log('inputChangedHandler event', console.log(event));
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
 	render() {
 		const { error } = this.state;
 
-		// Select options for status
-		const options = [
-			{ label: '* Meal of Day', value: 0 },
-			{ label: 'Breakfest', value: 'Breakfest' },
-			{ label: 'Lunch', value: 'Lunch' },
-			{ label: 'Dinner', value: 'Dinner' },
-			{ label: 'Snack 1', value: 'Snack 1' },
-			{ label: 'Snack 2', value: 'Snack 2' },
-			{ label: 'Snack 3', value: 'Snack 3' },
-			{ label: 'Snack 4', value: 'Snack 4' },
-			{ label: 'Snack 5', value: 'Snack 5' },
-			{ label: 'Other', value: 'Other' }
-		];
+		let profileForm = this.props.loading ? (
+			<Spinner />
+		) : (
+			<p>Profile can't be loaded</p>
+		);
 
-		return (
-			<div className='create-profile'>
-				<div className='container'>
-					<div className='row'>
-						<div className='col-md-8 m-auto'>
-							<h1 className='display-4 text-center'>Add to Food History</h1>
-							<p className='lead text-center'>Fill out the food information</p>
-							<small className='d-block pb-3'>* = required fields</small>
-							<form onSubmit={this.submitHandler}>
-								<TextFieldGroup
-									placeholder='* Food Name'
-									name='food'
-									value={this.state.food}
-									onChange={this.inputChangedHandler}
-									error={error.food}
-									info='Name of food'
-								/>
-								<SelectListGroup
-									placeholder='* Meal of Day'
-									name='mealOfDay'
-									value={this.state.mealOfDay}
-									onChange={this.inputChangedHandler}
-									options={options}
-									error={error.mealOfDay}
-									info='Select the meal of the day'
-								/>
-								<TextAreaFieldGroup
-									placeholder='* Short Description'
-									name='description'
-									value={this.state.description}
-									onChange={this.inputChangedHandler}
-									error={error.description}
-									info='Note if needed'
-								/>
-								<input
-									type='submit'
-									value='Submit'
-									className='btn btn-info btn-block mt-4'
-								/>
-							</form>
+		if (!this.props.loading && this.props.profile) {
+			profileForm = (
+				<div className='profile'>
+					<div className='container'>
+						<div className='row'>
+							<div className='col-md-8 m-auto'>
+								<h1 className='display-4 text-center'>Edit Profile</h1>
+								<p className='lead text-center'>Fill out profile information</p>
+								<small className='d-block pb-3'>* = required fields</small>
+								<form onSubmit={this.submitHandler}>
+									<TextFieldGroup
+										placeholder='* Handle/Username'
+										name='handle'
+										value={this.state.handle}
+										onChange={e => this.inputChangedHandler(e)}
+										error={error.handle}
+										info='Handle/Username'
+									/>
+									<input
+										type='submit'
+										value='Submit'
+										className='btn btn-info btn-block mt-4'
+									/>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
+		}
+
+		return <div>{profileForm}</div>;
 	}
 }
 
 const mapStateToProps = state => {
 	return {
 		error: state.profile.error,
-		token: state.auth.token
+		token: state.auth.token,
+		profile: state.profile.profile,
+		loading: state.profile.loading
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onCreateFoodsHistory: (foodsHistoryData, token) =>
-			dispatch(actions.addFoodsHistory(foodsHistoryData, token))
+		onCreateProfile: (profileData, token) =>
+			dispatch(actions.addProfile(profileData, token)),
+		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token))
 	};
 };
 
