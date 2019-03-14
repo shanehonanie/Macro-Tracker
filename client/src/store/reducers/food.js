@@ -1,18 +1,13 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-	foods: [],
+	foods: null,
 	error: null,
 	loading: false
 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		// case actionTypes.PURCHASE_INIT:
-		// 	return {
-		// 		...state,
-		// 		purchased: false
-		// 	};
 		case actionTypes.ADD_FOOD_START:
 			return {
 				...state,
@@ -36,22 +31,22 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
-		// case actionTypes.FETCH_FOODS_START:
-		// 	return {
-		// 		...state,
-		// 		loading: true
-		// 	};
-		// case actionTypes.FETCH_FOODS_SUCCESS:
-		// 	return {
-		// 		...state,
-		// 		foods: action.foods,
-		// 		loading: false
-		// 	};
-		// case actionTypes.FETCH_FOODS_FAIL:
-		// 	return {
-		// 		...state,
-		// 		loading: false
-		// 	};
+		case actionTypes.FETCH_FOODS_START:
+			return {
+				...state,
+				loading: true
+			};
+		case actionTypes.FETCH_FOODS_SUCCESS:
+			return {
+				...state,
+				foods: action.foods,
+				loading: false
+			};
+		case actionTypes.FETCH_FOODS_FAIL:
+			return {
+				...state,
+				loading: false
+			};
 		default:
 			return state;
 	}

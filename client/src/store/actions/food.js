@@ -7,11 +7,9 @@ export const addFoodStart = () => {
 	};
 };
 
-//export const addFoodSuccess = (id, orderData) => {
 export const addFoodSuccess = foodData => {
 	return {
 		type: actionTypes.ADD_FOOD_SUCCESS,
-		//orderId: id,
 		foodData: foodData
 	};
 };
@@ -45,51 +43,37 @@ export const addFood = (foodData, token) => {
 	};
 };
 
-// export const purchaseInit = () => {
-// 	return {
-// 		type: actionTypes.PURCHASE_INIT
-// 	};
-// };
+export const fetchFoodsStart = () => {
+	return {
+		type: actionTypes.FETCH_FOODS_START
+	};
+};
 
-// export const fetchOrdersSuccess = orders => {
-// 	return {
-// 		type: actionTypes.FETCH_ORDERS_SUCCESS,
-// 		orders: orders
-// 	};
-// };
+export const fetchFoodsSuccess = foods => {
+	return {
+		type: actionTypes.FETCH_FOODS_SUCCESS,
+		foods: foods
+	};
+};
 
-// export const fetchOrdersFail = error => {
-// 	return {
-// 		type: actionTypes.FETCH_ORDERS_FAIL,
-// 		error: error
-// 	};
-// };
+export const fetchFoodsFail = error => {
+	return {
+		type: actionTypes.FETCH_FOODS_FAIL,
+		error: error
+	};
+};
 
-// export const fetchOrdersStart = () => {
-// 	return {
-// 		type: actionTypes.FETCH_ORDERS_START
-// 	};
-// };
+export const fetchFoods = () => {
+	return dispatch => {
+		dispatch(fetchFoodsStart());
 
-// export const fetchOrders = (token, userId) => {
-// 	return dispatch => {
-// 		dispatch(fetchOrdersStart());
-// 		const queryParams =
-// 			'?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
-// 		axios
-// 			.get('/orders.json' + queryParams)
-// 			.then(res => {
-// 				const fetchedOrders = [];
-// 				for (let key in res.data) {
-// 					fetchedOrders.push({
-// 						...res.data[key],
-// 						id: key
-// 					});
-// 				}
-// 				dispatch(fetchOrdersSuccess(fetchedOrders));
-// 			})
-// 			.catch(err => {
-// 				dispatch(fetchOrdersFail(err));
-// 			});
-// 	};
-// };
+		axios
+			.get('/api/foods')
+			.then(response => {
+				dispatch(fetchFoodsSuccess(response.data));
+			})
+			.catch(err => {
+				dispatch(fetchFoodsFail(err.response.data));
+			});
+	};
+};
