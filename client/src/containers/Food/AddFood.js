@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import * as actions from '../../store/actions/index';
-import Table from './Table';
+import MealTable from '../../components/MealTable/MealTable';
 // import TextFieldGroup from '../../components/UI/TextFieldGroup';
 // import SelectListGroup from '../../components/UI/SelectListGroup';
 // import TextAreaFieldGroup from '../../components/UI/TextAreaFieldGroup';
@@ -13,11 +15,13 @@ export class AddFood extends Component {
 		mealOfDay: '',
 		description: '',
 		date: '',
-		error: {}
+		error: {},
+		calendarDate: new Date()
 	};
 
 	componentDidMount() {
 		this.props.onGetCurrentProfile(this.props.token);
+		console.log('calendarDate', this.state.calendarDate);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -42,34 +46,63 @@ export class AddFood extends Component {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
+	handleChange(date) {
+		this.setState({
+			calendarDate: date
+		});
+
+		let day = date.getDate(); //returns date (1 to 31) you can getUTCDate() for UTC date
+		let month = date.getMonth() + 1; // returns 1 less than month count since it starts from 0
+		let year = date.getFullYear(); //returns year
+		console.log('month-day-year', `${month}/${day}/${year}`);
+		//console.log('calendarDate in handleChange', this.state.calendarDate);
+	}
+
 	render() {
 		let breakfestItems = null;
-		let displayTable = null;
+		let lunchItems = null;
+		let dinnerItems = null;
+		let snackItems = null;
+		let breakfestTable = null;
+		let lunchTable = null;
+		let dinnerTable = null;
+		let snackTable = null;
 
 		if (this.props.profile !== null) {
-			breakfestItems = this.props.profile.foodsHistory;
-			displayTable = <Table data={breakfestItems} />;
+			breakfestItems = this.props.profile.foodsHistory.filter(
+				item => item.mealOfDay === 'Breakfest'
+			);
 
-			console.log('breakfestItems', breakfestItems[0].food.name);
+			lunchItems = this.props.profile.foodsHistory.filter(
+				item => item.mealOfDay === 'Lunch'
+			);
+
+			dinnerItems = this.props.profile.foodsHistory.filter(
+				item => item.mealOfDay === 'Dinner'
+			);
+
+			snackItems = this.props.profile.foodsHistory.filter(
+				item => item.mealOfDay === 'Snack'
+			);
+
+			breakfestTable = <MealTable data={breakfestItems} name='Breakfest' />;
+			lunchTable = <MealTable data={lunchItems} name='Lunch' />;
+			dinnerTable = <MealTable data={dinnerItems} name='Dinner' />;
+			snackTable = <MealTable data={snackItems} name='Snacks' />;
 		}
 
 		return (
 			<div className='add-food'>
 				<div className='container'>
-					<table className='table table-striped'>
-						<thead className='thead'>
-							<tr>
-								<th colSpan='3'>Breakfest</th>
-								<th>Calories</th>
-								<th>Protein</th>
-								<th>Carbs</th>
-								<th>Fat</th>
-								<th>Fiber</th>
-							</tr>
-						</thead>
-						<tbody>{displayTable}</tbody>
-					</table>
+					<DatePicker
+						selected={this.state.calendarDate}
+						onChange={this.handleChange.bind(this)}
+					/>
 				</div>
+				<div className='container'>{breakfestTable}</div>
+				<div className='container'>{lunchTable}</div>
+				<div className='container'>{dinnerTable}</div>
+				<div className='container'>{snackTable}</div>
 
 				<div className='container'>
 					<table className='table'>
