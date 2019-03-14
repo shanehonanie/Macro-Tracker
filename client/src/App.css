@@ -37,3 +37,19 @@ img {
 .form-control::placeholder {
 	color: #bbb !important;
 }
+
+.list-group {
+	max-height: 300px;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.list-group-item {
+	overflow: hidden;
+	position: relative;
+	display: block;
+	padding: 5px 15px;
+	margin-bottom: -1px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+}
