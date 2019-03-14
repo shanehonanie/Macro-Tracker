@@ -12,6 +12,10 @@ import Food from './containers/Food/Food';
 import Goal from './containers/Goal/Goal';
 import EditGoal from './containers/Goal/EditGoal';
 import AddFood from './containers/Food/AddFood';
+import Breakfest from './containers/Food/AddTo/Breakfest';
+import Lunch from './containers/Food/AddTo/Lunch';
+import Dinner from './containers/Food/AddTo/Dinner';
+import Snack from './containers/Food/AddTo/Snack';
 import Profile from './containers/Profile/Profile';
 import Dashboard from './containers/Dashboard/Dashboard';
 import * as actions from './store/actions/index';
@@ -40,6 +44,10 @@ class App extends Component {
 					<Route exact path='/goal' component={Goal} />
 					<Route exact path='/editGoal' component={EditGoal} />
 					<Route exact path='/addFood' component={AddFood} />
+					<Route exact path='/addBreakfestFood' component={Breakfest} />
+					<Route exact path='/addLunchFood' component={Lunch} />
+					<Route exact path='/addDinnerFood' component={Dinner} />
+					<Route exact path='/addSnackFood' component={Snack} />
 					<Route exact path='/profile' component={Profile} />
 					<Route exact path='/dashboard' component={Dashboard} />
 					<Route exact path='/logout' component={Logout} />

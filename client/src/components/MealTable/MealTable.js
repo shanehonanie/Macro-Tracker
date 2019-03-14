@@ -1,5 +1,6 @@
 import React from 'react';
 import MealTableRow from './MealTableRow';
+import { Link } from 'react-router-dom';
 
 const mealTable = props => {
 	const tableData = props.data.map(row => {
@@ -18,7 +19,19 @@ const mealTable = props => {
 					<th>Fiber</th>
 				</tr>
 			</thead>
-			<tbody>{tableData}</tbody>
+			<tbody>
+				{tableData}
+				<tr>
+					<td colSpan='3'>
+						<Link to={props.linkTo}>Add Food</Link>
+					</td>
+					<td />
+					<td />
+					<td />
+					<td />
+					<td />
+				</tr>
+			</tbody>
 		</table>
 	);
 };

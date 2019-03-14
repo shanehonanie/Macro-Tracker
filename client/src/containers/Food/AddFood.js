@@ -85,10 +85,22 @@ export class AddFood extends Component {
 				item => item.mealOfDay === 'Snack'
 			);
 
-			breakfestTable = <MealTable data={breakfestItems} name='Breakfest' />;
-			lunchTable = <MealTable data={lunchItems} name='Lunch' />;
-			dinnerTable = <MealTable data={dinnerItems} name='Dinner' />;
-			snackTable = <MealTable data={snackItems} name='Snacks' />;
+			breakfestTable = (
+				<MealTable
+					data={breakfestItems}
+					name='Breakfest'
+					linkTo={'/addBreakfestFood'}
+				/>
+			);
+			lunchTable = (
+				<MealTable data={lunchItems} name='Lunch' linkTo={'/addLunchFood'} />
+			);
+			dinnerTable = (
+				<MealTable data={dinnerItems} name='Dinner' linkTo={'/addDinnerFood'} />
+			);
+			snackTable = (
+				<MealTable data={snackItems} name='Snacks' linkTo={'/addSnackFood'} />
+			);
 		}
 
 		return (
