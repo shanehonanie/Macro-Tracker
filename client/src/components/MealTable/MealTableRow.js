@@ -3,7 +3,7 @@ import React from 'react';
 const mealTableRow = props => {
 	return (
 		<tr>
-			<td key={props.row.date} colSpan='3'>
+			<td key={props.index} colSpan='3'>
 				{props.row.food.name}
 			</td>
 			<td>{props.row.food.calories}</td>

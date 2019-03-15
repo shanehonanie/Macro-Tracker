@@ -3,8 +3,8 @@ import MealTableRow from './MealTableRow';
 import { Link } from 'react-router-dom';
 
 const mealTable = props => {
-	const tableData = props.data.map(row => {
-		return <MealTableRow row={row} />;
+	const tableData = props.data.map((row, index) => {
+		return <MealTableRow row={row} key={index} />;
 	});
 
 	return (

@@ -4,7 +4,7 @@ const addFoodTable = props => {
 	const tableData = props.data.map((row, index) => {
 		return (
 			<tr>
-				<td key={index}>{row.food.name}</td>
+				<td>{row.food.name}</td>
 				<td>{row.mealOfDay}</td>
 				<td>{row.food.calories}</td>
 				<td>{row.food.protein}</td>
