@@ -4,14 +4,14 @@ const addFoodTable = props => {
 	const tableData = props.data.map((row, index) => {
 		return (
 			<tr key={index}>
-				<td>{row.food.name}</td>
+				<td>{row.foodArr.name}</td>
 				<td>{row.mealOfDay}</td>
 				<td>{row.serving}</td>
-				<td>{row.serving * row.food.calories}</td>
-				<td>{row.serving * row.food.protein}</td>
-				<td>{row.serving * row.food.carbs}</td>
-				<td>{row.serving * row.food.fat}</td>
-				<td>{row.serving * row.food.fiber}</td>
+				<td>{row.serving * row.foodArr.calories}</td>
+				<td>{row.serving * row.foodArr.protein}</td>
+				<td>{row.serving * row.foodArr.carbs}</td>
+				<td>{row.serving * row.foodArr.fat}</td>
+				<td>{row.serving * row.foodArr.fiber}</td>
 				<td>
 					<button
 						type='button'
