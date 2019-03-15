@@ -159,11 +159,13 @@ export class AddFood extends Component {
 			);
 
 			for (let i = 0; i < allItemsInSelectedDay.length; i++) {
-				calorieSum += allItemsInSelectedDay[i].food.calories;
-				proteinSum += allItemsInSelectedDay[i].food.protein;
-				carbsSum += allItemsInSelectedDay[i].food.carbs;
-				fatSum += allItemsInSelectedDay[i].food.fat;
-				fiberSum += allItemsInSelectedDay[i].food.fiber;
+				let qty = allItemsInSelectedDay[i].serving;
+
+				calorieSum += qty * allItemsInSelectedDay[i].food.calories;
+				proteinSum += qty * allItemsInSelectedDay[i].food.protein;
+				carbsSum += qty * allItemsInSelectedDay[i].food.carbs;
+				fatSum += qty * allItemsInSelectedDay[i].food.fat;
+				fiberSum += qty * allItemsInSelectedDay[i].food.fiber;
 			}
 
 			goalCalories = this.props.goal.dailyCalories;

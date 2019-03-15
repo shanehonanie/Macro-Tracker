@@ -10,19 +10,20 @@ const mealTable = props => {
 
 	const tableData = props.data.map((row, index) => {
 		//console.log('[MealTable.js] row', row);
-		calorieSum += row.food.calories;
-		proteinSum += row.food.protein;
-		carbsSum += row.food.carbs;
-		fatSum += row.food.fat;
-		fiberSum += row.food.fiber;
+		calorieSum += row.serving * row.food.calories;
+		proteinSum += row.serving * row.food.protein;
+		carbsSum += row.serving * row.food.carbs;
+		fatSum += row.serving * row.food.fat;
+		fiberSum += row.serving * row.food.fiber;
 		return (
 			<tr key={index}>
 				<td colSpan='3'>{row.food.name}</td>
-				<td>{row.food.calories}</td>
-				<td>{row.food.protein}</td>
-				<td>{row.food.carbs}</td>
-				<td>{row.food.fat}</td>
-				<td>{row.food.fiber}</td>
+				<td>{row.serving}</td>
+				<td>{row.serving * row.food.calories}</td>
+				<td>{row.serving * row.food.protein}</td>
+				<td>{row.serving * row.food.carbs}</td>
+				<td>{row.serving * row.food.fat}</td>
+				<td>{row.serving * row.food.fiber}</td>
 				<td>
 					<button
 						type='button'
@@ -41,6 +42,7 @@ const mealTable = props => {
 			<thead className='thead'>
 				<tr>
 					<th colSpan='3'>{props.name}</th>
+					<th>Serving</th>
 					<th>Calories</th>
 					<th>Protein</th>
 					<th>Carbs</th>
@@ -61,6 +63,7 @@ const mealTable = props => {
 							Add Food
 						</Link>
 					</td>
+					<td />
 					<td>{calorieSum}</td>
 					<td>{proteinSum}</td>
 					<td>{carbsSum}</td>
