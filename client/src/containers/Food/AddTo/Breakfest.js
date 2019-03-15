@@ -23,6 +23,14 @@ export class Breakfest extends Component {
 		//console.log('this.state.selectedItem', this.state.selectedItem);
 	};
 
+	deleteClickedHandler = index => {
+		const newArray = [...this.state.foodsArray];
+		newArray.splice(index, 1);
+		this.setState({
+			foodsArray: newArray
+		});
+	};
+
 	inputChangedHandler = event => {
 		this.setState({ [event.target.name]: event.target.value });
 	};
@@ -124,7 +132,12 @@ export class Breakfest extends Component {
 				</div>
 			);
 
-			displayTable = <AddFoodTable data={this.state.foodsArray} />;
+			displayTable = (
+				<AddFoodTable
+					data={this.state.foodsArray}
+					onClick={this.deleteClickedHandler}
+				/>
+			);
 		}
 
 		return (
