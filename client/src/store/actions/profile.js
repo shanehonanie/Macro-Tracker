@@ -49,10 +49,9 @@ export const addFoodsHistoryStart = () => {
 	};
 };
 
-export const addFoodsHistorySuccess = foodsHistoryData => {
+export const addFoodsHistorySuccess = () => {
 	return {
-		type: actionTypes.ADD_FOODS_HISTORY_SUCCESS,
-		foodsHistoryData: foodsHistoryData
+		type: actionTypes.ADD_FOODS_HISTORY_SUCCESS
 	};
 };
 
@@ -75,12 +74,53 @@ export const addFoodsHistory = (foodsHistoryData, token) => {
 		axios
 			.post('/api/profile/foodsHistory', foodsHistoryData, { headers: headers })
 			.then(response => {
-				console.log('[profile.js] action response.data', response.data);
-				dispatch(addFoodsHistorySuccess(response.data.name, foodsHistoryData));
+				//console.log('[profile.js] action response.data', response.data);
+				dispatch(addFoodsHistorySuccess());
 			})
 			.catch(err => {
 				console.log('[profile.js] actions error', err);
 				dispatch(addFoodsHistoryFail(err.response.data));
+			});
+	};
+};
+
+export const removeFoodHistoryStart = () => {
+	return {
+		type: actionTypes.REMOVE_FOOD_HISTORY_START
+	};
+};
+
+export const removeFoodHistorySuccess = id => {
+	return {
+		type: actionTypes.REMOVE_FOOD_HISTORY_SUCCESS,
+		removeId: id
+	};
+};
+
+export const removeFoodHistoryFail = error => {
+	return {
+		type: actionTypes.REMOVE_FOOD_HISTORY_FAIL,
+		error: error
+	};
+};
+
+export const removeFoodHistory = (id, token) => {
+	return dispatch => {
+		dispatch(removeFoodHistoryStart());
+
+		var headers = {
+			'Content-Type': 'application/json',
+			Authorization: token
+		};
+
+		axios
+			.delete('/api/profile/foodsHistory/' + id, { headers: headers })
+			.then(response => {
+				dispatch(removeFoodHistorySuccess(id));
+			})
+			.catch(err => {
+				console.log('[profile.js]  removeFoodHistory actions error', err);
+				dispatch(removeFoodHistoryFail(err.response.data));
 			});
 	};
 };

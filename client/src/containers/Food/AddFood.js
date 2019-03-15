@@ -21,7 +21,6 @@ export class AddFood extends Component {
 
 	componentDidMount() {
 		this.props.onGetCurrentProfile(this.props.token);
-		//console.log('calendarDate', this.state.calendarDate);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -58,6 +57,11 @@ export class AddFood extends Component {
 		//console.log('calendarDate in handleChange', this.state.calendarDate);
 	}
 
+	deleteClickedHandler = rowId => {
+		//console.log('[AddFood.js] rowId', rowId);
+		this.props.onDeleteFoodHistory(rowId, this.props.token);
+	};
+
 	render() {
 		let breakfestItems = null;
 		let lunchItems = null;
@@ -91,6 +95,7 @@ export class AddFood extends Component {
 					name='Breakfest'
 					linkTo={'/addBreakfestFood'}
 					selectedDate={this.state.calendarDate}
+					onClick={this.deleteClickedHandler}
 				/>
 			);
 			lunchTable = (
@@ -99,6 +104,7 @@ export class AddFood extends Component {
 					name='Lunch'
 					linkTo={'/addLunchFood'}
 					selectedDate={this.state.calendarDate}
+					onClick={this.deleteClickedHandler}
 				/>
 			);
 			dinnerTable = (
@@ -107,6 +113,7 @@ export class AddFood extends Component {
 					name='Dinner'
 					linkTo={'/addDinnerFood'}
 					selectedDate={this.state.calendarDate}
+					onClick={this.deleteClickedHandler}
 				/>
 			);
 			snackTable = (
@@ -115,6 +122,7 @@ export class AddFood extends Component {
 					name='Snacks'
 					linkTo={'/addSnackFood'}
 					selectedDate={this.state.calendarDate}
+					onClick={this.deleteClickedHandler}
 				/>
 			);
 		}
@@ -182,7 +190,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		onCreateFoodsHistory: (foodsHistoryData, token) =>
 			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
-		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token))
+		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token)),
+		onDeleteFoodHistory: (removeId, token) =>
+			dispatch(actions.removeFoodHistory(removeId, token))
 	};
 };
 

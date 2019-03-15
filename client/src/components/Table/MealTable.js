@@ -9,6 +9,7 @@ const mealTable = props => {
 	let fiberSum = 0;
 
 	const tableData = props.data.map((row, index) => {
+		//console.log('[MealTable.js] row', row);
 		calorieSum += row.food.calories;
 		proteinSum += row.food.protein;
 		carbsSum += row.food.carbs;
@@ -22,6 +23,15 @@ const mealTable = props => {
 				<td>{row.food.carbs}</td>
 				<td>{row.food.fat}</td>
 				<td>{row.food.fiber}</td>
+				<td>
+					<button
+						type='button'
+						className='btn btn-danger'
+						onClick={() => props.onClick(row._id)}
+					>
+						Delete
+					</button>
+				</td>
 			</tr>
 		);
 	});

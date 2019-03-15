@@ -2,7 +2,6 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
 	profile: null,
-	foodsHistory: [],
 	error: null,
 	loading: false
 };
@@ -56,17 +55,41 @@ const reducer = (state = initialState, action) => {
 				loading: true
 			};
 		case actionTypes.ADD_FOODS_HISTORY_SUCCESS:
-			const newFoodsHistory = {
-				...action.foodsHistoryData
-				//id: action.profileId
+			return {
+				...state,
+				loading: false,
+				error: null
+			};
+		case actionTypes.ADD_FOODS_HISTORY_FAIL:
+			return {
+				...state,
+				error: action.error,
+				loading: false
+			};
+		case actionTypes.REMOVE_FOOD_HISTORY_START:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case actionTypes.REMOVE_FOOD_HISTORY_SUCCESS:
+			// deep copy old profile and removeID of foodsHistory
+			const newFoodsHistory = state.profile.foodsHistory.filter(item => {
+				return item._id !== action.removeId;
+			});
+
+			const newProfileData = {
+				...state.profile,
+				user: { ...state.profile.user },
+				foodsHistory: newFoodsHistory
 			};
 			return {
 				...state,
 				loading: false,
 				error: null,
-				foodsHistory: state.foodsHistory.concat(newFoodsHistory)
+				profile: newProfileData
 			};
-		case actionTypes.ADD_FOODS_HISTORY_FAIL:
+		case actionTypes.REMOVE_FOOD_HISTORY_FAIL:
 			return {
 				...state,
 				error: action.error,
