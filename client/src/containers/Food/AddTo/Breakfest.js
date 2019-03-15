@@ -51,7 +51,7 @@ export class Breakfest extends Component {
 			foodsArray: [...this.state.foodsArray, newItem]
 		});
 
-		console.log('this.state.foodsArray', this.state.foodsArray);
+		//console.log('this.state.foodsArray', this.state.foodsArray);
 	};
 
 	saveFoodsClickedHandler = event => {
@@ -59,13 +59,14 @@ export class Breakfest extends Component {
 		//console.log('this.state.foodsArray[0]', this.state.foodsArray[0]);
 
 		for (let i = 0; i < this.state.foodsArray.length; i++) {
-			console.log('i: ' + i);
-			console.log('this.state.foodsArray[i]', this.state.foodsArray[i]);
+			//console.log('i: ' + i);
+			//console.log('this.state.foodsArray[i]', this.state.foodsArray[i]);
 			this.props.onCreateFoodsHistory(
 				this.state.foodsArray[i],
 				this.props.token
 			);
 		}
+		this.props.history.push('/addFood');
 	};
 
 	render() {
