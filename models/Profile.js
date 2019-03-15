@@ -21,6 +21,10 @@ const ProfileSchema = new Schema({
 				type: String,
 				required: true
 			},
+			serving: {
+				type: String,
+				required: true
+			},
 			description: {
 				type: String
 			},

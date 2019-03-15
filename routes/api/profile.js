@@ -172,8 +172,10 @@ router.post(
 					const newFoodItem = {
 						food: foodItem,
 						mealOfDay: req.body.mealOfDay,
+						serving: req.body.serving,
 						description: req.body.description,
-						date: Date.now()
+						date: Date.now() //for testing
+						//date: req.body.date
 					};
 
 					// Add to foodsHistory array
@@ -202,6 +204,8 @@ router.post(
 			// Edit the fields if they exist in req.body
 			if (req.body.mealOfDay)
 				profile.foodsHistory[editIndex].mealOfDay = req.body.mealOfDay;
+			if (req.body.serving)
+				profile.foodsHistory[editIndex].serving = req.body.serving;
 			if (req.body.description)
 				profile.foodsHistory[editIndex].description = req.body.description;
 			if (req.body.date) profile.foodsHistory[editIndex].date = req.body.date;
