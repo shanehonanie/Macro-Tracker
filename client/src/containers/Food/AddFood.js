@@ -63,6 +63,22 @@ export class AddFood extends Component {
 		this.props.onDeleteFoodHistory(rowId, this.props.token);
 	};
 
+	isCalendarDate = otherDate => {
+		// use tempDate because otherDate will be a Date String not a Date object
+		let tempDate = new Date(otherDate);
+		if (
+			this.state.calendarDate.getMonth() === tempDate.getMonth() &&
+			this.state.calendarDate.getDate() === tempDate.getDate() &&
+			this.state.calendarDate.getFullYear() === tempDate.getFullYear()
+		)
+			return true;
+
+		return false;
+		// console.log('[AddFood.js] isCalendardate otherDate', otherDate);
+		// console.log('otherDate instanceof Date', otherDate instanceof Date);
+		// console.log('typeof otherDate', typeof otherDate);
+	};
+
 	render() {
 		let breakfestItems = null;
 		let lunchItems = null;
@@ -82,22 +98,27 @@ export class AddFood extends Component {
 		let goalCarbs = 0;
 		let goalFat = 0;
 		let goalFiber = 0;
+		let allItemsInSelectedDay = null;
 
 		if (this.props.profile !== null) {
+			allItemsInSelectedDay = this.props.profile.foodsHistory.filter(item =>
+				this.isCalendarDate(item.date)
+			);
+
 			breakfestItems = this.props.profile.foodsHistory.filter(
-				item => item.mealOfDay === 'Breakfest'
+				item => item.mealOfDay === 'Breakfest' && this.isCalendarDate(item.date)
 			);
 
 			lunchItems = this.props.profile.foodsHistory.filter(
-				item => item.mealOfDay === 'Lunch'
+				item => item.mealOfDay === 'Lunch' && this.isCalendarDate(item.date)
 			);
 
 			dinnerItems = this.props.profile.foodsHistory.filter(
-				item => item.mealOfDay === 'Dinner'
+				item => item.mealOfDay === 'Dinner' && this.isCalendarDate(item.date)
 			);
 
 			snackItems = this.props.profile.foodsHistory.filter(
-				item => item.mealOfDay === 'Snack'
+				item => item.mealOfDay === 'Snack' && this.isCalendarDate(item.date)
 			);
 
 			breakfestTable = (
@@ -137,12 +158,12 @@ export class AddFood extends Component {
 				/>
 			);
 
-			for (let i = 0; i < this.props.profile.foodsHistory.length; i++) {
-				calorieSum += this.props.profile.foodsHistory[i].food.calories;
-				proteinSum += this.props.profile.foodsHistory[i].food.protein;
-				carbsSum += this.props.profile.foodsHistory[i].food.carbs;
-				fatSum += this.props.profile.foodsHistory[i].food.fat;
-				fiberSum += this.props.profile.foodsHistory[i].food.fiber;
+			for (let i = 0; i < allItemsInSelectedDay.length; i++) {
+				calorieSum += allItemsInSelectedDay[i].food.calories;
+				proteinSum += allItemsInSelectedDay[i].food.protein;
+				carbsSum += allItemsInSelectedDay[i].food.carbs;
+				fatSum += allItemsInSelectedDay[i].food.fat;
+				fiberSum += allItemsInSelectedDay[i].food.fiber;
 			}
 
 			goalCalories = this.props.goal.dailyCalories;
