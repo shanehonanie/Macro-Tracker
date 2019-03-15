@@ -2,12 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const mealTable = props => {
+	let calorieSum = 0;
+	let proteinSum = 0;
+	let carbsSum = 0;
+	let fatSum = 0;
+	let fiberSum = 0;
+
 	const tableData = props.data.map((row, index) => {
+		calorieSum += row.food.calories;
+		proteinSum += row.food.protein;
+		carbsSum += row.food.carbs;
+		fatSum += row.food.fat;
+		fiberSum += row.food.fiber;
 		return (
-			<tr>
-				<td key={index} colSpan='3'>
-					{row.food.name}
-				</td>
+			<tr key={index}>
+				<td colSpan='3'>{row.food.name}</td>
 				<td>{row.food.calories}</td>
 				<td>{row.food.protein}</td>
 				<td>{row.food.carbs}</td>
@@ -42,11 +51,11 @@ const mealTable = props => {
 							Add Food
 						</Link>
 					</td>
-					<td />
-					<td />
-					<td />
-					<td />
-					<td />
+					<td>{calorieSum}</td>
+					<td>{proteinSum}</td>
+					<td>{carbsSum}</td>
+					<td>{fatSum}</td>
+					<td>{fiberSum}</td>
 				</tr>
 			</tbody>
 		</table>
