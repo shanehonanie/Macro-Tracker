@@ -21,6 +21,7 @@ export class AddFood extends Component {
 
 	componentDidMount() {
 		this.props.onGetCurrentProfile(this.props.token);
+		this.props.onGetGoals(this.props.token);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -71,6 +72,16 @@ export class AddFood extends Component {
 		let lunchTable = null;
 		let dinnerTable = null;
 		let snackTable = null;
+		let calorieSum = 0;
+		let proteinSum = 0;
+		let carbsSum = 0;
+		let fatSum = 0;
+		let fiberSum = 0;
+		let goalCalories = 0;
+		let goalProtein = 0;
+		let goalCarbs = 0;
+		let goalFat = 0;
+		let goalFiber = 0;
 
 		if (this.props.profile !== null) {
 			breakfestItems = this.props.profile.foodsHistory.filter(
@@ -125,6 +136,20 @@ export class AddFood extends Component {
 					onClick={this.deleteClickedHandler}
 				/>
 			);
+
+			for (let i = 0; i < this.props.profile.foodsHistory.length; i++) {
+				calorieSum += this.props.profile.foodsHistory[i].food.calories;
+				proteinSum += this.props.profile.foodsHistory[i].food.protein;
+				carbsSum += this.props.profile.foodsHistory[i].food.carbs;
+				fatSum += this.props.profile.foodsHistory[i].food.fat;
+				fiberSum += this.props.profile.foodsHistory[i].food.fiber;
+			}
+
+			goalCalories = this.props.goal.dailyCalories;
+			goalProtein = this.props.goal.dailyProtein;
+			goalCarbs = this.props.goal.dailyCarbs;
+			goalFat = this.props.goal.dailyFat;
+			goalFiber = this.props.goal.dailyFiber;
 		}
 
 		return (
@@ -145,21 +170,27 @@ export class AddFood extends Component {
 						<tbody>
 							<tr>
 								<th>Totals</th>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
+								<td>{calorieSum}</td>
+								<td>{proteinSum}</td>
+								<td>{carbsSum}</td>
+								<td>{fatSum}</td>
+								<td>{fiberSum}</td>
 							</tr>
 							<tr>
 								<th>Your Daily Goal</th>
-								<td>John</td>
-								<td>Peter</td>
-								<td>John</td>
+								<td>{goalCalories}</td>
+								<td>{goalProtein}</td>
+								<td>{goalCarbs}</td>
+								<td>{goalFat}</td>
+								<td>{goalFiber}</td>
 							</tr>
 							<tr>
 								<th>Remaining</th>
-								<td>Carter</td>
-								<td>Parker</td>
-								<td>Rambo</td>
+								<td>{goalCalories - calorieSum}</td>
+								<td>{goalProtein - proteinSum}</td>
+								<td>{goalCarbs - carbsSum}</td>
+								<td>{goalFat - fatSum}</td>
+								<td>{goalFiber - fiberSum}</td>
 							</tr>
 							<tr>
 								<th />
@@ -182,6 +213,7 @@ const mapStateToProps = state => {
 		token: state.auth.token,
 		profile: state.profile.profile,
 		loading: state.profile.loading,
+		goal: state.goal.goal,
 		error: state.profile.error
 	};
 };
@@ -192,7 +224,8 @@ const mapDispatchToProps = dispatch => {
 			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
 		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token)),
 		onDeleteFoodHistory: (removeId, token) =>
-			dispatch(actions.removeFoodHistory(removeId, token))
+			dispatch(actions.removeFoodHistory(removeId, token)),
+		onGetGoals: token => dispatch(actions.fetchGoals(token))
 	};
 };
 
