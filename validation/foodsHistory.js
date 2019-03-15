@@ -18,17 +18,17 @@ module.exports = function validateFoodsHistoryInput(data) {
 		errors.mealOfDay = 'Meal of day is required';
 	}
 
-	if (Validator.isEmpty(data.serving)) {
-		errors.food = 'Serving is required';
-	}
+	// if (Validator.isEmpty(data.serving)) {
+	// 	errors.food = 'Serving is required';
+	// }
 
 	if (Validator.isEmpty(data.description)) {
 		errors.description = 'Description is required';
 	}
 
-	// if (Validator.isEmpty(data.date)) {
-	// 	errors.date = 'Date is required';
-	// }
+	if (Validator.isEmpty(data.date)) {
+		errors.date = 'Date is required';
+	}
 
 	return {
 		errors,
