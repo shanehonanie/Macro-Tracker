@@ -39,7 +39,8 @@ export class Breakfest extends Component {
 
 	addMealClickedHandler = event => {
 		const newItem = {
-			food: { ...this.props.foodsDatabase[this.state.selectedItem] },
+			foodArr: { ...this.props.foodsDatabase[this.state.selectedItem] },
+			food: this.props.foodsDatabase[this.state.selectedItem].name,
 			mealOfDay: this.state.mealOfDay,
 			serving: this.state.serving,
 			date: this.state.date,
@@ -54,7 +55,17 @@ export class Breakfest extends Component {
 	};
 
 	saveFoodsClickedHandler = event => {
-		console.log('saveFoodsClickedHandler');
+		//console.log('saveFoodsClickedHandler');
+		//console.log('this.state.foodsArray[0]', this.state.foodsArray[0]);
+
+		for (let i = 0; i < this.state.foodsArray.length; i++) {
+			console.log('i: ' + i);
+			console.log('this.state.foodsArray[i]', this.state.foodsArray[i]);
+			this.props.onCreateFoodsHistory(
+				this.state.foodsArray[i],
+				this.props.token
+			);
+		}
 	};
 
 	render() {
