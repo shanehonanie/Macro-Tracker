@@ -174,8 +174,8 @@ router.post(
 						mealOfDay: req.body.mealOfDay,
 						serving: req.body.serving,
 						description: req.body.description,
-						date: Date.now() //for testing
-						//date: req.body.date
+						//date: Date.now() //for testing
+						date: req.body.date
 					};
 
 					// Add to foodsHistory array
