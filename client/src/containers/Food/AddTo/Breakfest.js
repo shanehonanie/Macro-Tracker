@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../../store/actions/index';
-import TextFieldGroup from '../../../components/UI/TextFieldGroup';
+import TextFieldGroupNumber from '../../../components/UI/TextFieldGroupNumber';
 import SelectListGroup from '../../../components/UI/SelectListGroup';
 import AddFoodTable from '../../../components/AddFoodTable/AddFoodTable';
 
@@ -10,6 +10,7 @@ export class Breakfest extends Component {
 	state = {
 		selectedItem: -1,
 		mealOfDay: 'Breakfest',
+		serving: 1.0,
 		foodsArray: []
 	};
 
@@ -39,6 +40,7 @@ export class Breakfest extends Component {
 		const newItem = {
 			food: { ...this.props.foodsDatabase[this.state.selectedItem] },
 			mealOfDay: this.state.mealOfDay,
+			serving: this.state.serving,
 			date: new Date(),
 			description: 'testing'
 		};
@@ -96,11 +98,11 @@ export class Breakfest extends Component {
 				<div className='offset-lg-1 col-lg-4'>
 					<h1>{this.props.foodsDatabase[this.state.selectedItem].name}</h1>
 					<div className='row'>
-						<TextFieldGroup
+						<TextFieldGroupNumber
 							placeholder='* Serving'
 							name='serving'
-							value={1.0}
-							onChange={null}
+							value={this.state.serving}
+							onChange={this.inputChangedHandler}
 							error={null}
 							info='serving quantity'
 						/>
