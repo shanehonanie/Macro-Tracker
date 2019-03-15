@@ -11,6 +11,7 @@ export class Breakfest extends Component {
 		selectedItem: -1,
 		mealOfDay: 'Breakfest',
 		serving: 1.0,
+		date: this.props.location.state.date,
 		foodsArray: []
 	};
 
@@ -41,7 +42,7 @@ export class Breakfest extends Component {
 			food: { ...this.props.foodsDatabase[this.state.selectedItem] },
 			mealOfDay: this.state.mealOfDay,
 			serving: this.state.serving,
-			date: new Date(),
+			date: this.state.date,
 			description: 'testing'
 		};
 
@@ -49,7 +50,7 @@ export class Breakfest extends Component {
 			foodsArray: [...this.state.foodsArray, newItem]
 		});
 
-		//console.log('this.state.foodsArray', this.state.foodsArray);
+		console.log('this.state.foodsArray', this.state.foodsArray);
 	};
 
 	saveFoodsClickedHandler = event => {

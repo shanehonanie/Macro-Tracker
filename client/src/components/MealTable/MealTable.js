@@ -23,7 +23,14 @@ const mealTable = props => {
 				{tableData}
 				<tr>
 					<td colSpan='3'>
-						<Link to={props.linkTo}>Add Food</Link>
+						<Link
+							to={{
+								pathname: props.linkTo,
+								state: { date: props.selectedDate }
+							}}
+						>
+							Add Food
+						</Link>
 					</td>
 					<td />
 					<td />

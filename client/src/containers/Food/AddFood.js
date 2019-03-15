@@ -21,7 +21,7 @@ export class AddFood extends Component {
 
 	componentDidMount() {
 		this.props.onGetCurrentProfile(this.props.token);
-		console.log('calendarDate', this.state.calendarDate);
+		//console.log('calendarDate', this.state.calendarDate);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -51,10 +51,10 @@ export class AddFood extends Component {
 			calendarDate: date
 		});
 
-		let day = date.getDate(); //returns date (1 to 31) you can getUTCDate() for UTC date
-		let month = date.getMonth() + 1; // returns 1 less than month count since it starts from 0
-		let year = date.getFullYear(); //returns year
-		console.log('month-day-year', `${month}/${day}/${year}`);
+		// let day = date.getDate(); //returns date (1 to 31) you can getUTCDate() for UTC date
+		// let month = date.getMonth() + 1; // returns 1 less than month count since it starts from 0
+		// let year = date.getFullYear(); //returns year
+		//console.log('month-day-year', `${month}/${day}/${year}`);
 		//console.log('calendarDate in handleChange', this.state.calendarDate);
 	}
 
@@ -90,16 +90,32 @@ export class AddFood extends Component {
 					data={breakfestItems}
 					name='Breakfest'
 					linkTo={'/addBreakfestFood'}
+					selectedDate={this.state.calendarDate}
 				/>
 			);
 			lunchTable = (
-				<MealTable data={lunchItems} name='Lunch' linkTo={'/addLunchFood'} />
+				<MealTable
+					data={lunchItems}
+					name='Lunch'
+					linkTo={'/addLunchFood'}
+					selectedDate={this.state.calendarDate}
+				/>
 			);
 			dinnerTable = (
-				<MealTable data={dinnerItems} name='Dinner' linkTo={'/addDinnerFood'} />
+				<MealTable
+					data={dinnerItems}
+					name='Dinner'
+					linkTo={'/addDinnerFood'}
+					selectedDate={this.state.calendarDate}
+				/>
 			);
 			snackTable = (
-				<MealTable data={snackItems} name='Snacks' linkTo={'/addSnackFood'} />
+				<MealTable
+					data={snackItems}
+					name='Snacks'
+					linkTo={'/addSnackFood'}
+					selectedDate={this.state.calendarDate}
+				/>
 			);
 		}
 
