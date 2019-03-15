@@ -18,7 +18,7 @@ const mealTable = props => {
 		return (
 			<tr key={index}>
 				<td colSpan='3'>{row.food.name}</td>
-				<td>{row.serving}</td>
+				<td>{parseFloat(row.serving).toFixed(2)}</td>
 				<td>{row.serving * row.food.calories}</td>
 				<td>{row.serving * row.food.protein}</td>
 				<td>{row.serving * row.food.carbs}</td>

@@ -6,7 +6,7 @@ const addFoodTable = props => {
 			<tr key={index}>
 				<td>{row.foodArr.name}</td>
 				<td>{row.mealOfDay}</td>
-				<td>{row.serving}</td>
+				<td>{parseFloat(row.serving).toFixed(2)}</td>
 				<td>{row.serving * row.foodArr.calories}</td>
 				<td>{row.serving * row.foodArr.protein}</td>
 				<td>{row.serving * row.foodArr.carbs}</td>
