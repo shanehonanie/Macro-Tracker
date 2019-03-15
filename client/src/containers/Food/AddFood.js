@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import * as actions from '../../store/actions/index';
-import MealTable from '../../components/MealTable/MealTable';
+import MealTable from '../../components/Table/MealTable';
 // import TextFieldGroup from '../../components/UI/TextFieldGroup';
 // import SelectListGroup from '../../components/UI/SelectListGroup';
 // import TextAreaFieldGroup from '../../components/UI/TextAreaFieldGroup';

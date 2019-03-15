@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import TextFieldGroupNumber from '../../../components/UI/TextFieldGroupNumber';
 import SelectListGroup from '../../../components/UI/SelectListGroup';
-import AddFoodTable from '../../../components/AddFoodTable/AddFoodTable';
+import AddFoodTable from '../../../components/Table/AddFoodTable';
 
 export class Breakfest extends Component {
 	state = {
