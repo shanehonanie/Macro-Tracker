@@ -25,13 +25,15 @@ const mealTable = props => {
 				<td>{row.serving * row.food.fat}</td>
 				<td>{row.serving * row.food.fiber}</td>
 				<td>
-					<button
-						type='button'
-						className='btn btn-danger'
-						onClick={() => props.onClick(row._id)}
-					>
-						Delete
-					</button>
+					{props.onClick ? (
+						<button
+							type='button'
+							className='btn btn-danger'
+							onClick={() => props.onClick(row._id)}
+						>
+							Delete
+						</button>
+					) : null}
 				</td>
 			</tr>
 		);
@@ -54,42 +56,63 @@ const mealTable = props => {
 				{tableData}
 				<tr>
 					<td colSpan='3'>
-						<div className='row'>
-							<Link
-								to={{
-									pathname: props.linkTo,
-									state: { date: props.selectedDate }
-								}}
-							>
-								Add Food
-							</Link>
-							|
-							<div className='dropdown'>
-								<h7
-									className='dropdown-toggle'
-									id='dropdownMenuButton'
-									data-toggle='dropdown'
-									aria-haspopup='true'
-									aria-expanded='false'
+						{props.options == true ? (
+							<div className='row'>
+								<Link
+									to={{
+										pathname: props.linkTo,
+										state: { date: props.selectedDate }
+									}}
 								>
-									Tools
-								</h7>
-								<div
-									className='dropdown-menu'
-									aria-labelledby='dropdownMenuButton'
-								>
-									<a className='dropdown-item' href='#'>
-										Action
-									</a>
-									<a className='dropdown-item' href='#'>
-										Another action
-									</a>
-									<a className='dropdown-item' href='#'>
-										Something else here
-									</a>
+									Add Food
+								</Link>
+								|
+								<div className='dropdown'>
+									<p
+										className='dropdown-toggle'
+										id='dropdownMenuButton'
+										data-toggle='dropdown'
+										aria-haspopup='true'
+										aria-expanded='false'
+									>
+										Tools
+									</p>
+									<div
+										className='dropdown-menu'
+										aria-labelledby='dropdownMenuButton'
+									>
+										<button className='dropdown-item' type='button'>
+											Quick Add Calories
+										</button>
+										<Link
+											to={{
+												pathname: '/rememberMEal',
+												state: { data: props.data }
+											}}
+										>
+											<button className='dropdown-item' type='button'>
+												Remember Meal
+											</button>
+										</Link>
+										<button
+											className='dropdown-item'
+											type='button'
+											onClick={() =>
+												props.copyYesterday(Date.now(), props.name)
+											}
+										>
+											Copy yesterday
+										</button>
+										<button className='dropdown-item' type='button'>
+											Copy from date
+										</button>
+										<button className='dropdown-item' type='button'>
+											Copy to date
+										</button>
+									</div>
 								</div>
 							</div>
-						</div>
+						) : null}
 					</td>
 					<td />
 					<td>{calorieSum}</td>

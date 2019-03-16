@@ -22,6 +22,7 @@ export class AddFood extends Component {
 	componentDidMount() {
 		this.props.onGetCurrentProfile(this.props.token);
 		this.props.onGetGoals(this.props.token);
+		//console.log('yeseterdaysdate', this.getYesterdaysDate(Date.now()));
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -32,14 +33,6 @@ export class AddFood extends Component {
 
 	submitHandler = event => {
 		event.preventDefault();
-
-		const foodsHistoryData = {
-			food: this.state.food,
-			mealOfDay: this.state.mealOfDay,
-			description: this.state.description
-		};
-
-		this.props.onCreateFoodsHistory(foodsHistoryData, this.props.token);
 	};
 
 	inputChangedHandler = event => {
@@ -50,12 +43,6 @@ export class AddFood extends Component {
 		this.setState({
 			calendarDate: date
 		});
-
-		// let day = date.getDate(); //returns date (1 to 31) you can getUTCDate() for UTC date
-		// let month = date.getMonth() + 1; // returns 1 less than month count since it starts from 0
-		// let year = date.getFullYear(); //returns year
-		//console.log('month-day-year', `${month}/${day}/${year}`);
-		//console.log('calendarDate in handleChange', this.state.calendarDate);
 	}
 
 	deleteClickedHandler = rowId => {
@@ -64,8 +51,13 @@ export class AddFood extends Component {
 	};
 
 	isCalendarDate = otherDate => {
+		// console.log('[AddFood.js] isCalendardate otherDate', otherDate);
+		// console.log('otherDate instanceof Date', otherDate instanceof Date);
+		// console.log('typeof otherDate', typeof otherDate);
+
 		// use tempDate because otherDate will be a Date String not a Date object
 		let tempDate = new Date(otherDate);
+
 		if (
 			this.state.calendarDate.getMonth() === tempDate.getMonth() &&
 			this.state.calendarDate.getDate() === tempDate.getDate() &&
@@ -74,9 +66,58 @@ export class AddFood extends Component {
 			return true;
 
 		return false;
-		// console.log('[AddFood.js] isCalendardate otherDate', otherDate);
-		// console.log('otherDate instanceof Date', otherDate instanceof Date);
-		// console.log('typeof otherDate', typeof otherDate);
+	};
+
+	isEqualCalendarDate = (date1, date2) => {
+		const date1Obj = new Date(date1);
+		const date2Obj = new Date(date2);
+
+		if (
+			date1Obj.getMonth() === date2Obj.getMonth() &&
+			date1Obj.getDate() === date2Obj.getDate() &&
+			date1Obj.getFullYear() === date2Obj.getFullYear()
+		)
+			return true;
+
+		return false;
+	};
+
+	getYesterdaysDate = todaysdate => {
+		let theDate = new Date(todaysdate);
+		theDate.setDate(theDate.getDate() - 1);
+		return theDate;
+	};
+
+	copyFromYesterday = (todaysDate, meal) => {
+		let todaysDateObj = this.state.calendarDate;
+		// console.log('[AddFoods.js] copyFromYesterday todaysDateObj', todaysDateObj);
+		// console.log('[AddFoods.js] copyFromYesterday meal', meal);
+		const yesterdaysMeals = this.props.profile.foodsHistory.filter(
+			item =>
+				item.mealOfDay === meal &&
+				this.isEqualCalendarDate(
+					item.date,
+					this.getYesterdaysDate(todaysDateObj)
+				)
+		);
+
+		for (let i = 0; i < yesterdaysMeals.length; i++) {
+			// create newItem because yesterdaysMeals stores food array and not food name & change date
+			const newItem = {
+				food: yesterdaysMeals[i].food.name,
+				mealOfDay: yesterdaysMeals[i].mealOfDay,
+				serving: yesterdaysMeals[i].serving,
+				date: todaysDateObj,
+				description: 'testing'
+			};
+
+			this.props.onCreateFoodsHistory(newItem, this.props.token);
+		}
+
+		console.log(
+			'[AddFoods.js] copyFromYesterday yesterdays meals',
+			yesterdaysMeals
+		);
 	};
 
 	render() {
@@ -128,6 +169,8 @@ export class AddFood extends Component {
 					linkTo={'/addBreakfestFood'}
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
+					copyYesterday={this.copyFromYesterday}
+					options={true}
 				/>
 			);
 			lunchTable = (
@@ -137,6 +180,8 @@ export class AddFood extends Component {
 					linkTo={'/addLunchFood'}
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
+					copyYesterday={this.copyFromYesterday}
+					options={true}
 				/>
 			);
 			dinnerTable = (
@@ -146,6 +191,8 @@ export class AddFood extends Component {
 					linkTo={'/addDinnerFood'}
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
+					copyYesterday={this.copyFromYesterday}
+					options={true}
 				/>
 			);
 			snackTable = (
@@ -155,6 +202,8 @@ export class AddFood extends Component {
 					linkTo={'/addSnackFood'}
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
+					copyYesterday={this.copyFromYesterday}
+					options={true}
 				/>
 			);
 
