@@ -54,14 +54,42 @@ const mealTable = props => {
 				{tableData}
 				<tr>
 					<td colSpan='3'>
-						<Link
-							to={{
-								pathname: props.linkTo,
-								state: { date: props.selectedDate }
-							}}
-						>
-							Add Food
-						</Link>
+						<div className='row'>
+							<Link
+								to={{
+									pathname: props.linkTo,
+									state: { date: props.selectedDate }
+								}}
+							>
+								Add Food
+							</Link>
+							|
+							<div className='dropdown'>
+								<h7
+									className='dropdown-toggle'
+									id='dropdownMenuButton'
+									data-toggle='dropdown'
+									aria-haspopup='true'
+									aria-expanded='false'
+								>
+									Tools
+								</h7>
+								<div
+									className='dropdown-menu'
+									aria-labelledby='dropdownMenuButton'
+								>
+									<a className='dropdown-item' href='#'>
+										Action
+									</a>
+									<a className='dropdown-item' href='#'>
+										Another action
+									</a>
+									<a className='dropdown-item' href='#'>
+										Something else here
+									</a>
+								</div>
+							</div>
+						</div>
 					</td>
 					<td />
 					<td>{calorieSum}</td>
