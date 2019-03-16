@@ -56,7 +56,7 @@ const mealTable = props => {
 				{tableData}
 				<tr>
 					<td colSpan='3'>
-						{props.options == true ? (
+						{props.options === true ? (
 							<div className='row'>
 								<Link
 									to={{
