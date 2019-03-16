@@ -25,7 +25,7 @@ export class RememberMeal extends Component {
 	};
 
 	cancelMealHandler = () => {
-		console.log('[RememberMeal.js] cancelMealHandler');
+		this.props.history.goBack();
 	};
 
 	render() {
@@ -62,10 +62,10 @@ export class RememberMeal extends Component {
 					<div className='col-2'>
 						<button
 							type='button'
-							className='btn btn-success'
+							className='btn btn-danger'
 							onClick={this.cancelMealHandler}
 						>
-							Save Meal
+							Cancel
 						</button>
 					</div>
 				</div>
