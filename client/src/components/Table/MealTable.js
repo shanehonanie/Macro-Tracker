@@ -86,7 +86,7 @@ const mealTable = props => {
 										</button>
 										<Link
 											to={{
-												pathname: '/rememberMEal',
+												pathname: '/rememberMeal',
 												state: { data: props.data }
 											}}
 										>
