@@ -22,7 +22,7 @@ const ProfileSchema = new Schema({
 				required: true
 			},
 			serving: {
-				type: String,
+				type: Number,
 				required: true
 			},
 			description: {
@@ -31,6 +31,30 @@ const ProfileSchema = new Schema({
 			date: {
 				type: Date,
 				default: Date.now
+			}
+		}
+	],
+	meals: [
+		{
+			mealName: {
+				type: String,
+				required: true
+			},
+			food: {
+				type: Schema.Types.ObjectId,
+				ref: 'food'
+			},
+			serving: {
+				type: Number,
+				required: true
+			},
+			mealOfDay: {
+				type: String,
+				required: true
+			},
+			qty: {
+				type: Number,
+				required: true
 			}
 		}
 	]

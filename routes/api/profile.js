@@ -9,7 +9,6 @@ const validateFoodsHistoryInput = require('../../validation/foodsHistory');
 
 // Load Models
 const Profile = require('../../models/Profile');
-// const User = require('../../models/User');
 const Food = require('../../models/Food');
 
 // @route GET api/profile/test
@@ -240,6 +239,42 @@ router.delete(
 				.save()
 				.then(profile => res.json(profile))
 				.catch(err => res.status(404).json(err));
+		});
+	}
+);
+
+// @route POST api/profile/meals
+// @desc Add Meal to profile
+// @access Private
+router.post(
+	'/meals',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		let errors = {};
+
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			if (profile.meals.some(item => item.name === req.body[0].mealName)) {
+				errors.mealName = 'Meal Name already exists';
+				return res.status(404).json(errors);
+			}
+
+			for (let i = 0; i < req.body.length; i++) {
+				const newMealItem = {
+					mealName: req.body[i].mealName,
+					food: req.body[i].food,
+					serving: req.body[i].serving,
+					mealOfDay: req.body[i].mealOfDay,
+					qty: req.body[i].qty
+				};
+				//push the meal to array in memory
+				profile.meals.push(newMealItem);
+			}
+
+			//there is at least a meal item and no name error then save to DB
+			if (req.body.length > 0 && !errors.name) {
+				//console.log('[profile.js routes/api profile.meals', profile.meals);
+				profile.save().then(profile => res.json(profile));
+			}
 		});
 	}
 );

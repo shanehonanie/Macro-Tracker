@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import TextFieldGroup from '../../components/UI/TextFieldGroup';
 import MealTable from '../../components/Table/MealTable';
+import * as actions from '../../store/actions/index';
 
 export class RememberMeal extends Component {
 	state = {
 		mealName: '',
-		foodsData: this.props.location.state.data
+		foodsData: this.props.location.state.data,
+		qty: 1,
+		error: {}
 	};
 
-	componentDidMount() {
-		console.log(
-			'[RememberMeal.js] this.props.location.state.data',
-			this.state.foodsData
-		);
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.error) {
+			this.setState({ error: nextProps.error });
+		}
 	}
 
 	inputChangedHandler = event => {
@@ -21,7 +24,22 @@ export class RememberMeal extends Component {
 	};
 
 	saveMealHandler = () => {
-		console.log('[RememberMeal.js] saveMealHandler');
+		const mealItems = [];
+
+		for (let i = 0; i < this.state.foodsData.length; i++) {
+			const newMealItem = {
+				mealName: this.state.mealName,
+				food: this.state.foodsData[i].food._id,
+				serving: this.state.foodsData[i].serving,
+				mealOfDay: this.state.foodsData[i].mealOfDay,
+				qty: this.state.qty
+			};
+			mealItems.push(newMealItem);
+		}
+
+		console.log('mealItems', mealItems);
+		this.props.onCreateMeal(mealItems, this.props.token);
+		this.props.history.push('/addFood');
 	};
 
 	cancelMealHandler = () => {
@@ -29,6 +47,8 @@ export class RememberMeal extends Component {
 	};
 
 	render() {
+		const { error } = this.state;
+
 		return (
 			<div className='container'>
 				<div className='row'>
@@ -46,7 +66,7 @@ export class RememberMeal extends Component {
 							name='mealName'
 							value={this.state.mealName}
 							onChange={this.inputChangedHandler}
-							error={null}
+							error={error.mealName}
 							info='Meal Name'
 						/>
 					</div>
@@ -84,4 +104,21 @@ export class RememberMeal extends Component {
 	}
 }
 
-export default RememberMeal;
+const mapStateToProps = state => {
+	return {
+		token: state.auth.token,
+		error: state.profile.error
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onCreateMeal: (mealData, token) =>
+			dispatch(actions.addMeal(mealData, token))
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(RememberMeal);

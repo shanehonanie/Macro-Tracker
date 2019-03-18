@@ -49,9 +49,10 @@ export const addFoodsHistoryStart = () => {
 	};
 };
 
-export const addFoodsHistorySuccess = () => {
+export const addFoodsHistorySuccess = profileData => {
 	return {
-		type: actionTypes.ADD_FOODS_HISTORY_SUCCESS
+		type: actionTypes.ADD_FOODS_HISTORY_SUCCESS,
+		profileData: profileData
 	};
 };
 
@@ -75,7 +76,7 @@ export const addFoodsHistory = (foodsHistoryData, token) => {
 			.post('/api/profile/foodsHistory', foodsHistoryData, { headers: headers })
 			.then(response => {
 				//console.log('[profile.js] action response.data', response.data);
-				dispatch(addFoodsHistorySuccess());
+				dispatch(addFoodsHistorySuccess(response.data));
 			})
 			.catch(err => {
 				console.log('[profile.js] actions error', err);
@@ -163,6 +164,48 @@ export const fetchCurrentProfile = token => {
 			.catch(err => {
 				console.log('[profile.js] actions error', err);
 				dispatch(fetchCurrentProfileFail(err.response.data));
+			});
+	};
+};
+
+export const addMealStart = () => {
+	return {
+		type: actionTypes.ADD_MEAL_START
+	};
+};
+
+export const addMealSuccess = profileData => {
+	return {
+		type: actionTypes.ADD_MEAL_SUCCESS,
+		profileData: profileData
+	};
+};
+
+export const addMealFail = error => {
+	return {
+		type: actionTypes.ADD_MEAL_FAIL,
+		error: error
+	};
+};
+
+export const addMeal = (mealData, token) => {
+	return dispatch => {
+		dispatch(addMealStart());
+		console.log('[profile.js] addMeal reducer mealData', mealData);
+		var headers = {
+			'Content-Type': 'application/json',
+			Authorization: token
+		};
+
+		axios
+			.post('/api/profile/meals', mealData, { headers: headers })
+			.then(response => {
+				//console.log('[profile.js] action response.data', response.data);
+				dispatch(addMealSuccess(response.data));
+			})
+			.catch(err => {
+				console.log('[profile.js] addMeal reducer error', err);
+				dispatch(addMealFail(err.response.data));
 			});
 	};
 };
