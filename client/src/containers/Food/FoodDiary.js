@@ -166,7 +166,6 @@ export class FoodDiary extends Component {
 				<MealTable
 					data={breakfestItems}
 					name='Breakfest'
-					linkTo={'/addBreakfestFood'}
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
@@ -177,7 +176,6 @@ export class FoodDiary extends Component {
 				<MealTable
 					data={lunchItems}
 					name='Lunch'
-					linkTo={'/addLunchFood'}
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
@@ -188,7 +186,6 @@ export class FoodDiary extends Component {
 				<MealTable
 					data={dinnerItems}
 					name='Dinner'
-					linkTo={'/addDinnerFood'}
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
@@ -199,7 +196,6 @@ export class FoodDiary extends Component {
 				<MealTable
 					data={snackItems}
 					name='Snacks'
-					linkTo={'/addSnackFood'}
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
