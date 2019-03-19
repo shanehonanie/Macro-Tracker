@@ -6,22 +6,26 @@ import TextFieldGroupNumber from '../../../../components/UI/TextFieldGroupNumber
 import SelectListGroup from '../../../../components/UI/SelectListGroup';
 import AddFoodTable from '../../../../components/Table/AddFoodTable';
 
-export class Breakfest extends Component {
+export class AllFoods extends Component {
 	state = {
 		selectedItem: -1,
-		mealOfDay: 'Breakfest',
+		mealOfDay: '',
 		serving: 1.0,
-		date: Date.now(),
-		//date: this.props.location.state.date,
+		date: '',
 		foodsArray: []
 	};
 
 	componentDidMount() {
 		this.props.onGetFoodsDatabase();
+
+		this.setState({
+			date: this.props.date,
+			mealOfDay: this.props.mealOfDay
+		});
 	}
 
 	listItemClickedHandler = (event, index) => {
-		//console.log('[Breakfest.js] listItemClickedHandler index', index);
+		//console.log('[AllFoods.js] listItemClickedHandler index', index);
 		this.setState({ selectedItem: index });
 		//console.log('this.state.selectedItem', this.state.selectedItem);
 	};
@@ -198,4 +202,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Breakfest);
+)(AllFoods);

@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 
-import Breakfest from './AllFoods/AllFoods';
+import AllFoods from './AllFoods/AllFoods';
 
 export class AddTo extends Component {
+	state = {
+		selectedDate: '',
+		mealName: ''
+	};
+
+	componentDidMount() {
+		this.setState({
+			selectedDate: this.props.location.state.date,
+			mealName: this.props.location.state.mealName
+		});
+	}
+
 	render() {
+		console.log('[AddToDiary.js] render this.state', this.state);
 		return (
 			<div className='container'>
 				<nav>
@@ -50,7 +63,10 @@ export class AddTo extends Component {
 						role='tabpanel'
 						aria-labelledby='nav-home-tab'
 					>
-						<Breakfest />
+						<AllFoods
+							date={this.state.selectedDate}
+							mealOfDay={this.state.mealName}
+						/>
 					</div>
 					<div
 						className='tab-pane fade'
