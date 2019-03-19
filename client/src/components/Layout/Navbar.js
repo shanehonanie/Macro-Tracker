@@ -11,7 +11,6 @@ const Navbar = props => {
 			<NavigationItem name={'Goals'} to='/goal' />
 			<NavigationItem name={'Food Database'} to='/food' />
 			<NavigationItem name={'Food'} to='/foodDiary' />
-			<NavigationItem name={'Add To'} to='/foodDiary/addToDiary' />
 			<NavigationItem name={'Logout'} to='/logout' margin='ml-' />
 		</div>
 	);
