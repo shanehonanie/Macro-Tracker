@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../../../store/actions/index';
-import TextFieldGroupNumber from '../../../components/UI/TextFieldGroupNumber';
-import SelectListGroup from '../../../components/UI/SelectListGroup';
-import AddFoodTable from '../../../components/Table/AddFoodTable';
+import * as actions from '../../../../store/actions/index';
+import TextFieldGroupNumber from '../../../../components/UI/TextFieldGroupNumber';
+import SelectListGroup from '../../../../components/UI/SelectListGroup';
+import AddFoodTable from '../../../../components/Table/AddFoodTable';
 
 export class Breakfest extends Component {
 	state = {
 		selectedItem: -1,
 		mealOfDay: 'Breakfest',
 		serving: 1.0,
-		date: this.props.location.state.date,
+		date: Date.now(),
+		//date: this.props.location.state.date,
 		foodsArray: []
 	};
 

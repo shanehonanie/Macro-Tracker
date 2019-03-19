@@ -9,7 +9,7 @@ import MealTable from '../../components/Table/MealTable';
 // import SelectListGroup from '../../components/UI/SelectListGroup';
 // import TextAreaFieldGroup from '../../components/UI/TextAreaFieldGroup';
 
-export class AddFood extends Component {
+export class FoodDiary extends Component {
 	state = {
 		food: '',
 		mealOfDay: '',
@@ -46,12 +46,12 @@ export class AddFood extends Component {
 	}
 
 	deleteClickedHandler = rowId => {
-		//console.log('[AddFood.js] rowId', rowId);
+		//console.log('[FoodDiary.js] rowId', rowId);
 		this.props.onDeleteFoodHistory(rowId, this.props.token);
 	};
 
 	isCalendarDate = otherDate => {
-		// console.log('[AddFood.js] isCalendardate otherDate', otherDate);
+		// console.log('[FoodDiary.js] isCalendardate otherDate', otherDate);
 		// console.log('otherDate instanceof Date', otherDate instanceof Date);
 		// console.log('typeof otherDate', typeof otherDate);
 
@@ -90,8 +90,8 @@ export class AddFood extends Component {
 
 	copyFromYesterday = (todaysDate, meal) => {
 		let todaysDateObj = this.state.calendarDate;
-		// console.log('[AddFoods.js] copyFromYesterday todaysDateObj', todaysDateObj);
-		// console.log('[AddFoods.js] copyFromYesterday meal', meal);
+		// console.log('[FoodDiary.js] copyFromYesterday todaysDateObj', todaysDateObj);
+		// console.log('[FoodDiary.js] copyFromYesterday meal', meal);
 		const yesterdaysMeals = this.props.profile.foodsHistory.filter(
 			item =>
 				item.mealOfDay === meal &&
@@ -304,4 +304,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(AddFood);
+)(FoodDiary);

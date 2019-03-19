@@ -10,7 +10,8 @@ const Navbar = props => {
 			<NavigationItem name={'Profile'} to='/profile' />
 			<NavigationItem name={'Goals'} to='/goal' />
 			<NavigationItem name={'Food Database'} to='/food' />
-			<NavigationItem name={'Add Food'} to='/addFood' />
+			<NavigationItem name={'Food'} to='/foodDiary' />
+			<NavigationItem name={'Add To'} to='/foodDiary/addToDiary' />
 			<NavigationItem name={'Logout'} to='/logout' margin='ml-' />
 		</div>
 	);

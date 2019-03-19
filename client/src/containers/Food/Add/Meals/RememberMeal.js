@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import TextFieldGroup from '../../components/UI/TextFieldGroup';
-import MealTable from '../../components/Table/MealTable';
-import * as actions from '../../store/actions/index';
+import TextFieldGroup from '../../../../components/UI/TextFieldGroup';
+import MealTable from '../../../../components/Table/MealTable';
+import * as actions from '../../../../store/actions/index';
 
 export class RememberMeal extends Component {
 	state = {

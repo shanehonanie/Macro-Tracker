@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../../store/actions/index';
-import TextFieldGroup from '../../components/UI/TextFieldGroup';
+import * as actions from '../../../store/actions/index';
+import TextFieldGroup from '../../../components/UI/TextFieldGroup';
 
 export class Food extends Component {
 	state = {
