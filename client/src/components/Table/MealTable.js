@@ -60,8 +60,8 @@ const mealTable = props => {
 							<div className='row'>
 								<Link
 									to={{
-										pathname: props.linkTo,
-										state: { date: props.selectedDate }
+										pathname: '/foodDiary/addToDiary',
+										state: { date: props.selectedDate, mealName: props.name }
 									}}
 								>
 									Add Food
