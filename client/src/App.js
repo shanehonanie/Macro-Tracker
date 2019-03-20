@@ -12,7 +12,7 @@ import FoodDB from './containers/Food/FoodDB/FoodDB';
 import Goal from './containers/Goal/Goal';
 import EditGoal from './containers/Goal/EditGoal';
 import FoodDiary from './containers/Food/FoodDiary';
-// import RememberMeal from './containers/Food/AddTo/Meals/RememberMeal';
+import RememberMeal from './containers/Food/Add/Meals/RememberMeal';
 // import Breakfest from './containers/Food/AddTo/Breakfest';
 import AddToDiary from './containers/Food/Add/AddToDiary';
 // import Lunch from './containers/Food/AddTo/Lunch';
@@ -50,7 +50,7 @@ class App extends Component {
 					<Route exact path='/addLunchFood' component={Lunch} />
 					<Route exact path='/addDinnerFood' component={Dinner} />
 					<Route exact path='/addSnackFood' component={Snack} /> */}
-					{/* <Route exact path='/rememberMeal' component={RememberMeal} /> */}
+					<Route exact path='/rememberMeal' component={RememberMeal} />
 					<Route exact path='/profile' component={Profile} />
 					<Route exact path='/dashboard' component={Dashboard} />
 					<Route exact path='/logout' component={Logout} />
