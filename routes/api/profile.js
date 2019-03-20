@@ -159,13 +159,6 @@ router.post(
 		let errors = {};
 		let foodNames = req.body.map(food => food.food);
 
-		//console.log('[profile.js] routes/api req.body', req.body);
-		// console.log(
-		// 	'[profile.js] routes/api req.body[0].foodArr._id',
-		// 	req.body[0].foodArr._id
-		// );
-		// 	let foodsFound = Food.find({ name: { $in: foodNames } });
-
 		Profile.findOne({ user: req.user.id }).then(profile => {
 			Food.find({ name: { $in: foodNames } })
 				.then(foods => {
@@ -316,7 +309,7 @@ router.post(
 			}
 
 			//there is at least a meal item and no name error then save to DB
-			if (req.body.length > 0 && !errors.name) {
+			if (req.body.length > 0 && !errors.mealName) {
 				//console.log('[profile.js routes/api profile.meals', profile.meals);
 				profile.save().then(profile => res.json(profile));
 			}
