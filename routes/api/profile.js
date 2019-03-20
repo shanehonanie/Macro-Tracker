@@ -157,7 +157,7 @@ router.post(
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		let errors = {};
-		let foodNames = req.body.map(food => food.food);
+		let foodNames = req.body.map(food => food.foodName);
 
 		Profile.findOne({ user: req.user.id }).then(profile => {
 			Food.find({ name: { $in: foodNames } })
@@ -169,7 +169,7 @@ router.post(
 
 			for (let i = 0; i < req.body.length; i++) {
 				const newFoodItem = {
-					food: req.body[i].foodArr._id,
+					food: req.body[i].foodId,
 					mealOfDay: req.body[i].mealOfDay,
 					serving: req.body[i].serving,
 					description: req.body[i].description,
@@ -299,7 +299,8 @@ router.post(
 			for (let i = 0; i < req.body.length; i++) {
 				const newMealItem = {
 					mealName: req.body[i].mealName,
-					food: req.body[i].food,
+					foodName: req.body[i].foodName,
+					foodId: req.body[i].foodId,
 					serving: req.body[i].serving,
 					mealOfDay: req.body[i].mealOfDay,
 					qty: req.body[i].qty
