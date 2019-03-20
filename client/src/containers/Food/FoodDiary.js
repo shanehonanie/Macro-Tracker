@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import * as actions from '../../store/actions/index';
 import FoodDiaryTable from '../../components/Table/FoodDiaryTable';
+import Spinner from '../../components/UI/Spinner';
 // import TextFieldGroup from '../../components/UI/TextFieldGroup';
 // import SelectListGroup from '../../components/UI/SelectListGroup';
 // import TextAreaFieldGroup from '../../components/UI/TextAreaFieldGroup';
@@ -125,10 +126,17 @@ export class FoodDiary extends Component {
 		let lunchItems = null;
 		let dinnerItems = null;
 		let snackItems = null;
+
 		let breakfestTable = null;
 		let lunchTable = null;
 		let dinnerTable = null;
 		let snackTable = null;
+		let allTableMeals = this.props.loading ? (
+			<Spinner />
+		) : (
+			<p>Data can't be loaded</p>
+		);
+
 		let calorieSum = 0;
 		let proteinSum = 0;
 		let carbsSum = 0;
@@ -220,6 +228,15 @@ export class FoodDiary extends Component {
 			goalFiber = this.props.goal.dailyFiber;
 		}
 
+		allTableMeals = (
+			<div className='container'>
+				<div className='row'>{breakfestTable}</div>
+				<div className='row'>{lunchTable}</div>
+				<div className='row'>{dinnerTable}</div>
+				<div className='row'>{snackTable}</div>
+			</div>
+		);
+
 		return (
 			<div className='add-food'>
 				<div className='container'>
@@ -228,11 +245,7 @@ export class FoodDiary extends Component {
 						onChange={this.handleChange.bind(this)}
 					/>
 				</div>
-				<div className='container'>{breakfestTable}</div>
-				<div className='container'>{lunchTable}</div>
-				<div className='container'>{dinnerTable}</div>
-				<div className='container'>{snackTable}</div>
-
+				{allTableMeals}
 				<div className='container'>
 					<table className='table'>
 						<tbody>
