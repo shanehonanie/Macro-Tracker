@@ -15,13 +15,20 @@ export class AllFoods extends Component {
 		foodsArray: []
 	};
 
+	static getDerivedStateFromProps(nextProps, prevState) {
+		// console.log('[AllFoods.js] getDerivedStateFromprops nextProps', nextProps);
+		// console.log('[AllFoods.js] getDerivedStateFromprops prevState', prevState);
+		if (prevState.date === '' && nextProps.date) {
+			return {
+				date: nextProps.date,
+				mealOfDay: nextProps.mealOfDay
+			};
+		}
+		return null;
+	}
+
 	componentDidMount() {
 		this.props.onGetFoodsDatabase();
-
-		this.setState({
-			date: this.props.date,
-			mealOfDay: this.props.mealOfDay
-		});
 	}
 
 	listItemClickedHandler = (event, index) => {
@@ -60,18 +67,16 @@ export class AllFoods extends Component {
 	};
 
 	saveFoodsClickedHandler = event => {
-		//console.log('saveFoodsClickedHandler');
-		//console.log('this.state.foodsArray[0]', this.state.foodsArray[0]);
-
 		for (let i = 0; i < this.state.foodsArray.length; i++) {
-			//console.log('i: ' + i);
-			//console.log('this.state.foodsArray[i]', this.state.foodsArray[i]);
 			this.props.onCreateFoodsHistory(
 				this.state.foodsArray[i],
 				this.props.token
 			);
 		}
-		this.props.history.push('/addFood');
+		this.props.history.push('/foodDiary');
+		// console.log('[AllFoods.js] this.state.date', this.state.date);
+		// console.log('[AllFoods.js] this.state.mealOfDay', this.state.mealOfDay);
+		// console.log('[AllFoods.js] this.props', this.props);
 	};
 
 	render() {
