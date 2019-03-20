@@ -32,9 +32,12 @@ export class AllFoods extends Component {
 	}
 
 	listItemClickedHandler = (event, index) => {
-		//console.log('[AllFoods.js] listItemClickedHandler index', index);
+		// change to default 1 if new item selected
+		if (this.state.selectedItem !== index) {
+			this.setState({ serving: 1 });
+		}
+
 		this.setState({ selectedItem: index });
-		//console.log('this.state.selectedItem', this.state.selectedItem);
 	};
 
 	deleteClickedHandler = index => {
