@@ -159,7 +159,7 @@ export class FoodDiary extends Component {
 			);
 
 			snackItems = this.props.profile.foodsHistory.filter(
-				item => item.mealOfDay === 'Snack' && this.isCalendarDate(item.date)
+				item => item.mealOfDay === 'Snacks' && this.isCalendarDate(item.date)
 			);
 
 			breakfestTable = (
