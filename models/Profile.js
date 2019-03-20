@@ -40,8 +40,13 @@ const ProfileSchema = new Schema({
 				type: String,
 				required: true
 			},
-			food: {
+			foodName: {
 				type: String,
+				required: true
+			},
+			foodId: {
+				type: Schema.Types.ObjectId,
+				ref: 'food',
 				required: true
 			},
 			serving: {
