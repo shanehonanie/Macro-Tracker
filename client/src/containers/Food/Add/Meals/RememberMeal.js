@@ -29,7 +29,7 @@ export class RememberMeal extends Component {
 		for (let i = 0; i < this.state.foodsData.length; i++) {
 			const newMealItem = {
 				mealName: this.state.mealName,
-				food: this.state.foodsData[i].food._id,
+				food: this.state.foodsData[i].food.name,
 				serving: this.state.foodsData[i].serving,
 				mealOfDay: this.state.foodsData[i].mealOfDay,
 				qty: this.state.qty
