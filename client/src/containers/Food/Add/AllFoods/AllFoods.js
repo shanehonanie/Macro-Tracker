@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-import * as actions from '../../../../store/actions/index';
 import TextFieldGroupNumber from '../../../../components/UI/TextFieldGroupNumber';
 import SelectListGroup from '../../../../components/UI/SelectListGroup';
 import AddFoodTable from '../../../../components/Table/AddFoodTable';
@@ -25,10 +23,6 @@ export class AllFoods extends Component {
 			};
 		}
 		return null;
-	}
-
-	componentDidMount() {
-		this.props.onGetFoodsDatabase();
 	}
 
 	listItemClickedHandler = (event, index) => {
@@ -65,21 +59,6 @@ export class AllFoods extends Component {
 		this.setState({
 			foodsArray: [...this.state.foodsArray, newItem]
 		});
-
-		//console.log('this.state.foodsArray', this.state.foodsArray);
-	};
-
-	saveFoodsClickedHandler = event => {
-		for (let i = 0; i < this.state.foodsArray.length; i++) {
-			this.props.onCreateFoodsHistory(
-				this.state.foodsArray[i],
-				this.props.token
-			);
-		}
-		this.props.history.push('/foodDiary');
-		// console.log('[AllFoods.js] this.state.date', this.state.date);
-		// console.log('[AllFoods.js] this.state.mealOfDay', this.state.mealOfDay);
-		// console.log('[AllFoods.js] this.props', this.props);
 	};
 
 	render() {
@@ -180,7 +159,7 @@ export class AllFoods extends Component {
 					<button
 						type='button'
 						className='btn btn-success'
-						onClick={this.saveFoodsClickedHandler}
+						onClick={() => this.props.onSaveAllFoods(this.state.foodsArray)}
 					>
 						Save Data
 					</button>
@@ -190,24 +169,4 @@ export class AllFoods extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		error: state.profile.error,
-		token: state.auth.token,
-		foodsDatabase: state.food.foods,
-		loading: state.food.loading
-	};
-};
-
-const mapDispatchToProps = dispatch => {
-	return {
-		onCreateFoodsHistory: (foodsHistoryData, token) =>
-			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
-		onGetFoodsDatabase: () => dispatch(actions.fetchFoods())
-	};
-};
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(AllFoods);
+export default AllFoods;

@@ -21,6 +21,7 @@ export class AddToDiary extends Component {
 		});
 
 		this.props.onGetCurrentProfile(this.props.token);
+		this.props.onGetFoodsDatabase();
 
 		if (this.props.profile) {
 			let uniqueMealsTemp = [
@@ -52,6 +53,15 @@ export class AddToDiary extends Component {
 	deleteMealClickedHandler = mealName => {
 		console.log('[AddToDiary.js] deleteMealClickedHandler mealName', mealName);
 		this.props.onDeleteMeal(mealName, this.props.token);
+	};
+
+	onSaveAllFoods = foodsArray => {
+		console.log('[AddToDiary.js] onSaveAllFoods foodsArray', foodsArray);
+
+		for (let i = 0; i < foodsArray.length; i++) {
+			this.props.onCreateFoodsHistory(foodsArray[i], this.props.token);
+		}
+		this.props.history.push('/foodDiary');
 	};
 
 	render() {
@@ -104,7 +114,8 @@ export class AddToDiary extends Component {
 						<AllFoods
 							date={this.state.selectedDate}
 							mealOfDay={this.state.mealName}
-							history={this.props.history}
+							foodsDatabase={this.props.foodsDatabase}
+							onSaveAllFoods={this.onSaveAllFoods}
 						/>
 					</div>
 					<div
@@ -138,7 +149,8 @@ const mapStateToProps = state => {
 		token: state.auth.token,
 		profile: state.profile.profile,
 		loading: state.profile.loading,
-		error: state.profile.error
+		error: state.profile.error,
+		foodsDatabase: state.food.foods
 	};
 };
 
@@ -148,7 +160,8 @@ const mapDispatchToProps = dispatch => {
 		onCreateFoodsHistory: (foodsHistoryData, token) =>
 			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
 		onDeleteMeal: (mealName, token) =>
-			dispatch(actions.removeMeal(mealName, token))
+			dispatch(actions.removeMeal(mealName, token)),
+		onGetFoodsDatabase: () => dispatch(actions.fetchFoods())
 	};
 };
 
