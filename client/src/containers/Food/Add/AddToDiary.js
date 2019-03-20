@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import AllFoods from './AllFoods/AllFoods';
+import AddMeal from './Meals/AddMeal';
+// import AddMealTable from '../../../components/Table/AddMealTable';
+// import Spinner from '../../../components/UI/Spinner';
+import * as actions from '../../../store/actions/index';
 
-export class AddTo extends Component {
+export class AddToDiary extends Component {
 	state = {
 		selectedDate: '',
-		mealName: ''
+		mealName: '',
+		uniqueMeals: []
 	};
 
 	componentDidMount() {
@@ -13,10 +19,46 @@ export class AddTo extends Component {
 			selectedDate: this.props.location.state.date,
 			mealName: this.props.location.state.mealName
 		});
+
+		this.props.onGetCurrentProfile(this.props.token);
+
+		if (this.props.profile) {
+			let uniqueMealsTemp = [
+				...new Set(this.props.profile.meals.map(item => item.mealName))
+			];
+			uniqueMealsTemp.sort();
+			this.setState({ uniqueMeals: uniqueMealsTemp });
+		}
 	}
 
+	addMealsToFoodsHistoryHandler = mealsChecked => {
+		// console.log('[AddToDiary.js] addMealsToFoodsHistoryHandler');
+		// console.log('[AddToDiary.js] mealChecked', mealsChecked);
+		//console.log(this.props.profile);
+
+		let matchingFoods = this.props.profile.meals.filter(item => {
+			return mealsChecked.includes(item.mealName);
+		});
+
+		// console.log(
+		// 	'[AddToDiary.js] addMealsToFoodsHistoryHandler matchingFoods',
+		// 	matchingFoods
+		// );
+
+		for (let i = 0; i < matchingFoods.length; i++) {
+			const foodsHistoryData = {
+				food: matchingFoods[i].food,
+				mealOfDay: this.state.mealName,
+				serving: matchingFoods[i].serving,
+				date: this.state.selectedDate,
+				description: 'testing'
+			};
+			this.props.onCreateFoodsHistory(foodsHistoryData, this.props.token);
+		}
+		this.props.history.push('/foodDiary');
+	};
+
 	render() {
-		console.log('[AddToDiary.js] render this.state', this.state);
 		return (
 			<div className='container'>
 				<nav>
@@ -41,7 +83,7 @@ export class AddTo extends Component {
 							aria-controls='nav-profile'
 							aria-selected='false'
 						>
-							Recent
+							Meals
 						</a>
 						<a
 							className='nav-item nav-link'
@@ -52,7 +94,7 @@ export class AddTo extends Component {
 							aria-controls='nav-contact'
 							aria-selected='false'
 						>
-							Meals
+							Recent
 						</a>
 					</div>
 				</nav>
@@ -66,6 +108,7 @@ export class AddTo extends Component {
 						<AllFoods
 							date={this.state.selectedDate}
 							mealOfDay={this.state.mealName}
+							history={this.props.history}
 						/>
 					</div>
 					<div
@@ -74,7 +117,10 @@ export class AddTo extends Component {
 						role='tabpanel'
 						aria-labelledby='nav-profile-tab'
 					>
-						test 2
+						<AddMeal
+							meals={this.state.uniqueMeals}
+							addToHistory={this.addMealsToFoodsHistoryHandler}
+						/>
 					</div>
 					<div
 						className='tab-pane fade'
@@ -90,4 +136,24 @@ export class AddTo extends Component {
 	}
 }
 
-export default AddTo;
+const mapStateToProps = state => {
+	return {
+		token: state.auth.token,
+		profile: state.profile.profile,
+		loading: state.profile.loading,
+		error: state.profile.error
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token)),
+		onCreateFoodsHistory: (foodsHistoryData, token) =>
+			dispatch(actions.addFoodsHistory(foodsHistoryData, token))
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(AddToDiary);
