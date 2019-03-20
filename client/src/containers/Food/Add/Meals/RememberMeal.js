@@ -39,7 +39,7 @@ export class RememberMeal extends Component {
 
 		console.log('mealItems', mealItems);
 		this.props.onCreateMeal(mealItems, this.props.token);
-		this.props.history.push('/addFood');
+		this.props.history.push('/foodDiary');
 	};
 
 	cancelMealHandler = () => {
