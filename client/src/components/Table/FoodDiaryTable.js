@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const mealTable = props => {
+const foodDiaryTable = props => {
 	let calorieSum = 0;
 	let proteinSum = 0;
 	let carbsSum = 0;
@@ -9,7 +9,7 @@ const mealTable = props => {
 	let fiberSum = 0;
 
 	const tableData = props.data.map((row, index) => {
-		//console.log('[MealTable.js] row', row);
+		//console.log('[foodDiaryTable.js] row', row);
 		calorieSum += row.serving * row.food.calories;
 		proteinSum += row.serving * row.food.protein;
 		carbsSum += row.serving * row.food.carbs;
@@ -126,4 +126,4 @@ const mealTable = props => {
 	);
 };
 
-export default mealTable;
+export default foodDiaryTable;

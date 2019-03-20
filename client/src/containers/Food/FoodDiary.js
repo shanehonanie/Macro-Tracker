@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import * as actions from '../../store/actions/index';
-import MealTable from '../../components/Table/MealTable';
+import FoodDiaryTable from '../../components/Table/FoodDiaryTable';
 // import TextFieldGroup from '../../components/UI/TextFieldGroup';
 // import SelectListGroup from '../../components/UI/SelectListGroup';
 // import TextAreaFieldGroup from '../../components/UI/TextAreaFieldGroup';
@@ -163,7 +163,7 @@ export class FoodDiary extends Component {
 			);
 
 			breakfestTable = (
-				<MealTable
+				<FoodDiaryTable
 					data={breakfestItems}
 					name='Breakfest'
 					selectedDate={this.state.calendarDate}
@@ -173,7 +173,7 @@ export class FoodDiary extends Component {
 				/>
 			);
 			lunchTable = (
-				<MealTable
+				<FoodDiaryTable
 					data={lunchItems}
 					name='Lunch'
 					selectedDate={this.state.calendarDate}
@@ -183,7 +183,7 @@ export class FoodDiary extends Component {
 				/>
 			);
 			dinnerTable = (
-				<MealTable
+				<FoodDiaryTable
 					data={dinnerItems}
 					name='Dinner'
 					selectedDate={this.state.calendarDate}
@@ -193,7 +193,7 @@ export class FoodDiary extends Component {
 				/>
 			);
 			snackTable = (
-				<MealTable
+				<FoodDiaryTable
 					data={snackItems}
 					name='Snacks'
 					selectedDate={this.state.calendarDate}

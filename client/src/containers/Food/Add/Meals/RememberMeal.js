@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import TextFieldGroup from '../../../../components/UI/TextFieldGroup';
-import MealTable from '../../../../components/Table/MealTable';
+import FoodDiaryTable from '../../../../components/Table/FoodDiaryTable';
 import * as actions from '../../../../store/actions/index';
 
 export class RememberMeal extends Component {
@@ -90,7 +90,7 @@ export class RememberMeal extends Component {
 					</div>
 				</div>
 				<div className='row'>
-					<MealTable
+					<FoodDiaryTable
 						data={this.state.foodsData}
 						name='Items in Meal'
 						linkTo={null}
