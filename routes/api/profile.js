@@ -287,18 +287,11 @@ router.delete(
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		Profile.findOne({ user: req.user.id }).then(profile => {
-			console.log(
-				'[profile.js] routes/api profile.meals before',
-				profile.meals
-			);
-
 			// filter out the matching meal names
 			const newMealsArray = profile.meals.filter(
 				meal => meal.mealName !== req.params.meal_name
 			);
 			profile.meals = newMealsArray;
-
-			console.log('[profile.js] routes/api profile.meals after', profile.meals);
 
 			// Save
 			profile
