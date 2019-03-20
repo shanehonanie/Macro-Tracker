@@ -32,18 +32,9 @@ export class AddToDiary extends Component {
 	}
 
 	addMealsToFoodsHistoryHandler = mealsChecked => {
-		// console.log('[AddToDiary.js] addMealsToFoodsHistoryHandler');
-		// console.log('[AddToDiary.js] mealChecked', mealsChecked);
-		//console.log(this.props.profile);
-
 		let matchingFoods = this.props.profile.meals.filter(item => {
 			return mealsChecked.includes(item.mealName);
 		});
-
-		// console.log(
-		// 	'[AddToDiary.js] addMealsToFoodsHistoryHandler matchingFoods',
-		// 	matchingFoods
-		// );
 
 		for (let i = 0; i < matchingFoods.length; i++) {
 			const foodsHistoryData = {
@@ -58,6 +49,11 @@ export class AddToDiary extends Component {
 		this.props.history.push('/foodDiary');
 	};
 
+	deleteMealClickedHandler = mealName => {
+		console.log('[AddToDiary.js] deleteMealClickedHandler mealName', mealName);
+		this.props.onDeleteMeal(mealName, this.props.token);
+	};
+
 	render() {
 		return (
 			<div className='container'>
@@ -65,33 +61,33 @@ export class AddToDiary extends Component {
 					<div className='nav nav-tabs' id='nav-tab' role='tablist'>
 						<a
 							className='nav-item nav-link active'
-							id='nav-home-tab'
+							id='nav-allFoods-tab'
 							data-toggle='tab'
-							href='#nav-home'
+							href='#nav-allFoods'
 							role='tab'
-							aria-controls='nav-home'
+							aria-controls='nav-allFoods'
 							aria-selected='true'
 						>
 							All Foods
 						</a>
 						<a
 							className='nav-item nav-link'
-							id='nav-profile-tab'
+							id='nav-meals-tab'
 							data-toggle='tab'
-							href='#nav-profile'
+							href='#nav-meals'
 							role='tab'
-							aria-controls='nav-profile'
+							aria-controls='nav-meals'
 							aria-selected='false'
 						>
 							Meals
 						</a>
 						<a
 							className='nav-item nav-link'
-							id='nav-contact-tab'
+							id='nav-recent-tab'
 							data-toggle='tab'
-							href='#nav-contact'
+							href='#nav-recent'
 							role='tab'
-							aria-controls='nav-contact'
+							aria-controls='nav-recent'
 							aria-selected='false'
 						>
 							Recent
@@ -101,9 +97,9 @@ export class AddToDiary extends Component {
 				<div className='tab-content' id='nav-tabContent'>
 					<div
 						className='tab-pane fade show active'
-						id='nav-home'
+						id='nav-allFoods'
 						role='tabpanel'
-						aria-labelledby='nav-home-tab'
+						aria-labelledby='nav-allFoods-tab'
 					>
 						<AllFoods
 							date={this.state.selectedDate}
@@ -113,20 +109,21 @@ export class AddToDiary extends Component {
 					</div>
 					<div
 						className='tab-pane fade'
-						id='nav-profile'
+						id='nav-meals'
 						role='tabpanel'
-						aria-labelledby='nav-profile-tab'
+						aria-labelledby='nav-meals-tab'
 					>
 						<AddMeal
 							meals={this.state.uniqueMeals}
 							addToHistory={this.addMealsToFoodsHistoryHandler}
+							onClick={this.deleteMealClickedHandler}
 						/>
 					</div>
 					<div
 						className='tab-pane fade'
-						id='nav-contact'
+						id='nav-recent'
 						role='tabpanel'
-						aria-labelledby='nav-contact-tab'
+						aria-labelledby='nav-recent-tab'
 					>
 						test 3
 					</div>
@@ -149,7 +146,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token)),
 		onCreateFoodsHistory: (foodsHistoryData, token) =>
-			dispatch(actions.addFoodsHistory(foodsHistoryData, token))
+			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
+		onDeleteMeal: (mealName, token) =>
+			dispatch(actions.removeMeal(mealName, token))
 	};
 };
 

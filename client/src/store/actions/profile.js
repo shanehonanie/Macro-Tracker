@@ -209,3 +209,45 @@ export const addMeal = (mealData, token) => {
 			});
 	};
 };
+//////////////////////////
+export const removeMealStart = () => {
+	return {
+		type: actionTypes.REMOVE_MEAL_START
+	};
+};
+
+export const removeMealSuccess = profileData => {
+	return {
+		type: actionTypes.REMOVE_MEAL_SUCCESS,
+		profileData: profileData
+	};
+};
+
+export const removeMealFail = error => {
+	return {
+		type: actionTypes.REMOVE_MEAL_FAIL,
+		error: error
+	};
+};
+
+export const removeMeal = (mealName, token) => {
+	return dispatch => {
+		dispatch(removeMealStart());
+		//console.log('[profile.js] removeMeal reducer mealName', mealName);
+		var headers = {
+			'Content-Type': 'application/json',
+			Authorization: token
+		};
+
+		axios
+			.delete('/api/profile/meals/' + mealName, { headers: headers })
+			.then(response => {
+				//console.log('[profile.js] action response.data', response.data);
+				dispatch(removeMealSuccess(response.data));
+			})
+			.catch(err => {
+				console.log('[profile.js] removeMeal reducer error', err);
+				dispatch(removeMealFail(err.response.data));
+			});
+	};
+};

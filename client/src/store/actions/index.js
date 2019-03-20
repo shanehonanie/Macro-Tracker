@@ -9,5 +9,6 @@ export {
 	addFoodsHistory,
 	fetchCurrentProfile,
 	removeFoodHistory,
-	addMeal
+	addMeal,
+	removeMeal
 } from './profile';

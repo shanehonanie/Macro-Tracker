@@ -49,6 +49,7 @@ export class AddMeal extends Component {
 					<AddMealTable
 						data={this.state.uniqueMealItems}
 						checkedOnChange={this.handleInputChange}
+						onClick={this.props.onClick}
 					/>
 					<button
 						type='button'

@@ -279,4 +279,34 @@ router.post(
 	}
 );
 
+// @route DELETE api/profile/meals/:meal_name
+// @desc Delete All matching meal names from profile
+// @access Private
+router.delete(
+	'/meals/:meal_name',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			console.log(
+				'[profile.js] routes/api profile.meals before',
+				profile.meals
+			);
+
+			// filter out the matching meal names
+			const newMealsArray = profile.meals.filter(
+				meal => meal.mealName !== req.params.meal_name
+			);
+			profile.meals = newMealsArray;
+
+			console.log('[profile.js] routes/api profile.meals after', profile.meals);
+
+			// Save
+			profile
+				.save()
+				.then(profile => res.json(profile))
+				.catch(err => res.status(404).json(err));
+		});
+	}
+);
+
 module.exports = router;

@@ -96,7 +96,6 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
-		//////////////////////////
 		case actionTypes.ADD_MEAL_START:
 			return {
 				...state,
@@ -136,7 +135,26 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
-		////////////////////////////
+
+		case actionTypes.REMOVE_MEAL_START:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case actionTypes.REMOVE_MEAL_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				profile: action.profileData
+			};
+		case actionTypes.REMOVE_MEAL_FAIL:
+			return {
+				...state,
+				error: action.error,
+				loading: false
+			};
 		default:
 			return state;
 	}
