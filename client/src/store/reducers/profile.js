@@ -67,6 +67,27 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
+		////////////////
+		case actionTypes.ADD_FOODS_HISTORY_BULK_START:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case actionTypes.ADD_FOODS_HISTORY_BULK_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				profile: action.profileData
+			};
+		case actionTypes.ADD_FOODS_HISTORY_BULK_FAIL:
+			return {
+				...state,
+				error: action.error,
+				loading: false
+			};
+		//////////////
 		case actionTypes.REMOVE_FOOD_HISTORY_START:
 			return {
 				...state,

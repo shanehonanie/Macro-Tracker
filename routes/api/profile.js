@@ -153,6 +153,51 @@ router.post(
 // @access Private
 // TODO: Add edit capability
 router.post(
+	'/foodsHistoryBulk',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		let errors = {};
+		let foodNames = req.body.map(food => food.food);
+
+		//console.log('[profile.js] routes/api req.body', req.body);
+		// console.log(
+		// 	'[profile.js] routes/api req.body[0].foodArr._id',
+		// 	req.body[0].foodArr._id
+		// );
+		// 	let foodsFound = Food.find({ name: { $in: foodNames } });
+
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			Food.find({ name: { $in: foodNames } })
+				.then(foods => {
+					if (foods.length !== foodNames.length)
+						errors.name = 'Not all food names found';
+				})
+				.catch(err => res.status(404).json(err));
+
+			for (let i = 0; i < req.body.length; i++) {
+				const newFoodItem = {
+					food: req.body[i].foodArr._id,
+					mealOfDay: req.body[i].mealOfDay,
+					serving: req.body[i].serving,
+					description: req.body[i].description,
+					date: req.body[i].date
+				};
+				profile.foodsHistory.push(newFoodItem);
+			}
+
+			// there must be at least 1 item in array & no name error
+			if (req.body.length > 0 && !errors.name) {
+				profile.save().then(profile => res.json(profile));
+			}
+		});
+	}
+);
+
+// @route POST api/profile/foodsHistory
+// @desc Add Food item to profile
+// @access Private
+// TODO: Add edit capability
+router.post(
 	'/foodsHistory',
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {

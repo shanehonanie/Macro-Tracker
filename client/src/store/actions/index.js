@@ -7,6 +7,7 @@ export { addFood, fetchFoods } from './food';
 export {
 	addProfile,
 	addFoodsHistory,
+	addFoodsHistoryBulk,
 	fetchCurrentProfile,
 	removeFoodHistory,
 	addMeal,

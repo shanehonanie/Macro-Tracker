@@ -56,11 +56,8 @@ export class AddToDiary extends Component {
 	};
 
 	onSaveAllFoods = foodsArray => {
-		console.log('[AddToDiary.js] onSaveAllFoods foodsArray', foodsArray);
-
-		for (let i = 0; i < foodsArray.length; i++) {
-			this.props.onCreateFoodsHistory(foodsArray[i], this.props.token);
-		}
+		//console.log('[AddToDiary.js] onSaveAllFoods foodsArray', foodsArray);
+		this.props.onCreateFoodsHistoryBulk(foodsArray, this.props.token);
 		this.props.history.push('/foodDiary');
 	};
 
@@ -159,6 +156,8 @@ const mapDispatchToProps = dispatch => {
 		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token)),
 		onCreateFoodsHistory: (foodsHistoryData, token) =>
 			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
+		onCreateFoodsHistoryBulk: (foodsHistoryData, token) =>
+			dispatch(actions.addFoodsHistoryBulk(foodsHistoryData, token)),
 		onDeleteMeal: (mealName, token) =>
 			dispatch(actions.removeMeal(mealName, token)),
 		onGetFoodsDatabase: () => dispatch(actions.fetchFoods())
