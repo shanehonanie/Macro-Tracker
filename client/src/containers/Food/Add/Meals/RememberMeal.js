@@ -25,19 +25,19 @@ export class RememberMeal extends Component {
 
 	saveMealHandler = () => {
 		const mealItems = [];
+		console.log(this.state.foodsData);
 
 		for (let i = 0; i < this.state.foodsData.length; i++) {
 			const newMealItem = {
 				mealName: this.state.mealName,
-				food: this.state.foodsData[i].food.name,
+				foodName: this.state.foodsData[i].food.name,
+				foodId: this.state.foodsData[i].food._id,
 				serving: this.state.foodsData[i].serving,
 				mealOfDay: this.state.foodsData[i].mealOfDay,
 				qty: this.state.qty
 			};
 			mealItems.push(newMealItem);
 		}
-
-		console.log('mealItems', mealItems);
 		this.props.onCreateMeal(mealItems, this.props.token);
 		this.props.history.push('/foodDiary');
 	};

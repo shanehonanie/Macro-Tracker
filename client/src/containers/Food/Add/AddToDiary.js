@@ -37,16 +37,25 @@ export class AddToDiary extends Component {
 			return mealsChecked.includes(item.mealName);
 		});
 
+		// console.log(
+		// 	'[AddToDiary.js] addMealsToFoodsHistoryHandler matchingFoods',
+		// 	matchingFoods
+		// );
+
+		let foodsHistoryArray = [];
+
 		for (let i = 0; i < matchingFoods.length; i++) {
 			const foodsHistoryData = {
-				food: matchingFoods[i].food,
+				foodName: matchingFoods[i].foodName,
+				foodId: matchingFoods[i].foodId,
 				mealOfDay: this.state.mealName,
 				serving: matchingFoods[i].serving,
 				date: this.state.selectedDate,
 				description: 'testing'
 			};
-			this.props.onCreateFoodsHistory(foodsHistoryData, this.props.token);
+			foodsHistoryArray.push(foodsHistoryData);
 		}
+		this.props.onCreateFoodsHistoryBulk(foodsHistoryArray, this.props.token);
 		this.props.history.push('/foodDiary');
 	};
 
@@ -56,8 +65,26 @@ export class AddToDiary extends Component {
 	};
 
 	onSaveAllFoods = foodsArray => {
+		let foodsHistoryArray = [];
 		//console.log('[AddToDiary.js] onSaveAllFoods foodsArray', foodsArray);
-		this.props.onCreateFoodsHistoryBulk(foodsArray, this.props.token);
+
+		for (let i = 0; i < foodsArray.length; i++) {
+			const foodsHistoryData = {
+				foodName: foodsArray[i].foodArr.name,
+				foodId: foodsArray[i].foodArr._id,
+				mealOfDay: foodsArray[i].mealOfDay,
+				serving: foodsArray[i].serving,
+				date: foodsArray[i].date,
+				description: foodsArray[i].description
+			};
+			foodsHistoryArray.push(foodsHistoryData);
+		}
+
+		// console.log(
+		// 	'[AddToDiary.js] onSaveAllFoods foodsHistoryArray',
+		// 	foodsHistoryArray
+		// );
+		this.props.onCreateFoodsHistoryBulk(foodsHistoryArray, this.props.token);
 		this.props.history.push('/foodDiary');
 	};
 
@@ -154,8 +181,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token)),
-		onCreateFoodsHistory: (foodsHistoryData, token) =>
-			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
 		onCreateFoodsHistoryBulk: (foodsHistoryData, token) =>
 			dispatch(actions.addFoodsHistoryBulk(foodsHistoryData, token)),
 		onDeleteMeal: (mealName, token) =>
