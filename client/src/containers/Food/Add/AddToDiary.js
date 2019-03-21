@@ -14,7 +14,19 @@ export class AddToDiary extends Component {
 		uniqueMeals: []
 	};
 
+	// static getDerivedStateFromProps(nextProps, prevState) {
+	// 	// console.log('[AddToDiary.js] getDerivedStateFromprops nextProps', nextProps);
+	// 	// console.log('[AddToDiary.js] getDerivedStateFromprops prevState', prevState);
+	// 	if (prevState.uniqueMealItems.length === 0 && nextProps.meals) {
+	// 		return {
+	// 			uniqueMealItems: nextProps.meals
+	// 		};
+	// 	}
+	// 	return null;
+	// }
+
 	componentDidMount() {
+		//console.log('[AddToDiary.js] componentDidMount');
 		this.setState({
 			selectedDate: this.props.location.state.date,
 			mealName: this.props.location.state.mealName
@@ -62,8 +74,20 @@ export class AddToDiary extends Component {
 	};
 
 	deleteMealClickedHandler = mealName => {
-		console.log('[AddToDiary.js] deleteMealClickedHandler mealName', mealName);
+		//console.log('[AddToDiary.js] deleteMealClickedHandler mealName', mealName);
 		this.props.onDeleteMeal(mealName, this.props.token);
+
+		// if (this.props.profile) {
+		// 	let updatedUniqueMeals = [
+		// 		...new Set(this.props.profile.meals.map(item => item.mealName))
+		// 	];
+		// 	updatedUniqueMeals.sort();
+		// 	console.log(
+		// 		'[AddToDiary.js] deleteMealClickedHandler updatedUniqueMeals before setState',
+		// 		updatedUniqueMeals
+		// 	);
+		// 	this.setState({ uniqueMeals: updatedUniqueMeals });
+		// }
 	};
 
 	onSaveAllFoods = foodsArray => {
@@ -91,6 +115,16 @@ export class AddToDiary extends Component {
 	};
 
 	render() {
+		let uniqueMealsTemp = null;
+
+		if (this.props.profile) {
+			uniqueMealsTemp = [
+				...new Set(this.props.profile.meals.map(item => item.mealName))
+			];
+			uniqueMealsTemp.sort();
+		}
+		// console.log('[AddToDiary.js] uniqueMealsTemp', uniqueMealsTemp);
+
 		return (
 			<div className='container'>
 				<nav>
@@ -151,7 +185,7 @@ export class AddToDiary extends Component {
 						aria-labelledby='nav-meals-tab'
 					>
 						<AddMeal
-							meals={this.state.uniqueMeals}
+							meals={uniqueMealsTemp}
 							addToHistory={this.addMealsToFoodsHistoryHandler}
 							onClick={this.deleteMealClickedHandler}
 							profileLoading={this.props.loading}

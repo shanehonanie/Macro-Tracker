@@ -12,7 +12,10 @@ export class AddMeal extends Component {
 	static getDerivedStateFromProps(nextProps, prevState) {
 		// console.log('[AddMeal.js] getDerivedStateFromprops nextProps', nextProps);
 		// console.log('[AddMeal.js] getDerivedStateFromprops prevState', prevState);
-		if (prevState.uniqueMealItems.length === 0 && nextProps.meals) {
+		if (
+			(prevState.uniqueMealItems.length === 0 && nextProps.meals) ||
+			prevState.uniqueMealItems > nextProps.meals
+		) {
 			return {
 				uniqueMealItems: nextProps.meals
 			};
@@ -49,6 +52,10 @@ export class AddMeal extends Component {
 		);
 
 		if (!this.props.profileLoading) {
+			// console.log(
+			// 	'[AddMeal.js] render this.state.uniqueMealItems',
+			// 	this.state.uniqueMealItems
+			// );
 			displayAddMealTable = (
 				<div>
 					<AddMealTable
