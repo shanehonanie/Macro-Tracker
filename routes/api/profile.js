@@ -343,10 +343,11 @@ router.delete(
 			profile.meals = newMealsArray;
 
 			// Save
-			profile
-				.save()
-				.then(profile => res.json(profile))
-				.catch(err => res.status(404).json(err));
+			profile.save(function(err, profile) {
+				profile.populate('foodsHistory.food', function(err, profile) {
+					res.json(profile);
+				});
+			});
 		});
 	}
 );
