@@ -296,7 +296,7 @@ router.post(
 		let errors = {};
 
 		Profile.findOne({ user: req.user.id }).then(profile => {
-			if (profile.meals.some(item => item.name === req.body[0].mealName)) {
+			if (profile.meals.some(item => item.mealName === req.body[0].mealName)) {
 				errors.mealName = 'Meal Name already exists';
 				return res.status(404).json(errors);
 			}
