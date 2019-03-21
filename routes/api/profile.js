@@ -317,7 +317,12 @@ router.post(
 			//there is at least a meal item and no name error then save to DB
 			if (req.body.length > 0 && !errors.mealName) {
 				//console.log('[profile.js routes/api profile.meals', profile.meals);
-				profile.save().then(profile => res.json(profile));
+				// profile.save().then(profile => res.json(profile));
+				profile.save(function(err, profile) {
+					profile.populate('foodsHistory.food', function(err, profile) {
+						res.json(profile);
+					});
+				});
 			}
 		});
 	}
