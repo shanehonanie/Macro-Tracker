@@ -9,7 +9,7 @@ const foodDiaryTable = props => {
 	let fiberSum = 0;
 
 	const tableData = props.data.map((row, index) => {
-		console.log('[foodDiaryTable.js] row', row);
+		//console.log('[foodDiaryTable.js] row', row);
 		calorieSum += row.serving * row.food.calories;
 		proteinSum += row.serving * row.food.protein;
 		carbsSum += row.serving * row.food.carbs;
