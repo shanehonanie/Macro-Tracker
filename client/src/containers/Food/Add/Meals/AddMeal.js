@@ -42,8 +42,13 @@ export class AddMeal extends Component {
 	};
 
 	render() {
-		let displayAddMealTable = <Spinner />;
-		if (!this.props.loading) {
+		let displayAddMealTable = this.props.profileLoading ? (
+			<Spinner />
+		) : (
+			<p>Data can't be loaded</p>
+		);
+
+		if (!this.props.profileLoading) {
 			displayAddMealTable = (
 				<div>
 					<AddMealTable

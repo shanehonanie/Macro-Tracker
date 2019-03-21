@@ -154,6 +154,7 @@ export class AddToDiary extends Component {
 							meals={this.state.uniqueMeals}
 							addToHistory={this.addMealsToFoodsHistoryHandler}
 							onClick={this.deleteMealClickedHandler}
+							profileLoading={this.props.loading}
 						/>
 					</div>
 					<div
