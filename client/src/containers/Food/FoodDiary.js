@@ -102,23 +102,26 @@ export class FoodDiary extends Component {
 				)
 		);
 
+		let foodsHistoryArray = [];
+
 		for (let i = 0; i < yesterdaysMeals.length; i++) {
 			// create newItem because yesterdaysMeals stores food array and not food name & change date
 			const newItem = {
-				food: yesterdaysMeals[i].food.name,
+				foodName: yesterdaysMeals[i].food.name,
+				foodId: yesterdaysMeals[i].food._id,
 				mealOfDay: yesterdaysMeals[i].mealOfDay,
 				serving: yesterdaysMeals[i].serving,
 				date: todaysDateObj,
-				description: 'testing'
+				description: yesterdaysMeals[i].description
 			};
-
-			this.props.onCreateFoodsHistory(newItem, this.props.token);
+			foodsHistoryArray.push(newItem);
 		}
+		this.props.onCreateFoodsHistoryBulk(foodsHistoryArray, this.props.token);
 
-		console.log(
-			'[AddFoods.js] copyFromYesterday yesterdays meals',
-			yesterdaysMeals
-		);
+		// console.log(
+		// 	'[AddFoods.js] copyFromYesterday yesterdays meals',
+		// 	yesterdaysMeals
+		// );
 	};
 
 	render() {
@@ -301,8 +304,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onCreateFoodsHistory: (foodsHistoryData, token) =>
-			dispatch(actions.addFoodsHistory(foodsHistoryData, token)),
+		onCreateFoodsHistoryBulk: (foodsHistoryData, token) =>
+			dispatch(actions.addFoodsHistoryBulk(foodsHistoryData, token)),
 		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token)),
 		onDeleteFoodHistory: (removeId, token) =>
 			dispatch(actions.removeFoodHistory(removeId, token)),
