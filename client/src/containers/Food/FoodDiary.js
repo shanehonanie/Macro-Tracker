@@ -21,8 +21,8 @@ export class FoodDiary extends Component {
 	};
 
 	componentDidMount() {
-		console.log('[FoodDiary.js] componentDidMount');
-		console.log('[FoodDiary.js] this.props.profile', this.props.profile);
+		// console.log('[FoodDiary.js] componentDidMount');
+		// console.log('[FoodDiary.js] this.props.profile', this.props.profile);
 
 		if (this.props.profile === null)
 			this.props.onGetCurrentProfile(this.props.token);
@@ -237,7 +237,7 @@ export class FoodDiary extends Component {
 		}
 
 		if (!this.props.profileLoading && !this.props.goalsLoading) {
-			console.log('[FoodDiary.js] breakfestItems', breakfestItems);
+			//console.log('[FoodDiary.js] breakfestItems', breakfestItems);
 			// console.log(
 			// 	'[FoodDiary.js] this.props.goalsLoading',
 			// 	this.props.goalsLoading
