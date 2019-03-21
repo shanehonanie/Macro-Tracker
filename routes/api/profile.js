@@ -180,7 +180,12 @@ router.post(
 
 			// there must be at least 1 item in array & no name error
 			if (req.body.length > 0 && !errors.name) {
-				profile.save().then(profile => res.json(profile));
+				// profile.save().then(profile => res.json(profile));
+				profile.save(function(err, profile) {
+					profile.populate('foodsHistory.food', function(err, profile) {
+						res.json(profile);
+					});
+				});
 			}
 		});
 	}
