@@ -21,9 +21,13 @@ export class FoodDiary extends Component {
 	};
 
 	componentDidMount() {
-		this.props.onGetCurrentProfile(this.props.token);
-		this.props.onGetGoals(this.props.token);
-		//console.log('yeseterdaysdate', this.getYesterdaysDate(Date.now()));
+		console.log('[FoodDiary.js] componentDidMount');
+		console.log('[FoodDiary.js] this.props.profile', this.props.profile);
+
+		if (this.props.profile === null)
+			this.props.onGetCurrentProfile(this.props.token);
+
+		if (this.props.goal === null) this.props.onGetGoals(this.props.token);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -134,11 +138,12 @@ export class FoodDiary extends Component {
 		let lunchTable = null;
 		let dinnerTable = null;
 		let snackTable = null;
-		let allTableMeals = this.props.loading ? (
-			<Spinner />
-		) : (
-			<p>Data can't be loaded</p>
-		);
+		let allTableMeals =
+			this.props.profileLoading || this.props.goalsLoading ? (
+				<Spinner />
+			) : (
+				<p>Data can't be loaded</p>
+			);
 
 		let calorieSum = 0;
 		let proteinSum = 0;
@@ -231,14 +236,21 @@ export class FoodDiary extends Component {
 			goalFiber = this.props.goal.dailyFiber;
 		}
 
-		allTableMeals = (
-			<div className='container'>
-				<div className='row'>{breakfestTable}</div>
-				<div className='row'>{lunchTable}</div>
-				<div className='row'>{dinnerTable}</div>
-				<div className='row'>{snackTable}</div>
-			</div>
-		);
+		if (!this.props.profileLoading && !this.props.goalsLoading) {
+			console.log('[FoodDiary.js] breakfestItems', breakfestItems);
+			// console.log(
+			// 	'[FoodDiary.js] this.props.goalsLoading',
+			// 	this.props.goalsLoading
+			// );
+			allTableMeals = (
+				<div className='container'>
+					<div className='row'>{breakfestTable}</div>
+					<div className='row'>{lunchTable}</div>
+					<div className='row'>{dinnerTable}</div>
+					<div className='row'>{snackTable}</div>
+				</div>
+			);
+		}
 
 		return (
 			<div className='add-food'>
@@ -296,8 +308,9 @@ const mapStateToProps = state => {
 	return {
 		token: state.auth.token,
 		profile: state.profile.profile,
-		loading: state.profile.loading,
 		goal: state.goal.goal,
+		profileLoading: state.profile.loading,
+		goalsLoading: state.goal.loading,
 		error: state.profile.error
 	};
 };

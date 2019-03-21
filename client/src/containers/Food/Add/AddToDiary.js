@@ -20,7 +20,9 @@ export class AddToDiary extends Component {
 			mealName: this.props.location.state.mealName
 		});
 
-		this.props.onGetCurrentProfile(this.props.token);
+		if (this.props.profile === null) {
+			this.props.onGetCurrentProfile(this.props.token);
+		}
 		this.props.onGetFoodsDatabase();
 
 		if (this.props.profile) {
