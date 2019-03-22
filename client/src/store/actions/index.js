@@ -11,5 +11,6 @@ export {
 	fetchCurrentProfile,
 	removeFoodHistory,
 	addMeal,
-	removeMeal
+	removeMeal,
+	addQuickCalories
 } from './profile';

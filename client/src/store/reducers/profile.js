@@ -27,7 +27,6 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
-
 		case actionTypes.FETCH_PROFILE_START:
 			return {
 				...state,
@@ -47,7 +46,6 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
-
 		case actionTypes.ADD_FOODS_HISTORY_START:
 			return {
 				...state,
@@ -67,7 +65,6 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
-		////////////////
 		case actionTypes.ADD_FOODS_HISTORY_BULK_START:
 			return {
 				...state,
@@ -87,7 +84,6 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
-		//////////////
 		case actionTypes.REMOVE_FOOD_HISTORY_START:
 			return {
 				...state,
@@ -136,27 +132,6 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
-
-		case actionTypes.FETCH_MEALS_START:
-			return {
-				...state,
-				error: null,
-				loading: true
-			};
-		case actionTypes.FETCH_MEALS_SUCCESS:
-			return {
-				...state,
-				loading: false,
-				error: null,
-				profile: action.profileData
-			};
-		case actionTypes.FETCH_MEALS_FAIL:
-			return {
-				...state,
-				error: action.error,
-				loading: false
-			};
-
 		case actionTypes.REMOVE_MEAL_START:
 			return {
 				...state,
@@ -171,6 +146,25 @@ const reducer = (state = initialState, action) => {
 				profile: action.profileData
 			};
 		case actionTypes.REMOVE_MEAL_FAIL:
+			return {
+				...state,
+				error: action.error,
+				loading: false
+			};
+		case actionTypes.ADD_QUICK_CALORIES_START:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case actionTypes.ADD_QUICK_CALORIES_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				profile: action.profileData
+			};
+		case actionTypes.ADD_QUICK_CALORIES_FAIL:
 			return {
 				...state,
 				error: action.error,

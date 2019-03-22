@@ -253,7 +253,7 @@ export const addMeal = (mealData, token) => {
 			});
 	};
 };
-//////////////////////////
+
 export const removeMealStart = () => {
 	return {
 		type: actionTypes.REMOVE_MEAL_START
@@ -292,6 +292,53 @@ export const removeMeal = (mealName, token) => {
 			.catch(err => {
 				console.log('[profile.js] removeMeal reducer error', err);
 				dispatch(removeMealFail(err.response.data));
+			});
+	};
+};
+
+export const addQuickCaloriesStart = () => {
+	return {
+		type: actionTypes.ADD_QUICK_CALORIES_START
+	};
+};
+
+export const addQuickCaloriesSuccess = profileData => {
+	return {
+		type: actionTypes.ADD_QUICK_CALORIES_SUCCESS,
+		profileData: profileData
+	};
+};
+
+export const addQuickCaloriesFail = error => {
+	return {
+		type: actionTypes.ADD_QUICK_CALORIES_FAIL,
+		error: error
+	};
+};
+
+export const addQuickCalories = (quickCaloriesData, token) => {
+	return dispatch => {
+		dispatch(addQuickCaloriesStart());
+		console.log(
+			'[profile.js] addQuickCalories reducer quickCaloriesData',
+			quickCaloriesData
+		);
+		var headers = {
+			'Content-Type': 'application/json',
+			Authorization: token
+		};
+
+		axios
+			.post('/api/profile/quickAddCalories', quickCaloriesData, {
+				headers: headers
+			})
+			.then(response => {
+				//console.log('[profile.js] action response.data', response.data);
+				dispatch(addQuickCaloriesSuccess(response.data));
+			})
+			.catch(err => {
+				console.log('[profile.js] addQuickCalories reducer error', err);
+				dispatch(addQuickCaloriesFail(err.response.data));
 			});
 	};
 };
