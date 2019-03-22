@@ -70,8 +70,8 @@ const quickAddTable = props => {
 					<td>
 						<TextFieldGroupNumber
 							// placeholder='Daily Calories'
-							name='fats'
-							value={props.fats}
+							name='fat'
+							value={props.fat}
 							onChange={props.inputChangedHandler}
 							error={null}
 							// info='Daily Calories'
