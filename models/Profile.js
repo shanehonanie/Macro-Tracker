@@ -62,6 +62,38 @@ const ProfileSchema = new Schema({
 				required: true
 			}
 		}
+	],
+	quickAdds: [
+		{
+			date: {
+				type: Date,
+				default: Date.now
+			},
+			mealOfDay: {
+				type: String,
+				required: true
+			},
+			calories: {
+				type: Number,
+				required: true
+			},
+			protein: {
+				type: Number,
+				required: true
+			},
+			carbs: {
+				type: Number,
+				required: true
+			},
+			fat: {
+				type: Number,
+				required: true
+			},
+			fiber: {
+				type: Number,
+				required: true
+			}
+		}
 	]
 });
 

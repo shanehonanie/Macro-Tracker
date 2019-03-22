@@ -6,6 +6,7 @@ const passport = require('passport');
 // Load Validation
 const validateProfileInput = require('../../validation/profile');
 const validateFoodsHistoryInput = require('../../validation/foodsHistory');
+const validateQuickAddInput = require('../../validation/quickAdd');
 
 // Load Models
 const Profile = require('../../models/Profile');
@@ -344,6 +345,45 @@ router.delete(
 			profile.meals = newMealsArray;
 
 			// Save
+			profile.save(function(err, profile) {
+				profile.populate('foodsHistory.food', function(err, profile) {
+					res.json(profile);
+				});
+			});
+		});
+	}
+);
+
+// @route POST api/profile/quickAddCalories
+// @desc Quick add calories to profile
+// @access Private
+router.post(
+	'/quickAddCalories',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		const { errors, isValid } = validateQuickAddInput(req.body);
+
+		// Check Validation
+		if (!isValid) {
+			// Return any errors with 400 status
+			return res.status(400).json(errors);
+		}
+
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			const newQuickAddItem = {
+				date: req.body.date,
+				//date: Date.now(),
+				mealOfDay: req.body.mealOfDay,
+				calories: req.body.calories,
+				protein: req.body.protein,
+				carbs: req.body.carbs,
+				fat: req.body.fat,
+				fiber: req.body.fiber
+			};
+			//push the quickAdd to array in memory
+			profile.quickAdds.push(newQuickAddItem);
+
+			// save to DB
 			profile.save(function(err, profile) {
 				profile.populate('foodsHistory.food', function(err, profile) {
 					res.json(profile);
