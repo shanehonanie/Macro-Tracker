@@ -21,8 +21,11 @@ export class FoodDiary extends Component {
 	};
 
 	componentDidMount() {
-		// console.log('[FoodDiary.js] componentDidMount');
-		// console.log('[FoodDiary.js] this.props.profile', this.props.profile);
+		// console.log('[FoodDiary.js] componentDidMount this.props', this.props);
+		// if a date is selected other than today, set incoming date as selected
+		if (this.props.location.state && this.props.location.state.selectedDate) {
+			this.setState({ calendarDate: this.props.location.state.selectedDate });
+		}
 
 		if (this.props.profile === null)
 			this.props.onGetCurrentProfile(this.props.token);
