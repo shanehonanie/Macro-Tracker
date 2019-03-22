@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import AllFoods from './AllFoods/AllFoods';
 import AddMeal from './Meals/AddMeal';
-// import AddMealTable from '../../../components/Table/AddMealTable';
-// import Spinner from '../../../components/UI/Spinner';
 import * as actions from '../../../store/actions/index';
 
 export class AddToDiary extends Component {
@@ -70,24 +68,13 @@ export class AddToDiary extends Component {
 			foodsHistoryArray.push(foodsHistoryData);
 		}
 		this.props.onCreateFoodsHistoryBulk(foodsHistoryArray, this.props.token);
-		this.props.history.push('/foodDiary');
+		//this.props.history.push('/foodDiary');
+		this.historyPushToFoodDiary();
 	};
 
 	deleteMealClickedHandler = mealName => {
 		//console.log('[AddToDiary.js] deleteMealClickedHandler mealName', mealName);
 		this.props.onDeleteMeal(mealName, this.props.token);
-
-		// if (this.props.profile) {
-		// 	let updatedUniqueMeals = [
-		// 		...new Set(this.props.profile.meals.map(item => item.mealName))
-		// 	];
-		// 	updatedUniqueMeals.sort();
-		// 	console.log(
-		// 		'[AddToDiary.js] deleteMealClickedHandler updatedUniqueMeals before setState',
-		// 		updatedUniqueMeals
-		// 	);
-		// 	this.setState({ uniqueMeals: updatedUniqueMeals });
-		// }
 	};
 
 	onSaveAllFoods = foodsArray => {
@@ -111,7 +98,15 @@ export class AddToDiary extends Component {
 		// 	foodsHistoryArray
 		// );
 		this.props.onCreateFoodsHistoryBulk(foodsHistoryArray, this.props.token);
-		this.props.history.push('/foodDiary');
+		// this.props.history.push('/foodDiary');
+		this.historyPushToFoodDiary();
+	};
+
+	historyPushToFoodDiary = () => {
+		this.props.history.push({
+			pathname: '/foodDiary',
+			state: { selectedDate: this.state.selectedDate }
+		});
 	};
 
 	render() {
