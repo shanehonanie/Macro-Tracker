@@ -9,6 +9,7 @@ export class RememberMeal extends Component {
 	state = {
 		mealName: '',
 		foodsData: this.props.location.state.data,
+		selectedDate: this.props.location.state.date,
 		qty: 1,
 		error: {}
 	};
@@ -39,11 +40,18 @@ export class RememberMeal extends Component {
 			mealItems.push(newMealItem);
 		}
 		this.props.onCreateMeal(mealItems, this.props.token);
-		this.props.history.push('/foodDiary');
+		this.historyPushToFoodDiary();
 	};
 
 	cancelMealHandler = () => {
 		this.props.history.goBack();
+	};
+
+	historyPushToFoodDiary = () => {
+		this.props.history.push({
+			pathname: '/foodDiary',
+			state: { selectedDate: this.state.selectedDate }
+		});
 	};
 
 	render() {
