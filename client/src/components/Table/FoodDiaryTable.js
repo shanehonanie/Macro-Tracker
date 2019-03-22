@@ -87,7 +87,7 @@ const foodDiaryTable = props => {
 										<Link
 											to={{
 												pathname: '/rememberMeal',
-												state: { data: props.data }
+												state: { data: props.data, date: props.selectedDate }
 											}}
 										>
 											<button className='dropdown-item' type='button'>
