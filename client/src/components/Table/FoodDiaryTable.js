@@ -81,9 +81,19 @@ const foodDiaryTable = props => {
 										className='dropdown-menu'
 										aria-labelledby='dropdownMenuButton'
 									>
-										<button className='dropdown-item' type='button'>
-											Quick Add Calories
-										</button>
+										<Link
+											to={{
+												pathname: '/quickAdd',
+												state: {
+													date: props.selectedDate,
+													mealName: props.name
+												}
+											}}
+										>
+											<button className='dropdown-item' type='button'>
+												Quick add calories
+											</button>
+										</Link>
 										<Link
 											to={{
 												pathname: '/rememberMeal',
