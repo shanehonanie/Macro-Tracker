@@ -11,7 +11,7 @@ export class QuickAdd extends Component {
 		calories: 0,
 		protein: 0,
 		carbs: 0,
-		fats: 0,
+		fat: 0,
 		fiber: 0
 	};
 
@@ -19,29 +19,32 @@ export class QuickAdd extends Component {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
-	formatDate = string => {
-		var options = { year: 'numeric', month: 'long', day: 'numeric' };
-		return new Date(string).toLocaleDateString([], options);
+	formatDate = dateStr => {
+		const options = { year: 'numeric', month: 'long', day: 'numeric' };
+		return new Date(dateStr).toLocaleDateString([], options);
 	};
 
-	// saveQuickAddtoFoodsHistory = () => {
-	// console.log(
-	// 	'[QuickAdd.js] saveQuickAddtoFoodsHistory quickAddData',
-	// 	quickAddData
-	// );
-	// let foodsHistoryArray = [];
-	// create newItem to format data correctly
-	// const newItem = {
-	// 	foodName: 'Quick Add',
-	// 	foodId: '',
-	// 	mealOfDay: this.state.mealOfDay,
-	// 	serving: 1,
-	// 	date: this.state.date,
-	// 	description: 'testing'
-	// };
-	// foodsHistoryArray.push(newItem);
-	// this.props.onCreateFoodsHistoryBulk(foodsHistoryArray, this.props.token);
-	// };
+	saveQuickCalories = () => {
+		const newQuickAdd = {
+			date: this.state.date,
+			mealOfDay: this.state.mealOfDay,
+			calories: this.state.calories.toString(),
+			protein: this.state.protein.toString(),
+			carbs: this.state.carbs.toString(),
+			fat: this.state.fat.toString(),
+			fiber: this.state.fiber.toString()
+		};
+		// console.log('newQuickAdd', newQuickAdd);
+		this.props.onCreateQuickCalories(newQuickAdd, this.props.token);
+		this.historyPushToFoodDiary();
+	};
+
+	historyPushToFoodDiary = () => {
+		this.props.history.push({
+			pathname: '/foodDiary',
+			state: { selectedDate: this.state.date }
+		});
+	};
 
 	render() {
 		return (
@@ -56,10 +59,14 @@ export class QuickAdd extends Component {
 					calories={this.state.calories}
 					protein={this.state.protein}
 					carbs={this.state.carbs}
-					fats={this.state.fats}
+					fat={this.state.fat}
 					fiber={this.state.fiber}
 				/>
-				<button type='button' className='btn btn-success' onClick={() => {}}>
+				<button
+					type='button'
+					className='btn btn-success'
+					onClick={this.saveQuickCalories}
+				>
 					Save Data
 				</button>
 			</div>
@@ -70,22 +77,17 @@ export class QuickAdd extends Component {
 const mapStateToProps = state => {
 	return {
 		token: state.auth.token
-		// profile: state.profile.profile,
-		// goal: state.goal.goal,
-		// profileLoading: state.profile.loading,
-		// goalsLoading: state.goal.loading,
-		// error: state.profile.error
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onCreateFoodsHistoryBulk: (foodsHistoryData, token) =>
-			dispatch(actions.addFoodsHistoryBulk(foodsHistoryData, token))
+		onCreateQuickCalories: (quickCaloriesData, token) =>
+			dispatch(actions.addQuickCalories(quickCaloriesData, token))
 	};
 };
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(QuickAdd);
