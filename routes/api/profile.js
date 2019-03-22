@@ -148,10 +148,9 @@ router.post(
 	}
 );
 
-// @route POST api/profile/foodsHistory
-// @desc Add Food item to profile
+// @route POST api/profile/foodsHistoryBulk
+// @desc Add Food array to profile foodsHistory
 // @access Private
-// TODO: Add edit capability
 router.post(
 	'/foodsHistoryBulk',
 	passport.authenticate('jwt', { session: false }),
@@ -167,25 +166,27 @@ router.post(
 				})
 				.catch(err => res.status(404).json(err));
 
-			for (let i = 0; i < req.body.length; i++) {
-				const newFoodItem = {
-					food: req.body[i].foodId,
-					mealOfDay: req.body[i].mealOfDay,
-					serving: req.body[i].serving,
-					description: req.body[i].description,
-					date: req.body[i].date
-				};
-				profile.foodsHistory.push(newFoodItem);
-			}
-
 			// there must be at least 1 item in array & no name error
 			if (req.body.length > 0 && !errors.name) {
-				// profile.save().then(profile => res.json(profile));
+				for (let i = 0; i < req.body.length; i++) {
+					const newFoodItem = {
+						food: req.body[i].foodId,
+						mealOfDay: req.body[i].mealOfDay,
+						serving: req.body[i].serving,
+						description: req.body[i].description,
+						date: req.body[i].date
+					};
+					profile.foodsHistory.push(newFoodItem);
+				}
+
 				profile.save(function(err, profile) {
 					profile.populate('foodsHistory.food', function(err, profile) {
 						res.json(profile);
 					});
 				});
+			} else {
+				//send back the error object with 400 status
+				return res.status(400).json(errors);
 			}
 		});
 	}
