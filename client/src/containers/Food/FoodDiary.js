@@ -53,9 +53,15 @@ export class FoodDiary extends Component {
 		});
 	}
 
-	deleteClickedHandler = rowId => {
-		//console.log('[FoodDiary.js] rowId', rowId);
-		this.props.onDeleteFoodHistory(rowId, this.props.token);
+	deleteClickedHandler = (name, rowId) => {
+		console.log('[FoodDiary.js] rowId', rowId);
+		console.log('[FoodDiary.js] name', name);
+		// check if table item to delete is a foodsHistory or quickAdds
+		if (name === 'Quick add calories') {
+			this.props.onDeleteQuickAdd(rowId, this.props.token);
+		} else {
+			this.props.onDeleteFoodHistory(rowId, this.props.token);
+		}
 	};
 
 	isCalendarDate = otherDate => {
@@ -132,24 +138,28 @@ export class FoodDiary extends Component {
 	};
 
 	transformQuickCalories = mealName => {
-		const breakfestQuickCalories = this.props.profile.quickAdds.filter(
+		const quickCaloriesArray = this.props.profile.quickAdds.filter(
 			item => item.mealOfDay === mealName && this.isCalendarDate(item.date)
 		);
-
+		// console.log(
+		// 	'[FoodDiary.js] transformQuickCalories quickCaloriesArray',
+		// 	quickCaloriesArray
+		// );
 		let transformedArray = [];
 
-		for (let i = 0; i < breakfestQuickCalories.length; i++) {
+		for (let i = 0; i < quickCaloriesArray.length; i++) {
 			const newItem = {
-				date: breakfestQuickCalories[i].date,
-				mealOfDay: breakfestQuickCalories[i].mealOfDay,
+				_id: quickCaloriesArray[i]._id,
+				date: quickCaloriesArray[i].date,
+				mealOfDay: quickCaloriesArray[i].mealOfDay,
 				serving: 1,
 				food: {
 					name: 'Quick add calories',
-					calories: breakfestQuickCalories[i].calories,
-					protein: breakfestQuickCalories[i].protein,
-					carbs: breakfestQuickCalories[i].carbs,
-					fat: breakfestQuickCalories[i].fat,
-					fiber: breakfestQuickCalories[i].fiber
+					calories: quickCaloriesArray[i].calories,
+					protein: quickCaloriesArray[i].protein,
+					carbs: quickCaloriesArray[i].carbs,
+					fat: quickCaloriesArray[i].fat,
+					fiber: quickCaloriesArray[i].fiber
 				}
 			};
 			transformedArray.push(newItem);
@@ -245,13 +255,18 @@ export class FoodDiary extends Component {
 				...allQuickTransformInSelectedDay
 			];
 
+			// console.log(
+			// 	'[FoodDiary.js] combinedBreakfestItems',
+			// 	combinedBreakfestItems
+			// );
+
 			breakfestTable = (
 				<FoodDiaryTable
 					data={combinedBreakfestItems}
 					dataNoCombined={breakfestItems}
 					name='Breakfest'
 					selectedDate={this.state.calendarDate}
-					onClick={this.deleteClickedHandler}
+					onClickDelete={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
 					options={true}
 				/>
@@ -262,7 +277,7 @@ export class FoodDiary extends Component {
 					dataNoCombined={lunchItems}
 					name='Lunch'
 					selectedDate={this.state.calendarDate}
-					onClick={this.deleteClickedHandler}
+					onClickDelete={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
 					options={true}
 				/>
@@ -273,7 +288,7 @@ export class FoodDiary extends Component {
 					dataNoCombined={dinnerItems}
 					name='Dinner'
 					selectedDate={this.state.calendarDate}
-					onClick={this.deleteClickedHandler}
+					onClickDelete={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
 					options={true}
 				/>
@@ -284,7 +299,7 @@ export class FoodDiary extends Component {
 					dataNoCombined={snackItems}
 					name='Snack'
 					selectedDate={this.state.calendarDate}
-					onClick={this.deleteClickedHandler}
+					onClickDelete={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
 					options={true}
 				/>
@@ -391,9 +406,11 @@ const mapDispatchToProps = dispatch => {
 		onCreateFoodsHistoryBulk: (foodsHistoryData, token) =>
 			dispatch(actions.addFoodsHistoryBulk(foodsHistoryData, token)),
 		onGetCurrentProfile: token => dispatch(actions.fetchCurrentProfile(token)),
+		onGetGoals: token => dispatch(actions.fetchGoals(token)),
 		onDeleteFoodHistory: (removeId, token) =>
 			dispatch(actions.removeFoodHistory(removeId, token)),
-		onGetGoals: token => dispatch(actions.fetchGoals(token))
+		onDeleteQuickAdd: (removeId, token) =>
+			dispatch(actions.removeQuickCalories(removeId, token))
 	};
 };
 
