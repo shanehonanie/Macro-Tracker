@@ -131,11 +131,51 @@ export class FoodDiary extends Component {
 		// );
 	};
 
+	transformQuickCalories = mealName => {
+		const breakfestQuickCalories = this.props.profile.quickAdds.filter(
+			item => item.mealOfDay === mealName && this.isCalendarDate(item.date)
+		);
+
+		let transformedArray = [];
+
+		for (let i = 0; i < breakfestQuickCalories.length; i++) {
+			const newItem = {
+				date: breakfestQuickCalories[i].date,
+				mealOfDay: breakfestQuickCalories[i].mealOfDay,
+				serving: 1,
+				food: {
+					name: 'Quick add calories',
+					calories: breakfestQuickCalories[i].calories,
+					protein: breakfestQuickCalories[i].protein,
+					carbs: breakfestQuickCalories[i].carbs,
+					fat: breakfestQuickCalories[i].fat,
+					fiber: breakfestQuickCalories[i].fiber
+				}
+			};
+			transformedArray.push(newItem);
+		}
+		return transformedArray;
+	};
+
 	render() {
+		// foodsHistory
 		let breakfestItems = null;
 		let lunchItems = null;
 		let dinnerItems = null;
 		let snackItems = null;
+
+		// quick add calories
+		let breakfestQuickTransform = null;
+		let lunchQuickTransform = null;
+		let dinnerQuickTransform = null;
+		let snackQuickTransform = null;
+
+		// foodsHistory & quick calories combined
+		// let combinedBreakfestItems = null;
+		// let combinedLunchItems = null;
+		// let combinedDinnerItems = null;
+		// let combinedSnackItems = null;
+		// let combinedAllItems = null;
 
 		let breakfestTable = null;
 		let lunchTable = null;
@@ -159,31 +199,55 @@ export class FoodDiary extends Component {
 		let goalFat = 0;
 		let goalFiber = 0;
 		let allItemsInSelectedDay = null;
+		let allQuickTransformInSelectedDay = null;
 
 		if (this.props.profile !== null) {
-			allItemsInSelectedDay = this.props.profile.foodsHistory.filter(item =>
-				this.isCalendarDate(item.date)
-			);
-
 			breakfestItems = this.props.profile.foodsHistory.filter(
 				item => item.mealOfDay === 'Breakfest' && this.isCalendarDate(item.date)
 			);
+			breakfestQuickTransform = this.transformQuickCalories('Breakfest');
 
 			lunchItems = this.props.profile.foodsHistory.filter(
 				item => item.mealOfDay === 'Lunch' && this.isCalendarDate(item.date)
 			);
+			lunchQuickTransform = this.transformQuickCalories('Lunch');
 
 			dinnerItems = this.props.profile.foodsHistory.filter(
 				item => item.mealOfDay === 'Dinner' && this.isCalendarDate(item.date)
 			);
+			dinnerQuickTransform = this.transformQuickCalories('Dinner');
 
 			snackItems = this.props.profile.foodsHistory.filter(
-				item => item.mealOfDay === 'Snacks' && this.isCalendarDate(item.date)
+				item => item.mealOfDay === 'Snack' && this.isCalendarDate(item.date)
 			);
+			snackQuickTransform = this.transformQuickCalories('Snack');
+
+			allItemsInSelectedDay = this.props.profile.foodsHistory.filter(item =>
+				this.isCalendarDate(item.date)
+			);
+			allQuickTransformInSelectedDay = [
+				...breakfestQuickTransform,
+				...lunchQuickTransform,
+				...dinnerQuickTransform,
+				...snackQuickTransform
+			];
+
+			// combine foodsHistory & quick calories
+			const combinedBreakfestItems = [
+				...breakfestItems,
+				...breakfestQuickTransform
+			];
+			const combinedLunchItems = [...lunchItems, ...lunchQuickTransform];
+			const combinedDinnerItems = [...dinnerItems, ...dinnerQuickTransform];
+			const combinedSnackItems = [...snackItems, ...snackQuickTransform];
+			const combinedAllItems = [
+				...allItemsInSelectedDay,
+				...allQuickTransformInSelectedDay
+			];
 
 			breakfestTable = (
 				<FoodDiaryTable
-					data={breakfestItems}
+					data={combinedBreakfestItems}
 					name='Breakfest'
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
@@ -193,7 +257,7 @@ export class FoodDiary extends Component {
 			);
 			lunchTable = (
 				<FoodDiaryTable
-					data={lunchItems}
+					data={combinedLunchItems}
 					name='Lunch'
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
@@ -203,7 +267,7 @@ export class FoodDiary extends Component {
 			);
 			dinnerTable = (
 				<FoodDiaryTable
-					data={dinnerItems}
+					data={combinedDinnerItems}
 					name='Dinner'
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
@@ -213,8 +277,8 @@ export class FoodDiary extends Component {
 			);
 			snackTable = (
 				<FoodDiaryTable
-					data={snackItems}
-					name='Snacks'
+					data={combinedSnackItems}
+					name='Snack'
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
 					copyYesterday={this.copyFromYesterday}
@@ -222,14 +286,14 @@ export class FoodDiary extends Component {
 				/>
 			);
 
-			for (let i = 0; i < allItemsInSelectedDay.length; i++) {
-				let qty = allItemsInSelectedDay[i].serving;
+			for (let i = 0; i < combinedAllItems.length; i++) {
+				let qty = combinedAllItems[i].serving;
 
-				calorieSum += qty * allItemsInSelectedDay[i].food.calories;
-				proteinSum += qty * allItemsInSelectedDay[i].food.protein;
-				carbsSum += qty * allItemsInSelectedDay[i].food.carbs;
-				fatSum += qty * allItemsInSelectedDay[i].food.fat;
-				fiberSum += qty * allItemsInSelectedDay[i].food.fiber;
+				calorieSum += qty * combinedAllItems[i].food.calories;
+				proteinSum += qty * combinedAllItems[i].food.protein;
+				carbsSum += qty * combinedAllItems[i].food.carbs;
+				fatSum += qty * combinedAllItems[i].food.fat;
+				fiberSum += qty * combinedAllItems[i].food.fiber;
 			}
 
 			goalCalories = this.props.goal.dailyCalories;
