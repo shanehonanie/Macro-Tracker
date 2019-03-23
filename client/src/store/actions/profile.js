@@ -128,7 +128,7 @@ export const addFoodsHistoryBulk = (foodsHistoryData, token) => {
 			});
 	};
 };
-/////////////////
+
 export const removeFoodHistoryStart = () => {
 	return {
 		type: actionTypes.REMOVE_FOOD_HISTORY_START
@@ -339,6 +339,47 @@ export const addQuickCalories = (quickCaloriesData, token) => {
 			.catch(err => {
 				console.log('[profile.js] addQuickCalories reducer error', err);
 				dispatch(addQuickCaloriesFail(err.response.data));
+			});
+	};
+};
+
+export const removeQuickCaloriesStart = () => {
+	return {
+		type: actionTypes.REMOVE_QUICK_CALORIES_START
+	};
+};
+
+export const removeQuickCaloriesSuccess = profileData => {
+	return {
+		type: actionTypes.REMOVE_QUICK_CALORIES_SUCCESS,
+		profileData: profileData
+	};
+};
+
+export const removeQuickCaloriesFail = error => {
+	return {
+		type: actionTypes.REMOVE_QUICK_CALORIES_FAIL,
+		error: error
+	};
+};
+
+export const removeQuickCalories = (id, token) => {
+	return dispatch => {
+		dispatch(removeQuickCaloriesStart());
+
+		var headers = {
+			'Content-Type': 'application/json',
+			Authorization: token
+		};
+
+		axios
+			.delete('/api/profile/quickAddCalories/' + id, { headers: headers })
+			.then(response => {
+				dispatch(removeQuickCaloriesSuccess(response.data));
+			})
+			.catch(err => {
+				console.log('[profile.js]  removeQuickCalories actions error', err);
+				dispatch(removeQuickCaloriesFail(err.response.data));
 			});
 	};
 };

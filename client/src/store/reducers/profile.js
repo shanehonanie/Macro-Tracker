@@ -170,6 +170,25 @@ const reducer = (state = initialState, action) => {
 				error: action.error,
 				loading: false
 			};
+		case actionTypes.REMOVE_QUICK_CALORIES_START:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case actionTypes.REMOVE_QUICK_CALORIES_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				profile: action.profileData
+			};
+		case actionTypes.REMOVE_QUICK_CALORIES_FAIL:
+			return {
+				...state,
+				error: action.error,
+				loading: false
+			};
 		default:
 			return state;
 	}

@@ -12,5 +12,6 @@ export {
 	removeFoodHistory,
 	addMeal,
 	removeMeal,
-	addQuickCalories
+	addQuickCalories,
+	removeQuickCalories
 } from './profile';
