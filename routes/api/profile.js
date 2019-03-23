@@ -393,4 +393,33 @@ router.post(
 	}
 );
 
+// @route DELETE api/profile/quickAddCalories/:quick_id
+// @desc Delete Quick Calories from
+// @access Private
+router.delete(
+	'/quickAddCalories/:quick_id',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			// Get remove index
+			const removeIndex = profile.quickAdds
+				.map(item => item.id)
+				.indexOf(req.params.quick_id);
+
+			// Splice out of array
+			profile.quickAdds.splice(removeIndex, 1);
+
+			// save to DB
+			profile.save(function(err, profile) {
+				if (err) {
+					res.status(404).json(err);
+				}
+				profile.populate('foodsHistory.food', function(err, profile) {
+					res.json(profile);
+				});
+			});
+		});
+	}
+);
+
 module.exports = router;
