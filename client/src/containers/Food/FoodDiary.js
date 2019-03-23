@@ -248,6 +248,7 @@ export class FoodDiary extends Component {
 			breakfestTable = (
 				<FoodDiaryTable
 					data={combinedBreakfestItems}
+					dataNoCombined={breakfestItems}
 					name='Breakfest'
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
@@ -258,6 +259,7 @@ export class FoodDiary extends Component {
 			lunchTable = (
 				<FoodDiaryTable
 					data={combinedLunchItems}
+					dataNoCombined={lunchItems}
 					name='Lunch'
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
@@ -268,6 +270,7 @@ export class FoodDiary extends Component {
 			dinnerTable = (
 				<FoodDiaryTable
 					data={combinedDinnerItems}
+					dataNoCombined={dinnerItems}
 					name='Dinner'
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
@@ -278,6 +281,7 @@ export class FoodDiary extends Component {
 			snackTable = (
 				<FoodDiaryTable
 					data={combinedSnackItems}
+					dataNoCombined={snackItems}
 					name='Snack'
 					selectedDate={this.state.calendarDate}
 					onClick={this.deleteClickedHandler}
