@@ -25,11 +25,11 @@ const foodDiaryTable = props => {
 				<td>{row.serving * row.food.fat}</td>
 				<td>{row.serving * row.food.fiber}</td>
 				<td>
-					{props.onClick ? (
+					{props.onClickDelete ? (
 						<button
 							type='button'
 							className='btn btn-danger'
-							onClick={() => props.onClick(row._id)}
+							onClick={() => props.onClickDelete(row.food.name, row._id)}
 						>
 							Delete
 						</button>
