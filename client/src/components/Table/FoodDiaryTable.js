@@ -1,12 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const dateOptions = {
+	weekday: 'long',
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric'
+};
+
 const foodDiaryTable = props => {
 	let calorieSum = 0;
 	let proteinSum = 0;
 	let carbsSum = 0;
 	let fatSum = 0;
 	let fiberSum = 0;
+
+	// console.log('[FoodDiaryTable.js] props', props);
+	const copyFromDates = props.last7Days.map((row, index) => {
+		return (
+			<button
+				key={index}
+				className='dropdown-item'
+				type='button'
+				onClick={() => props.copyFromDate(row, props.selectedDate, props.name)}
+			>
+				{row.toLocaleDateString('en-US', dateOptions)}
+			</button>
+		);
+	});
 
 	const tableData = props.data.map((row, index) => {
 		//console.log('[foodDiaryTable.js] row', row);
@@ -38,6 +59,63 @@ const foodDiaryTable = props => {
 			</tr>
 		);
 	});
+
+	let dropdownContents = null;
+
+	if (!props.showCopyFrom) {
+		dropdownContents = (
+			<form>
+				<Link
+					to={{
+						pathname: '/quickAdd',
+						state: {
+							date: props.selectedDate,
+							mealName: props.name
+						}
+					}}
+				>
+					<button className='dropdown-item' type='button'>
+						Quick add calories
+					</button>
+				</Link>
+				<Link
+					to={{
+						pathname: '/rememberMeal',
+						state: {
+							data: props.dataNoCombined,
+							date: props.selectedDate
+						}
+					}}
+				>
+					<button className='dropdown-item' type='button'>
+						Remember Meal
+					</button>
+				</Link>
+				<button
+					className='dropdown-item'
+					type='button'
+					onClick={() =>
+						props.copyFromDate(null, props.selectedDate, props.name)
+					}
+				>
+					Copy yesterday
+				</button>
+				<button
+					className='dropdown-item'
+					type='button'
+					onClick={props.toggleShowCopyFrom}
+				>
+					Copy from date
+				</button>
+				{/* <button className='dropdown-item' type='button'>
+				Copy to date
+			</button> */}
+			</form>
+		);
+	} else {
+		dropdownContents = copyFromDates;
+		// dropdownContents = 'copyFromDates';
+	}
 
 	return (
 		<table className='table table-striped'>
@@ -81,47 +159,7 @@ const foodDiaryTable = props => {
 										className='dropdown-menu'
 										aria-labelledby='dropdownMenuButton'
 									>
-										<Link
-											to={{
-												pathname: '/quickAdd',
-												state: {
-													date: props.selectedDate,
-													mealName: props.name
-												}
-											}}
-										>
-											<button className='dropdown-item' type='button'>
-												Quick add calories
-											</button>
-										</Link>
-										<Link
-											to={{
-												pathname: '/rememberMeal',
-												state: {
-													data: props.dataNoCombined,
-													date: props.selectedDate
-												}
-											}}
-										>
-											<button className='dropdown-item' type='button'>
-												Remember Meal
-											</button>
-										</Link>
-										<button
-											className='dropdown-item'
-											type='button'
-											onClick={() =>
-												props.copyYesterday(Date.now(), props.name)
-											}
-										>
-											Copy yesterday
-										</button>
-										<button className='dropdown-item' type='button'>
-											Copy from date
-										</button>
-										<button className='dropdown-item' type='button'>
-											Copy to date
-										</button>
+										{dropdownContents}
 									</div>
 								</div>
 							</div>

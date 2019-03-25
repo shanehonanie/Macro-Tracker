@@ -17,7 +17,9 @@ export class FoodDiary extends Component {
 		description: '',
 		date: '',
 		error: {},
-		calendarDate: new Date()
+		calendarDate: new Date(),
+		showCopyFrom: false,
+		last7Days: null
 	};
 
 	componentDidMount() {
@@ -25,6 +27,9 @@ export class FoodDiary extends Component {
 		// if a date is selected other than today, set incoming date as selected
 		if (this.props.location.state && this.props.location.state.selectedDate) {
 			this.setState({ calendarDate: this.props.location.state.selectedDate });
+			this.setLast7Days(this.props.location.state.selectedDate);
+		} else {
+			this.setLast7Days(Date.now());
 		}
 
 		if (this.props.profile === null)
@@ -39,6 +44,26 @@ export class FoodDiary extends Component {
 		}
 	}
 
+	toggleShowCopyFrom = event => {
+		// console.log('[FoodDiary.js] toggleShowCopyFrom event', event);
+		//event.preventDefault();
+		// event.stopPropagation();
+
+		this.setState({ showCopyFrom: !this.state.showCopyFrom });
+	};
+
+	setLast7Days = selectedDate => {
+		let dateList = [];
+
+		for (let i = 1; i < 8; i++) {
+			let d = new Date(selectedDate);
+			d.setDate(d.getDate() - i);
+			dateList.push(d);
+		}
+		this.setState({ last7Days: dateList });
+		console.log(dateList);
+	};
+
 	submitHandler = event => {
 		event.preventDefault();
 	};
@@ -51,11 +76,14 @@ export class FoodDiary extends Component {
 		this.setState({
 			calendarDate: date
 		});
+
+		// calculate the last 7 days
+		this.setLast7Days(date);
 	}
 
 	deleteClickedHandler = (name, rowId) => {
-		console.log('[FoodDiary.js] rowId', rowId);
-		console.log('[FoodDiary.js] name', name);
+		// console.log('[FoodDiary.js] rowId', rowId);
+		// console.log('[FoodDiary.js] name', name);
 		// check if table item to delete is a foodsHistory or quickAdds
 		if (name === 'Quick add calories') {
 			this.props.onDeleteQuickAdd(rowId, this.props.token);
@@ -102,39 +130,40 @@ export class FoodDiary extends Component {
 		return theDate;
 	};
 
-	copyFromYesterday = (todaysDate, meal) => {
-		let todaysDateObj = this.state.calendarDate;
-		// console.log('[FoodDiary.js] copyFromYesterday todaysDateObj', todaysDateObj);
-		// console.log('[FoodDiary.js] copyFromYesterday meal', meal);
-		const yesterdaysMeals = this.props.profile.foodsHistory.filter(
+	copyFromDate = (fromDate, curDate, meal) => {
+		// console.log('fromDate instanceof Date', fromDate instanceof Date);
+		// console.log('typeof fromDate', typeof fromDate);
+		// console.log('[FoodDiary.js] copyFromDate fromDate', fromDate);
+		// console.log('[FoodDiary.js] copyFromDate curDate', curDate);
+		// console.log('[FoodDiary.js] copyFromDate meal', meal);
+
+		// if from date is null, assume its copy from yesterday and assign day before curDate
+		if (fromDate === null) {
+			fromDate = this.getYesterdaysDate(curDate);
+		}
+
+		// filter the meal & from date from all foodsHistory
+		const fromDateMeals = this.props.profile.foodsHistory.filter(
 			item =>
-				item.mealOfDay === meal &&
-				this.isEqualCalendarDate(
-					item.date,
-					this.getYesterdaysDate(todaysDateObj)
-				)
+				item.mealOfDay === meal && this.isEqualCalendarDate(item.date, fromDate)
 		);
 
+		// console.log('[FoodDiary.js] copyFromDate fromDateMeals', fromDateMeals);
 		let foodsHistoryArray = [];
 
-		for (let i = 0; i < yesterdaysMeals.length; i++) {
-			// create newItem because yesterdaysMeals stores food array and not food name & change date
+		// convert to the correct format and assign the new date
+		for (let i = 0; i < fromDateMeals.length; i++) {
 			const newItem = {
-				foodName: yesterdaysMeals[i].food.name,
-				foodId: yesterdaysMeals[i].food._id,
-				mealOfDay: yesterdaysMeals[i].mealOfDay,
-				serving: yesterdaysMeals[i].serving,
-				date: todaysDateObj,
-				description: yesterdaysMeals[i].description
+				foodName: fromDateMeals[i].food.name,
+				foodId: fromDateMeals[i].food._id,
+				mealOfDay: fromDateMeals[i].mealOfDay,
+				serving: fromDateMeals[i].serving,
+				date: curDate,
+				description: fromDateMeals[i].description
 			};
 			foodsHistoryArray.push(newItem);
 		}
 		this.props.onCreateFoodsHistoryBulk(foodsHistoryArray, this.props.token);
-
-		// console.log(
-		// 	'[AddFoods.js] copyFromYesterday yesterdays meals',
-		// 	yesterdaysMeals
-		// );
 	};
 
 	transformQuickCalories = mealName => {
@@ -267,7 +296,10 @@ export class FoodDiary extends Component {
 					name='Breakfest'
 					selectedDate={this.state.calendarDate}
 					onClickDelete={this.deleteClickedHandler}
-					copyYesterday={this.copyFromYesterday}
+					copyFromDate={this.copyFromDate}
+					showCopyFrom={this.state.showCopyFrom}
+					toggleShowCopyFrom={this.toggleShowCopyFrom}
+					last7Days={this.state.last7Days}
 					options={true}
 				/>
 			);
@@ -278,7 +310,10 @@ export class FoodDiary extends Component {
 					name='Lunch'
 					selectedDate={this.state.calendarDate}
 					onClickDelete={this.deleteClickedHandler}
-					copyYesterday={this.copyFromYesterday}
+					copyFromDate={this.copyFromDate}
+					showCopyFrom={this.state.showCopyFrom}
+					toggleShowCopyFrom={this.toggleShowCopyFrom}
+					last7Days={this.state.last7Days}
 					options={true}
 				/>
 			);
@@ -289,7 +324,10 @@ export class FoodDiary extends Component {
 					name='Dinner'
 					selectedDate={this.state.calendarDate}
 					onClickDelete={this.deleteClickedHandler}
-					copyYesterday={this.copyFromYesterday}
+					copyFromDate={this.copyFromDate}
+					showCopyFrom={this.state.showCopyFrom}
+					toggleShowCopyFrom={this.toggleShowCopyFrom}
+					last7Days={this.state.last7Days}
 					options={true}
 				/>
 			);
@@ -300,7 +338,10 @@ export class FoodDiary extends Component {
 					name='Snack'
 					selectedDate={this.state.calendarDate}
 					onClickDelete={this.deleteClickedHandler}
-					copyYesterday={this.copyFromYesterday}
+					copyFromDate={this.copyFromDate}
+					showCopyFrom={this.state.showCopyFrom}
+					toggleShowCopyFrom={this.toggleShowCopyFrom}
+					last7Days={this.state.last7Days}
 					options={true}
 				/>
 			);
