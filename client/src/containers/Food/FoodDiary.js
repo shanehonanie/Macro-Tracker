@@ -19,7 +19,7 @@ export class FoodDiary extends Component {
 		error: {},
 		calendarDate: new Date(),
 		showCopyFrom: false,
-		last7Days: null
+		last7Days: []
 	};
 
 	componentDidMount() {
@@ -61,7 +61,7 @@ export class FoodDiary extends Component {
 			dateList.push(d);
 		}
 		this.setState({ last7Days: dateList });
-		console.log(dateList);
+		// console.log(dateList);
 	};
 
 	submitHandler = event => {
