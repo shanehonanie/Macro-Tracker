@@ -319,10 +319,10 @@ export const addQuickCaloriesFail = error => {
 export const addQuickCalories = (quickCaloriesData, token) => {
 	return dispatch => {
 		dispatch(addQuickCaloriesStart());
-		console.log(
-			'[profile.js] addQuickCalories reducer quickCaloriesData',
-			quickCaloriesData
-		);
+		// console.log(
+		// 	'[profile.js] addQuickCalories reducer quickCaloriesData',
+		// 	quickCaloriesData
+		// );
 		var headers = {
 			'Content-Type': 'application/json',
 			Authorization: token
@@ -337,7 +337,7 @@ export const addQuickCalories = (quickCaloriesData, token) => {
 				dispatch(addQuickCaloriesSuccess(response.data));
 			})
 			.catch(err => {
-				console.log('[profile.js] addQuickCalories reducer error', err);
+				//console.log('[profile.js] addQuickCalories reducer error', err);
 				dispatch(addQuickCaloriesFail(err.response.data));
 			});
 	};
@@ -378,7 +378,7 @@ export const removeQuickCalories = (id, token) => {
 				dispatch(removeQuickCaloriesSuccess(response.data));
 			})
 			.catch(err => {
-				console.log('[profile.js]  removeQuickCalories actions error', err);
+				//console.log('[profile.js]  removeQuickCalories actions error', err);
 				dispatch(removeQuickCaloriesFail(err.response.data));
 			});
 	};
