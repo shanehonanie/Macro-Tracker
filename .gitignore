@@ -2,7 +2,7 @@
 /node_modules
 
 #keys
-config/keys.js
+config/keys_dev.js
 
 # production
 /build
