@@ -351,7 +351,7 @@ export class Goal extends Component {
 						width={'500px'}
 						height={'300px'}
 						chartType='PieChart'
-						loader={<div>Loading Chart</div>}
+						loader={<Spinner />}
 						data={[
 							['Macro', 'In grams'],
 							['Protein', allProteinSum],
@@ -367,7 +367,7 @@ export class Goal extends Component {
 						width={'500px'}
 						height={'300px'}
 						chartType='PieChart'
-						loader={<div>Loading Chart</div>}
+						loader={<Spinner />}
 						data={[
 							['Meal', 'Calories'],
 							['Breakfest', breakfestCaloriesSum],
