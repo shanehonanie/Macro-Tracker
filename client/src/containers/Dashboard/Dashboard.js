@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Chart from 'react-google-charts';
 
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner';
@@ -78,16 +79,16 @@ export class Goal extends Component {
 		let dinnerQuickTransform = null;
 		let snackQuickTransform = null;
 
-		let calorieSum = 0;
-		let proteinSum = 0;
-		let carbsSum = 0;
-		let fatSum = 0;
-		let fiberSum = 0;
-		let goalCalories = 0;
-		let goalProtein = 0;
-		let goalCarbs = 0;
-		let goalFat = 0;
-		let goalFiber = 0;
+		let allCalorieSum = 0;
+		let allProteinSum = 0;
+		let allCarbsSum = 0;
+		let allFatSum = 0;
+		let allFiberSum = 0;
+		let breakfestCaloriesSum = 0;
+		let lunchCaloriesSum = 0;
+		let dinnerCaloriesSum = 0;
+		let snackCaloriesSum = 0;
+
 		let allItemsInSelectedDay = null;
 		let allQuickTransformInSelectedDay = null;
 
@@ -135,21 +136,32 @@ export class Goal extends Component {
 				...allQuickTransformInSelectedDay
 			];
 
+			breakfestCaloriesSum = combinedBreakfestItems.reduce(
+				(a, b) => a + b.food.calories * b.serving,
+				0
+			);
+			lunchCaloriesSum = combinedLunchItems.reduce(
+				(a, b) => a + b.food.calories * b.serving,
+				0
+			);
+			dinnerCaloriesSum = combinedDinnerItems.reduce(
+				(a, b) => a + b.food.calories * b.serving,
+				0
+			);
+			snackCaloriesSum = combinedSnackItems.reduce(
+				(a, b) => a + b.food.calories * b.serving,
+				0
+			);
+
 			for (let i = 0; i < combinedAllItems.length; i++) {
 				let qty = combinedAllItems[i].serving;
 
-				calorieSum += qty * combinedAllItems[i].food.calories;
-				proteinSum += qty * combinedAllItems[i].food.protein;
-				carbsSum += qty * combinedAllItems[i].food.carbs;
-				fatSum += qty * combinedAllItems[i].food.fat;
-				fiberSum += qty * combinedAllItems[i].food.fiber;
+				allCalorieSum += qty * combinedAllItems[i].food.calories;
+				allProteinSum += qty * combinedAllItems[i].food.protein;
+				allCarbsSum += qty * combinedAllItems[i].food.carbs;
+				allFatSum += qty * combinedAllItems[i].food.fat;
+				allFiberSum += qty * combinedAllItems[i].food.fiber;
 			}
-
-			goalCalories = this.props.goal.dailyCalories;
-			goalProtein = this.props.goal.dailyProtein;
-			goalCarbs = this.props.goal.dailyCarbs;
-			goalFat = this.props.goal.dailyFat;
-			goalFiber = this.props.goal.dailyFiber;
 		}
 
 		let goalNutritionForm = this.props.loading ? (
@@ -175,8 +187,8 @@ export class Goal extends Component {
 							<tr>
 								<td>Calories</td>
 								<td>{this.props.goal.dailyCalories}</td>
-								<td>{calorieSum}</td>
-								<td>{this.props.goal.dailyCalories - calorieSum}</td>
+								<td>{allCalorieSum}</td>
+								<td>{this.props.goal.dailyCalories - allCalorieSum}</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -184,18 +196,19 @@ export class Goal extends Component {
 											role='progressbar'
 											style={{
 												width:
-													(calorieSum / this.props.goal.dailyCalories) * 100 +
+													(allCalorieSum / this.props.goal.dailyCalories) *
+														100 +
 													'%',
 												color: 'black'
 											}}
 											aria-valuenow={
-												(calorieSum / this.props.goal.dailyCalories) * 100
+												(allCalorieSum / this.props.goal.dailyCalories) * 100
 											}
 											aria-valuemin='0'
 											aria-valuemax='100'
 										>
 											{(
-												(calorieSum / this.props.goal.dailyCalories) *
+												(allCalorieSum / this.props.goal.dailyCalories) *
 												100
 											).toFixed(2)}
 											%
@@ -206,8 +219,8 @@ export class Goal extends Component {
 							<tr>
 								<td>Protein</td>
 								<td>{this.props.goal.dailyProtein}</td>
-								<td>{proteinSum}</td>
-								<td>{this.props.goal.dailyProtein - proteinSum}</td>
+								<td>{allProteinSum}</td>
+								<td>{this.props.goal.dailyProtein - allProteinSum}</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -215,18 +228,18 @@ export class Goal extends Component {
 											role='progressbar'
 											style={{
 												width:
-													(proteinSum / this.props.goal.dailyProtein) * 100 +
+													(allProteinSum / this.props.goal.dailyProtein) * 100 +
 													'%',
 												color: 'black'
 											}}
 											aria-valuenow={
-												(proteinSum / this.props.goal.dailyProtein) * 100
+												(allProteinSum / this.props.goal.dailyProtein) * 100
 											}
 											aria-valuemin='0'
 											aria-valuemax='100'
 										>
 											{(
-												(proteinSum / this.props.goal.dailyProtein) *
+												(allProteinSum / this.props.goal.dailyProtein) *
 												100
 											).toFixed(2)}
 											%
@@ -237,8 +250,8 @@ export class Goal extends Component {
 							<tr>
 								<td>Carbs</td>
 								<td>{this.props.goal.dailyCarbs}</td>
-								<td>{carbsSum}</td>
-								<td>{this.props.goal.dailyCarbs - carbsSum}</td>
+								<td>{allCarbsSum}</td>
+								<td>{this.props.goal.dailyCarbs - allCarbsSum}</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -246,18 +259,20 @@ export class Goal extends Component {
 											role='progressbar'
 											style={{
 												width:
-													(carbsSum / this.props.goal.dailyCarbs) * 100 + '%',
+													(allCarbsSum / this.props.goal.dailyCarbs) * 100 +
+													'%',
 												color: 'black'
 											}}
 											aria-valuenow={
-												(carbsSum / this.props.goal.dailyCarbs) * 100
+												(allCarbsSum / this.props.goal.dailyCarbs) * 100
 											}
 											aria-valuemin='0'
 											aria-valuemax='100'
 										>
-											{((carbsSum / this.props.goal.dailyCarbs) * 100).toFixed(
-												2
-											)}
+											{(
+												(allCarbsSum / this.props.goal.dailyCarbs) *
+												100
+											).toFixed(2)}
 											%
 										</div>
 									</div>
@@ -266,31 +281,8 @@ export class Goal extends Component {
 							<tr>
 								<td>Fat</td>
 								<td>{this.props.goal.dailyFat}</td>
-								<td>{fatSum}</td>
-								<td>{this.props.goal.dailyFat - fatSum}</td>
-								<td>
-									<div className='progress' style={{ height: '25px' }}>
-										<div
-											className='progress-bar'
-											role='progressbar'
-											style={{
-												width: (fatSum / this.props.goal.dailyFat) * 100 + '%',
-												color: 'black'
-											}}
-											aria-valuenow={(fatSum / this.props.goal.dailyFat) * 100}
-											aria-valuemin='0'
-											aria-valuemax='100'
-										>
-											{((fatSum / this.props.goal.dailyFat) * 100).toFixed(2)}%
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>Fiber</td>
-								<td>{this.props.goal.dailyFiber}</td>
-								<td>{fiberSum}</td>
-								<td>{this.props.goal.dailyFiber - fiberSum}</td>
+								<td>{allFatSum}</td>
+								<td>{this.props.goal.dailyFat - allFatSum}</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -298,18 +290,49 @@ export class Goal extends Component {
 											role='progressbar'
 											style={{
 												width:
-													(fiberSum / this.props.goal.dailyFiber) * 100 + '%',
+													(allFatSum / this.props.goal.dailyFat) * 100 + '%',
 												color: 'black'
 											}}
 											aria-valuenow={
-												(fiberSum / this.props.goal.dailyFiber) * 100
+												(allFatSum / this.props.goal.dailyFat) * 100
 											}
 											aria-valuemin='0'
 											aria-valuemax='100'
 										>
-											{((fiberSum / this.props.goal.dailyFiber) * 100).toFixed(
+											{((allFatSum / this.props.goal.dailyFat) * 100).toFixed(
 												2
 											)}
+											%
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>Fiber</td>
+								<td>{this.props.goal.dailyFiber}</td>
+								<td>{allFiberSum}</td>
+								<td>{this.props.goal.dailyFiber - allFiberSum}</td>
+								<td>
+									<div className='progress' style={{ height: '25px' }}>
+										<div
+											className='progress-bar'
+											role='progressbar'
+											style={{
+												width:
+													(allFiberSum / this.props.goal.dailyFiber) * 100 +
+													'%',
+												color: 'black'
+											}}
+											aria-valuenow={
+												(allFiberSum / this.props.goal.dailyFiber) * 100
+											}
+											aria-valuemin='0'
+											aria-valuemax='100'
+										>
+											{(
+												(allFiberSum / this.props.goal.dailyFiber) *
+												100
+											).toFixed(2)}
 											%
 										</div>
 									</div>
@@ -320,7 +343,47 @@ export class Goal extends Component {
 				</div>
 			);
 		}
-		return <div>{goalNutritionForm}</div>;
+		return (
+			<div className='container'>
+				<div className='row'>{goalNutritionForm}</div>
+				<div className='row'>
+					<Chart
+						width={'500px'}
+						height={'300px'}
+						chartType='PieChart'
+						loader={<div>Loading Chart</div>}
+						data={[
+							['Macro', 'In grams'],
+							['Protein', allProteinSum],
+							['Carbs', allCarbsSum],
+							['Fat', allFatSum]
+						]}
+						options={{
+							title: 'Daily Macros'
+						}}
+						rootProps={{ 'data-testid': '1' }}
+					/>
+					<Chart
+						width={'500px'}
+						height={'300px'}
+						chartType='PieChart'
+						loader={<div>Loading Chart</div>}
+						data={[
+							['Meal', 'Calories'],
+							['Breakfest', breakfestCaloriesSum],
+							['Lunch', lunchCaloriesSum],
+							['Dinner', dinnerCaloriesSum],
+							['Snack', snackCaloriesSum]
+						]}
+						options={{
+							title: 'Calories per Meal',
+							pieHole: 0.4
+						}}
+						rootProps={{ 'data-testid': '2' }}
+					/>
+				</div>
+			</div>
+		);
 	}
 }
 
