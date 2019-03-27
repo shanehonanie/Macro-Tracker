@@ -372,11 +372,28 @@ export class Goal extends Component {
 							['Meal', 'Calories'],
 							['Breakfest', breakfestCaloriesSum],
 							['Lunch', lunchCaloriesSum],
+							['Dinner', dinnerCaloriesSum]
+						]}
+						options={{
+							title: 'Calories per Meal (No Snack)',
+							pieHole: 0.4
+						}}
+						rootProps={{ 'data-testid': '2' }}
+					/>
+					<Chart
+						width={'500px'}
+						height={'300px'}
+						chartType='PieChart'
+						loader={<Spinner />}
+						data={[
+							['Meal', 'Calories'],
+							['Breakfest', breakfestCaloriesSum],
+							['Lunch', lunchCaloriesSum],
 							['Dinner', dinnerCaloriesSum],
 							['Snack', snackCaloriesSum]
 						]}
 						options={{
-							title: 'Calories per Meal',
+							title: 'Calories per Meal (With Snack)',
 							pieHole: 0.4
 						}}
 						rootProps={{ 'data-testid': '2' }}
