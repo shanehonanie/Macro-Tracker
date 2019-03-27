@@ -147,8 +147,10 @@ export class FoodDiary extends Component {
 			item =>
 				item.mealOfDay === meal && this.isEqualCalendarDate(item.date, fromDate)
 		);
+		//console.log('[FoodDiary.js] copyFromDate fromDateMeals', fromDateMeals);
+		// if there are no deals from yesterday, do nothing
+		if (fromDateMeals.length === 0) return;
 
-		// console.log('[FoodDiary.js] copyFromDate fromDateMeals', fromDateMeals);
 		let foodsHistoryArray = [];
 
 		// convert to the correct format and assign the new date
