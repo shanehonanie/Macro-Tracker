@@ -11,17 +11,9 @@ const FoodSchema = new Schema({
 		type: String,
 		required: true
 	},
-	portion: {
-		type: String,
-		required: true
-	},
 	measurement: {
 		type: String,
 		required: true
-	},
-	meal: {
-		type: String,
-		default: 'none'
 	},
 	calories: {
 		type: Number,
