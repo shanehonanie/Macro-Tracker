@@ -53,9 +53,7 @@ router.post(
 
 		if (req.body.name) foodFields.name = req.body.name;
 		if (req.body.brand) foodFields.brand = req.body.brand;
-		if (req.body.portion) foodFields.portion = req.body.portion;
 		if (req.body.measurement) foodFields.measurement = req.body.measurement;
-		if (req.body.meal) foodFields.meal = req.body.meal;
 		if (req.body.calories) foodFields.calories = req.body.calories;
 		if (req.body.fat) foodFields.fat = req.body.fat;
 		if (req.body.protein) foodFields.protein = req.body.protein;
