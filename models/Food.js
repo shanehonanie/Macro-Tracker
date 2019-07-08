@@ -27,11 +27,11 @@ const FoodSchema = new Schema({
 		type: Number,
 		required: true
 	},
-	fat: {
+	protein: {
 		type: Number,
 		required: true
 	},
-	protein: {
+	fat: {
 		type: Number,
 		required: true
 	},
@@ -40,6 +40,10 @@ const FoodSchema = new Schema({
 		required: true
 	},
 	fiber: {
+		type: Number,
+		required: true
+	},
+	sugar: {
 		type: Number,
 		required: true
 	},
