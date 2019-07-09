@@ -9,15 +9,15 @@ const FoodSchema = new Schema({
 	},
 	brand: {
 		type: String,
-		required: true
+		default: ''
 	},
 	measurementQty: {
 		type: Number,
-		required: true
+		default: 1
 	},
 	measurementUnit: {
 		type: String,
-		required: true
+		default: 'unit'
 	},
 	volumeQty: {
 		type: Number,

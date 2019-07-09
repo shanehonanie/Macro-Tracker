@@ -53,12 +53,20 @@ router.post(
 
 		if (req.body.name) foodFields.name = req.body.name;
 		if (req.body.brand) foodFields.brand = req.body.brand;
-		if (req.body.measurement) foodFields.measurement = req.body.measurement;
+		if (req.body.measurementQty)
+			foodFields.measurementQty = req.body.measurementQty;
+		if (req.body.measurementUnit)
+			foodFields.measurementUnit = req.body.measurementUnit;
+		if (req.body.volumeQty) foodFields.volumeQty = req.body.volumeQty;
+		if (req.body.volumeUnit) foodFields.volumeUnit = req.body.volumeUnit;
+		if (req.body.isMeasurementAsDefault)
+			foodFields.isMeasurementAsDefault = req.body.isMeasurementAsDefault;
 		if (req.body.calories) foodFields.calories = req.body.calories;
-		if (req.body.fat) foodFields.fat = req.body.fat;
 		if (req.body.protein) foodFields.protein = req.body.protein;
+		if (req.body.fat) foodFields.fat = req.body.fat;
 		if (req.body.carbs) foodFields.carbs = req.body.carbs;
 		if (req.body.fiber) foodFields.fiber = req.body.fiber;
+		if (req.body.sugar) foodFields.sugar = req.body.sugar;
 
 		Food.findOne({ name: req.body.name }).then(food => {
 			//Update
