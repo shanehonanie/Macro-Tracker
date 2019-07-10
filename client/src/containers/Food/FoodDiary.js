@@ -188,9 +188,10 @@ export class FoodDiary extends Component {
 					name: 'Quick add calories',
 					calories: quickCaloriesArray[i].calories,
 					protein: quickCaloriesArray[i].protein,
-					carbs: quickCaloriesArray[i].carbs,
 					fat: quickCaloriesArray[i].fat,
-					fiber: quickCaloriesArray[i].fiber
+					carbs: quickCaloriesArray[i].carbs,
+					fiber: quickCaloriesArray[i].fiber,
+					sugar: quickCaloriesArray[i].sugar
 				}
 			};
 			transformedArray.push(newItem);
@@ -231,14 +232,16 @@ export class FoodDiary extends Component {
 
 		let calorieSum = 0;
 		let proteinSum = 0;
-		let carbsSum = 0;
 		let fatSum = 0;
+		let carbsSum = 0;
 		let fiberSum = 0;
+		let sugarSum = 0;
 		let goalCalories = 0;
 		let goalProtein = 0;
 		let goalCarbs = 0;
 		let goalFat = 0;
 		let goalFiber = 0;
+		let goalSugar = 0;
 		let allItemsInSelectedDay = null;
 		let allQuickTransformInSelectedDay = null;
 
@@ -353,16 +356,18 @@ export class FoodDiary extends Component {
 
 				calorieSum += qty * combinedAllItems[i].food.calories;
 				proteinSum += qty * combinedAllItems[i].food.protein;
-				carbsSum += qty * combinedAllItems[i].food.carbs;
 				fatSum += qty * combinedAllItems[i].food.fat;
+				carbsSum += qty * combinedAllItems[i].food.carbs;
 				fiberSum += qty * combinedAllItems[i].food.fiber;
+				sugarSum += qty * combinedAllItems[i].food.sugar;
 			}
 
 			goalCalories = this.props.goal.dailyCalories;
 			goalProtein = this.props.goal.dailyProtein;
-			goalCarbs = this.props.goal.dailyCarbs;
 			goalFat = this.props.goal.dailyFat;
+			goalCarbs = this.props.goal.dailyCarbs;
 			goalFiber = this.props.goal.dailyFiber;
+			goalSugar = this.props.goal.dailySugar;
 		}
 
 		if (!this.props.profileLoading && !this.props.goalsLoading) {
@@ -397,33 +402,37 @@ export class FoodDiary extends Component {
 								<th>Totals</th>
 								<td>{calorieSum}</td>
 								<td>{proteinSum}</td>
-								<td>{carbsSum}</td>
 								<td>{fatSum}</td>
+								<td>{carbsSum}</td>
 								<td>{fiberSum}</td>
+								<td>{sugarSum}</td>
 							</tr>
 							<tr>
 								<th>Your Daily Goal</th>
 								<td>{goalCalories}</td>
 								<td>{goalProtein}</td>
-								<td>{goalCarbs}</td>
 								<td>{goalFat}</td>
+								<td>{goalCarbs}</td>
 								<td>{goalFiber}</td>
+								<td>{goalSugar}</td>
 							</tr>
 							<tr>
 								<th>Remaining</th>
 								<td>{goalCalories - calorieSum}</td>
 								<td>{goalProtein - proteinSum}</td>
-								<td>{goalCarbs - carbsSum}</td>
 								<td>{goalFat - fatSum}</td>
+								<td>{goalCarbs - carbsSum}</td>
 								<td>{goalFiber - fiberSum}</td>
+								<td>{goalSugar - sugarSum}</td>
 							</tr>
 							<tr>
 								<th />
 								<th>Calories</th>
 								<th>Protein</th>
-								<th>Carbs</th>
 								<th>Fat</th>
+								<th>Carbs</th>
 								<th>Fiber</th>
+								<th>Sugar</th>
 							</tr>
 						</tbody>
 					</table>

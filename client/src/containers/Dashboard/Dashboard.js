@@ -56,9 +56,10 @@ export class Goal extends Component {
 					name: 'Quick add calories',
 					calories: quickCaloriesArray[i].calories,
 					protein: quickCaloriesArray[i].protein,
-					carbs: quickCaloriesArray[i].carbs,
 					fat: quickCaloriesArray[i].fat,
-					fiber: quickCaloriesArray[i].fiber
+					carbs: quickCaloriesArray[i].carbs,
+					fiber: quickCaloriesArray[i].fiber,
+					sugar: quickCaloriesArray[i].sugar
 				}
 			};
 			transformedArray.push(newItem);
@@ -84,6 +85,7 @@ export class Goal extends Component {
 		let allCarbsSum = 0;
 		let allFatSum = 0;
 		let allFiberSum = 0;
+		let allSugarSum = 0;
 		let breakfestCaloriesSum = 0;
 		let lunchCaloriesSum = 0;
 		let dinnerCaloriesSum = 0;
@@ -161,6 +163,7 @@ export class Goal extends Component {
 				allCarbsSum += qty * combinedAllItems[i].food.carbs;
 				allFatSum += qty * combinedAllItems[i].food.fat;
 				allFiberSum += qty * combinedAllItems[i].food.fiber;
+				allSugarSum += qty * combinedAllItems[i].food.sugar;
 			}
 		}
 
@@ -248,6 +251,35 @@ export class Goal extends Component {
 								</td>
 							</tr>
 							<tr>
+								<td>Fat</td>
+								<td>{this.props.goal.dailyFat}</td>
+								<td>{allFatSum}</td>
+								<td>{this.props.goal.dailyFat - allFatSum}</td>
+								<td>
+									<div className='progress' style={{ height: '25px' }}>
+										<div
+											className='progress-bar'
+											role='progressbar'
+											style={{
+												width:
+													(allFatSum / this.props.goal.dailyFat) * 100 + '%',
+												color: 'black'
+											}}
+											aria-valuenow={
+												(allFatSum / this.props.goal.dailyFat) * 100
+											}
+											aria-valuemin='0'
+											aria-valuemax='100'
+										>
+											{((allFatSum / this.props.goal.dailyFat) * 100).toFixed(
+												2
+											)}
+											%
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
 								<td>Carbs</td>
 								<td>{this.props.goal.dailyCarbs}</td>
 								<td>{allCarbsSum}</td>
@@ -279,35 +311,6 @@ export class Goal extends Component {
 								</td>
 							</tr>
 							<tr>
-								<td>Fat</td>
-								<td>{this.props.goal.dailyFat}</td>
-								<td>{allFatSum}</td>
-								<td>{this.props.goal.dailyFat - allFatSum}</td>
-								<td>
-									<div className='progress' style={{ height: '25px' }}>
-										<div
-											className='progress-bar'
-											role='progressbar'
-											style={{
-												width:
-													(allFatSum / this.props.goal.dailyFat) * 100 + '%',
-												color: 'black'
-											}}
-											aria-valuenow={
-												(allFatSum / this.props.goal.dailyFat) * 100
-											}
-											aria-valuemin='0'
-											aria-valuemax='100'
-										>
-											{((allFatSum / this.props.goal.dailyFat) * 100).toFixed(
-												2
-											)}
-											%
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
 								<td>Fiber</td>
 								<td>{this.props.goal.dailyFiber}</td>
 								<td>{allFiberSum}</td>
@@ -331,6 +334,37 @@ export class Goal extends Component {
 										>
 											{(
 												(allFiberSum / this.props.goal.dailyFiber) *
+												100
+											).toFixed(2)}
+											%
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>Sugar</td>
+								<td>{this.props.goal.dailySugar}</td>
+								<td>{allSugarSum}</td>
+								<td>{this.props.goal.dailySugar - allSugarSum}</td>
+								<td>
+									<div className='progress' style={{ height: '25px' }}>
+										<div
+											className='progress-bar'
+											role='progressbar'
+											style={{
+												width:
+													(allSugarSum / this.props.goal.dailySugar) * 100 +
+													'%',
+												color: 'black'
+											}}
+											aria-valuenow={
+												(allSugarSum / this.props.goal.dailySugar) * 100
+											}
+											aria-valuemin='0'
+											aria-valuemax='100'
+										>
+											{(
+												(allSugarSum / this.props.goal.dailySugar) *
 												100
 											).toFixed(2)}
 											%

@@ -53,19 +53,6 @@ const quickAddTable = props => {
 					</td>
 				</tr>
 				<tr>
-					<td>Carbohydrates</td>
-					<td>
-						<TextFieldGroupNumber
-							// placeholder='Daily Calories'
-							name='carbs'
-							value={props.carbs}
-							onChange={props.inputChangedHandler}
-							error={null}
-							// info='Daily Calories'
-						/>
-					</td>
-				</tr>
-				<tr>
 					<td>Fats</td>
 					<td>
 						<TextFieldGroupNumber
@@ -79,12 +66,38 @@ const quickAddTable = props => {
 					</td>
 				</tr>
 				<tr>
+					<td>Carbohydrates</td>
+					<td>
+						<TextFieldGroupNumber
+							// placeholder='Daily Calories'
+							name='carbs'
+							value={props.carbs}
+							onChange={props.inputChangedHandler}
+							error={null}
+							// info='Daily Calories'
+						/>
+					</td>
+				</tr>
+				<tr>
 					<td>Fiber</td>
 					<td>
 						<TextFieldGroupNumber
 							// placeholder='Daily Calories'
 							name='fiber'
 							value={props.fiber}
+							onChange={props.inputChangedHandler}
+							error={null}
+							// info='Daily Calories'
+						/>
+					</td>
+				</tr>
+				<tr>
+					<td>Sugar</td>
+					<td>
+						<TextFieldGroupNumber
+							// placeholder='Daily Calories'
+							name='sugar'
+							value={props.sugar}
 							onChange={props.inputChangedHandler}
 							error={null}
 							// info='Daily Calories'

@@ -3,19 +3,23 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../../store/actions/index';
 import TextFieldGroup from '../../../components/UI/TextFieldGroup';
+import SelectListGroup from '../../../components/UI/SelectListGroup';
 
 export class Food extends Component {
 	state = {
 		name: '',
 		brand: '',
-		portion: '',
-		measurement: '',
-		meal: '',
+		measurementQty: '',
+		measurementUnit: '',
+		volumeQty: '',
+		volumeUnit: '',
+		isMeasurementAsDefault: '',
 		calories: '',
-		fat: '',
 		protein: '',
+		fat: '',
 		carbs: '',
 		fiber: '',
+		sugar: '',
 		error: {}
 	};
 
@@ -35,14 +39,17 @@ export class Food extends Component {
 		const foodData = {
 			name: this.state.name,
 			brand: this.state.brand,
-			portion: this.state.portion,
-			measurement: this.state.measurement,
-			meal: this.state.meal,
+			measurementQty: this.state.measurementQty,
+			measurementUnit: this.state.measurementUnit,
+			volumeQty: this.state.volumeQty,
+			volumeUnit: this.state.volumeUnit,
+			isMeasurementAsDefault: this.state.isMeasurementAsDefault,
 			calories: this.state.calories,
 			fat: this.state.fat,
 			protein: this.state.protein,
 			carbs: this.state.carbs,
-			fiber: this.state.fiber
+			fiber: this.state.fiber,
+			sugar: this.state.sugar
 		};
 
 		this.props.onCreateFood(foodData, this.props.token);
@@ -54,6 +61,12 @@ export class Food extends Component {
 
 	render() {
 		const { error } = this.state;
+
+		// Select options for default measurement
+		const options = [
+			{ label: 'Measurement', value: 'Measurement' },
+			{ label: 'Volume', value: 'Volume' }
+		];
 
 		return (
 			<div className='create-profile'>
@@ -83,20 +96,44 @@ export class Food extends Component {
 									info='Brand of food'
 								/>
 								<TextFieldGroup
-									placeholder='* Portion'
-									name='portion'
-									value={this.state.portion}
+									placeholder='* Measurement Qty'
+									name='measurementQty'
+									value={this.state.measurementQty}
 									onChange={this.inputChangedHandler}
-									error={error.portion}
-									info='Portion of food'
+									error={error.measurementQty}
+									info='Amount of Measurement'
 								/>
 								<TextFieldGroup
-									placeholder='* Measurement'
-									name='measurement'
-									value={this.state.measurement}
+									placeholder='* Measurement Unit'
+									name='measurementUnit'
+									value={this.state.measurementUnit}
 									onChange={this.inputChangedHandler}
-									error={error.measurement}
-									info='Measurement in grams or ounces'
+									error={error.measurementUnit}
+									info='Unit of Measure'
+								/>
+								<TextFieldGroup
+									placeholder='* Volume Qty'
+									name='volumeQty'
+									value={this.state.volumeQty}
+									onChange={this.inputChangedHandler}
+									error={error.volumeQty}
+									info='Amount of Volume'
+								/>
+								<TextFieldGroup
+									placeholder='* Volume Unit'
+									name='volumeUnit'
+									value={this.state.volumeUnit}
+									onChange={this.inputChangedHandler}
+									error={error.volumeUnit}
+									info='Volume of Measure'
+								/>
+								<SelectListGroup
+									name='isMeasurementAsDefault'
+									value={this.state.isMeasurementAsDefault}
+									onChange={this.inputChangedHandler}
+									options={options}
+									error={null}
+									info='Select the volume or measurement to show as default'
 								/>
 								<TextFieldGroup
 									placeholder='* Calories'
@@ -107,20 +144,20 @@ export class Food extends Component {
 									info='Calories in food'
 								/>
 								<TextFieldGroup
-									placeholder='* Fat'
-									name='fat'
-									value={this.state.fat}
-									onChange={this.inputChangedHandler}
-									error={error.fat}
-									info='Fat in food'
-								/>
-								<TextFieldGroup
 									placeholder='* Protein'
 									name='protein'
 									value={this.state.protein}
 									onChange={this.inputChangedHandler}
 									error={error.protein}
 									info='Protein in Food'
+								/>
+								<TextFieldGroup
+									placeholder='* Fat'
+									name='fat'
+									value={this.state.fat}
+									onChange={this.inputChangedHandler}
+									error={error.fat}
+									info='Fat in food'
 								/>
 								<TextFieldGroup
 									placeholder='* Carbs'
@@ -137,6 +174,14 @@ export class Food extends Component {
 									onChange={this.inputChangedHandler}
 									error={error.fiber}
 									info='Fiber in food'
+								/>
+								<TextFieldGroup
+									placeholder='* Sugar'
+									name='sugar'
+									value={this.state.sugar}
+									onChange={this.inputChangedHandler}
+									error={error.sugar}
+									info='Sugar in food'
 								/>
 								<input
 									type='submit'

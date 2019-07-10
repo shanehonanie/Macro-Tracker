@@ -11,9 +11,10 @@ const dateOptions = {
 const foodDiaryTable = props => {
 	let calorieSum = 0;
 	let proteinSum = 0;
-	let carbsSum = 0;
 	let fatSum = 0;
+	let carbsSum = 0;
 	let fiberSum = 0;
+	let sugarSum = 0;
 
 	// console.log('[FoodDiaryTable.js] props', props);
 	const copyFromDates = props.last7Days.map((row, index) => {
@@ -33,18 +34,20 @@ const foodDiaryTable = props => {
 		//console.log('[foodDiaryTable.js] row', row);
 		calorieSum += row.serving * row.food.calories;
 		proteinSum += row.serving * row.food.protein;
-		carbsSum += row.serving * row.food.carbs;
 		fatSum += row.serving * row.food.fat;
+		carbsSum += row.serving * row.food.carbs;
 		fiberSum += row.serving * row.food.fiber;
+		sugarSum += row.serving * row.food.sugar;
 		return (
 			<tr key={index}>
 				<td colSpan='3'>{row.food.name}</td>
 				<td>{parseFloat(row.serving).toFixed(2)}</td>
 				<td>{row.serving * row.food.calories}</td>
 				<td>{row.serving * row.food.protein}</td>
-				<td>{row.serving * row.food.carbs}</td>
 				<td>{row.serving * row.food.fat}</td>
+				<td>{row.serving * row.food.carbs}</td>
 				<td>{row.serving * row.food.fiber}</td>
+				<td>{row.serving * row.food.sugar}</td>
 				<td>
 					{props.onClickDelete ? (
 						<button
@@ -125,9 +128,10 @@ const foodDiaryTable = props => {
 					<th>Serving</th>
 					<th>Calories</th>
 					<th>Protein</th>
-					<th>Carbs</th>
 					<th>Fat</th>
+					<th>Carbs</th>
 					<th>Fiber</th>
+					<th>Sugar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -168,9 +172,10 @@ const foodDiaryTable = props => {
 					<td />
 					<td>{calorieSum}</td>
 					<td>{proteinSum}</td>
-					<td>{carbsSum}</td>
 					<td>{fatSum}</td>
+					<td>{carbsSum}</td>
 					<td>{fiberSum}</td>
+					<td>{sugarSum}</td>
 				</tr>
 			</tbody>
 		</table>

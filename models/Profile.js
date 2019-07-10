@@ -81,15 +81,19 @@ const ProfileSchema = new Schema({
 				type: Number,
 				required: true
 			},
-			carbs: {
-				type: Number,
-				required: true
-			},
 			fat: {
 				type: Number,
 				required: true
 			},
+			carbs: {
+				type: Number,
+				required: true
+			},
 			fiber: {
+				type: Number,
+				required: true
+			},
+			sugar: {
 				type: Number,
 				required: true
 			}

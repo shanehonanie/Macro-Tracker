@@ -14,6 +14,7 @@ module.exports = function validateGoalInput(data) {
 	data.dailyFat = !isEmptyNumber(data.dailyFat) ? data.dailyFat : '';
 	data.dailyCarbs = !isEmptyNumber(data.dailyCarbs) ? data.dailyCarbs : '';
 	data.dailyFiber = !isEmptyNumber(data.dailyFiber) ? data.dailyFiber : '';
+	data.dailySugar = !isEmptyNumber(data.dailySugar) ? data.dailySugar : '';
 	data.fitnessWeeklyWorkouts = !isEmptyNumber(data.fitnessWeeklyWorkouts)
 		? data.fitnessWeeklyWorkouts
 		: '';
@@ -56,6 +57,10 @@ module.exports = function validateGoalInput(data) {
 		errors.dailyFiber = 'Fiber is required';
 	}
 
+	if (Validator.isEmpty(String(data.dailySugar))) {
+		errors.dailySugar = 'Sugar is required';
+	}
+
 	if (Validator.isEmpty(String(data.fitnessWeeklyWorkouts))) {
 		errors.fitnessWeeklyWorkouts = '# of Weekly Fitness Workouts is required';
 	}
@@ -96,6 +101,10 @@ module.exports = function validateGoalInput(data) {
 
 	if (!Validator.isInt(String(data.dailyFiber))) {
 		errors.dailyFiber = 'Fiber must be a number';
+	}
+
+	if (!Validator.isInt(String(data.dailySugar))) {
+		errors.dailySugar = 'Sugar must be a number';
 	}
 
 	if (!Validator.isInt(String(data.fitnessWeeklyWorkouts))) {

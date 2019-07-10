@@ -12,6 +12,7 @@ export class EditGoal extends Component {
 		dailyFat: '',
 		dailyCarbs: '',
 		dailyFiber: '',
+		dailySugar: '',
 		fitnessWeeklyWorkouts: '',
 		fitnessCaloriesBurnedPerWeek: '',
 		fitnessCardioDaysPerWeek: '',
@@ -37,6 +38,7 @@ export class EditGoal extends Component {
 				dailyFat: this.props.goal.dailyFat,
 				dailyCarbs: this.props.goal.dailyCarbs,
 				dailyFiber: this.props.goal.dailyFiber,
+				dailySugar: this.props.goal.dailySugar,
 				fitnessWeeklyWorkouts: this.props.goal.fitnessWeeklyWorkouts,
 				fitnessCaloriesBurnedPerWeek: this.props.goal
 					.fitnessCaloriesBurnedPerWeek,
@@ -69,6 +71,7 @@ export class EditGoal extends Component {
 			dailyFat: this.state.dailyFat,
 			dailyCarbs: this.state.dailyCarbs,
 			dailyFiber: this.state.dailyFiber,
+			dailySugar: this.state.dailySugar,
 			fitnessWeeklyWorkouts: this.state.fitnessWeeklyWorkouts,
 			fitnessCaloriesBurnedPerWeek: this.state.fitnessCaloriesBurnedPerWeek,
 			fitnessCardioDaysPerWeek: this.state.fitnessCardioDaysPerWeek,
@@ -145,6 +148,14 @@ export class EditGoal extends Component {
 										onChange={this.inputChangedHandler}
 										error={error.dailyFiber}
 										info='Daily Fiber'
+									/>
+									<TextFieldGroup
+										placeholder='Daily Sugar'
+										name='dailySugar'
+										value={String(this.state.dailySugar)}
+										onChange={this.inputChangedHandler}
+										error={error.dailySugar}
+										info='Daily Sugar'
 									/>
 									<TextFieldGroup
 										placeholder='# of Weekly Fitness Workouts'

@@ -27,6 +27,10 @@ const GoalSchema = new Schema({
 		type: Number,
 		default: -1
 	},
+	dailySugar: {
+		type: Number,
+		default: -1
+	},
 	fitnessWeeklyWorkouts: {
 		type: Number,
 		default: -1

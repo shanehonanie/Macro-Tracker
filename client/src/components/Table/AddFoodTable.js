@@ -9,9 +9,10 @@ const addFoodTable = props => {
 				<td>{parseFloat(row.serving).toFixed(2)}</td>
 				<td>{row.serving * row.foodArr.calories}</td>
 				<td>{row.serving * row.foodArr.protein}</td>
-				<td>{row.serving * row.foodArr.carbs}</td>
 				<td>{row.serving * row.foodArr.fat}</td>
+				<td>{row.serving * row.foodArr.carbs}</td>
 				<td>{row.serving * row.foodArr.fiber}</td>
+				<td>{row.serving * row.foodArr.sugar}</td>
 				<td>
 					<button
 						type='button'

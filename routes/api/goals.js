@@ -60,6 +60,7 @@ router.post(
 		if (req.body.dailyFat) goalFields.dailyFat = req.body.dailyFat;
 		if (req.body.dailyCarbs) goalFields.dailyCarbs = req.body.dailyCarbs;
 		if (req.body.dailyFiber) goalFields.dailyFiber = req.body.dailyFiber;
+		if (req.body.dailySugar) goalFields.dailySugar = req.body.dailySugar;
 		if (req.body.fitnessWeeklyWorkouts)
 			goalFields.fitnessWeeklyWorkouts = req.body.fitnessWeeklyWorkouts;
 		if (req.body.fitnessCaloriesBurnedPerWeek)

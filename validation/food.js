@@ -65,11 +65,11 @@ module.exports = function validateFoodInput(data) {
 	// 	errors.volumetUnit = 'Volume Unit needs to be between 1 and 10 characters';
 	// }
 
-	if (Validator.isEmpty(data.isMeasurementAsDefault)) {
+	if (Validator.isEmpty(data.isMeasurementAsDefault + '')) {
 		errors.isMeasurementAsDefault = 'isMeasurementAsDefault is required';
 	}
 
-	if (!Validator.isBoolean(data.isMeasurementAsDefault)) {
+	if (!Validator.isBoolean(data.isMeasurementAsDefault + '')) {
 		errors.isMeasurementAsDefault = 'isMeasurementAsDefault must be a Boolean';
 	}
 

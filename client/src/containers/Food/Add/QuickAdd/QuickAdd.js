@@ -12,7 +12,8 @@ export class QuickAdd extends Component {
 		protein: 0,
 		carbs: 0,
 		fat: 0,
-		fiber: 0
+		fiber: 0,
+		sugar: 0
 	};
 
 	inputChangedHandler = event => {
@@ -30,9 +31,10 @@ export class QuickAdd extends Component {
 			mealOfDay: this.state.mealOfDay,
 			calories: this.state.calories.toString(),
 			protein: this.state.protein.toString(),
-			carbs: this.state.carbs.toString(),
 			fat: this.state.fat.toString(),
-			fiber: this.state.fiber.toString()
+			carbs: this.state.carbs.toString(),
+			fiber: this.state.fiber.toString(),
+			sugar: this.state.sugar.toString()
 		};
 		// console.log('newQuickAdd', newQuickAdd);
 		this.props.onCreateQuickCalories(newQuickAdd, this.props.token);
@@ -58,9 +60,10 @@ export class QuickAdd extends Component {
 					mealOfDay={this.state.mealOfDay}
 					calories={this.state.calories}
 					protein={this.state.protein}
-					carbs={this.state.carbs}
 					fat={this.state.fat}
+					carbs={this.state.carbs}
 					fiber={this.state.fiber}
+					sugar={this.state.sugar}
 				/>
 				<button
 					type='button'

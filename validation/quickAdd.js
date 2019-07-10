@@ -7,10 +7,11 @@ module.exports = function validateQuickAddInput(data) {
 	data.date = !isEmpty(data.date) ? data.date : '';
 	data.mealOfDay = !isEmpty(data.mealOfDay) ? data.mealOfDay : '';
 	data.calories = !isEmpty(data.calories) ? data.calories : '';
-	data.fat = !isEmpty(data.fat) ? data.fat : '';
 	data.protein = !isEmpty(data.protein) ? data.protein : '';
+	data.fat = !isEmpty(data.fat) ? data.fat : '';
 	data.carbs = !isEmpty(data.carbs) ? data.carbs : '';
 	data.fiber = !isEmpty(data.fiber) ? data.fiber : '';
+	data.sugar = !isEmpty(data.sugar) ? data.sugar : '';
 
 	// console.log('data', data);
 
@@ -60,6 +61,14 @@ module.exports = function validateQuickAddInput(data) {
 
 	if (Validator.isEmpty(data.fiber)) {
 		errors.fiber = 'Fiber is required';
+	}
+
+	// if (!Validator.isInt(data.sugar)) {
+	// 	errors.sugar = 'Sugar must be a number';
+	// }
+
+	if (Validator.isEmpty(data.sugar)) {
+		errors.sugar = 'Sugar is required';
 	}
 
 	return {

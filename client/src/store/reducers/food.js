@@ -22,8 +22,8 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
-				error: null,
-				foods: state.foods.concat(newFood)
+				error: null
+				//foods: state.foods.concat(newFood)
 			};
 		case actionTypes.ADD_FOOD_FAIL:
 			return {

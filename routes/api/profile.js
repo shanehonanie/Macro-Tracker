@@ -376,9 +376,10 @@ router.post(
 				mealOfDay: req.body.mealOfDay,
 				calories: req.body.calories,
 				protein: req.body.protein,
-				carbs: req.body.carbs,
 				fat: req.body.fat,
-				fiber: req.body.fiber
+				carbs: req.body.carbs,
+				fiber: req.body.fiber,
+				sugar: req.body.sugar
 			};
 			//push the quickAdd to array in memory
 			profile.quickAdds.push(newQuickAddItem);

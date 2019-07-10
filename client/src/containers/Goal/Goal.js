@@ -62,6 +62,10 @@ export class Goal extends Component {
 							<td>Fiber</td>
 							<td>{this.props.goal.dailyFiber}</td>
 						</tr>
+						<tr>
+							<td>Sugar</td>
+							<td>{this.props.goal.dailySugar}</td>
+						</tr>
 					</tbody>
 				</table>
 			);
