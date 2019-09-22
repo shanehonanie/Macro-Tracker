@@ -35,10 +35,10 @@ const addFoodTable = props => {
 					<th>Serving</th>
 					<th>Calories</th>
 					<th>Protein</th>
-					<th>Carbs</th>
 					<th>Fat</th>
+					<th>Carbs</th>
 					<th>Fiber</th>
-					<th>Delete?</th>
+					<th>Sugar</th>
 				</tr>
 			</thead>
 			<tbody>{tableData}</tbody>
