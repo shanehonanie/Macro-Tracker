@@ -45,7 +45,7 @@ img {
 }
 
 .list-group-item {
-	overflow: hidden;
+	/* overflow: hidden; */
 	position: relative;
 	display: block;
 	padding: 5px 15px;
