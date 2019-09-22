@@ -189,9 +189,13 @@ export class Goal extends Component {
 						<tbody>
 							<tr>
 								<td>Calories</td>
-								<td>{this.props.goal.dailyCalories}</td>
-								<td>{allCalorieSum}</td>
-								<td>{this.props.goal.dailyCalories - allCalorieSum}</td>
+								<td>{parseFloat(this.props.goal.dailyCalories).toFixed(2)}</td>
+								<td>{parseFloat(allCalorieSum).toFixed(2)}</td>
+								<td>
+									{parseFloat(
+										this.props.goal.dailyCalories - allCalorieSum
+									).toFixed(2)}
+								</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -221,9 +225,13 @@ export class Goal extends Component {
 							</tr>
 							<tr>
 								<td>Protein</td>
-								<td>{this.props.goal.dailyProtein}</td>
-								<td>{allProteinSum}</td>
-								<td>{this.props.goal.dailyProtein - allProteinSum}</td>
+								<td>{parseFloat(this.props.goal.dailyProtein).toFixed(2)}</td>
+								<td>{parseFloat(allProteinSum).toFixed(2)}</td>
+								<td>
+									{parseFloat(
+										this.props.goal.dailyProtein - allProteinSum
+									).toFixed(2)}
+								</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -252,9 +260,11 @@ export class Goal extends Component {
 							</tr>
 							<tr>
 								<td>Fat</td>
-								<td>{this.props.goal.dailyFat}</td>
-								<td>{allFatSum}</td>
-								<td>{this.props.goal.dailyFat - allFatSum}</td>
+								<td>{parseFloat(this.props.goal.dailyFat).toFixed(2)}</td>
+								<td>{parseFloat(allFatSum).toFixed(2)}</td>
+								<td>
+									{parseFloat(this.props.goal.dailyFat - allFatSum).toFixed(2)}
+								</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -281,9 +291,13 @@ export class Goal extends Component {
 							</tr>
 							<tr>
 								<td>Carbs</td>
-								<td>{this.props.goal.dailyCarbs}</td>
-								<td>{allCarbsSum}</td>
-								<td>{this.props.goal.dailyCarbs - allCarbsSum}</td>
+								<td>{parseFloat(this.props.goal.dailyCarbs).toFixed(2)}</td>
+								<td>{parseFloat(allCarbsSum).toFixed(2)}</td>
+								<td>
+									{parseFloat(this.props.goal.dailyCarbs - allCarbsSum).toFixed(
+										2
+									)}
+								</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -312,9 +326,13 @@ export class Goal extends Component {
 							</tr>
 							<tr>
 								<td>Fiber</td>
-								<td>{this.props.goal.dailyFiber}</td>
-								<td>{allFiberSum}</td>
-								<td>{this.props.goal.dailyFiber - allFiberSum}</td>
+								<td>{parseFloat(this.props.goal.dailyFiber).toFixed(2)}</td>
+								<td>{parseFloat(allFiberSum).toFixed(2)}</td>
+								<td>
+									{parseFloat(this.props.goal.dailyFiber - allFiberSum).toFixed(
+										2
+									)}
+								</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div
@@ -343,9 +361,13 @@ export class Goal extends Component {
 							</tr>
 							<tr>
 								<td>Sugar</td>
-								<td>{this.props.goal.dailySugar}</td>
-								<td>{allSugarSum}</td>
-								<td>{this.props.goal.dailySugar - allSugarSum}</td>
+								<td>{parseFloat(this.props.goal.dailySugar).toFixed(2)}</td>
+								<td>{parseFloat(allSugarSum).toFixed(2)}</td>
+								<td>
+									{parseFloat(this.props.goal.dailySugar - allSugarSum).toFixed(
+										2
+									)}
+								</td>
 								<td>
 									<div className='progress' style={{ height: '25px' }}>
 										<div

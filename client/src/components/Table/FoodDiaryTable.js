@@ -42,12 +42,12 @@ const foodDiaryTable = props => {
 			<tr key={index}>
 				<td colSpan='3'>{row.food.name}</td>
 				<td>{parseFloat(row.serving).toFixed(2)}</td>
-				<td>{row.serving * row.food.calories}</td>
-				<td>{row.serving * row.food.protein}</td>
-				<td>{row.serving * row.food.fat}</td>
-				<td>{row.serving * row.food.carbs}</td>
-				<td>{row.serving * row.food.fiber}</td>
-				<td>{row.serving * row.food.sugar}</td>
+				<td>{parseFloat(row.serving * row.food.calories).toFixed(0)}</td>
+				<td>{parseFloat(row.serving * row.food.protein).toFixed(2)}</td>
+				<td>{parseFloat(row.serving * row.food.fat).toFixed(2)}</td>
+				<td>{parseFloat(row.serving * row.food.carbs).toFixed(2)}</td>
+				<td>{parseFloat(row.serving * row.food.fiber).toFixed(2)}</td>
+				<td>{parseFloat(row.serving * row.food.sugar).toFixed(2)}</td>
 				<td>
 					{props.onClickDelete ? (
 						<button
@@ -170,12 +170,12 @@ const foodDiaryTable = props => {
 						) : null}
 					</td>
 					<td />
-					<td>{calorieSum}</td>
-					<td>{proteinSum}</td>
-					<td>{fatSum}</td>
-					<td>{carbsSum}</td>
-					<td>{fiberSum}</td>
-					<td>{sugarSum}</td>
+					<td>{parseFloat(calorieSum).toFixed(0)}</td>
+					<td>{parseFloat(proteinSum).toFixed(2)}</td>
+					<td>{parseFloat(fatSum).toFixed(2)}</td>
+					<td>{parseFloat(carbsSum).toFixed(2)}</td>
+					<td>{parseFloat(fiberSum).toFixed(2)}</td>
+					<td>{parseFloat(sugarSum).toFixed(2)}</td>
 				</tr>
 			</tbody>
 		</table>

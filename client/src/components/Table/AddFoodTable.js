@@ -7,12 +7,12 @@ const addFoodTable = props => {
 				<td>{row.foodArr.name}</td>
 				<td>{row.mealOfDay}</td>
 				<td>{parseFloat(row.serving).toFixed(2)}</td>
-				<td>{row.serving * row.foodArr.calories}</td>
-				<td>{row.serving * row.foodArr.protein}</td>
-				<td>{row.serving * row.foodArr.fat}</td>
-				<td>{row.serving * row.foodArr.carbs}</td>
-				<td>{row.serving * row.foodArr.fiber}</td>
-				<td>{row.serving * row.foodArr.sugar}</td>
+				<td>{parseFloat(row.serving * row.foodArr.calories).toFixed(0)}</td>
+				<td>{parseFloat(row.serving * row.foodArr.protein).toFixed(2)}</td>
+				<td>{parseFloat(row.serving * row.foodArr.fat).toFixed(2)}</td>
+				<td>{parseFloat(row.serving * row.foodArr.carbs).toFixed(2)}</td>
+				<td>{parseFloat(row.serving * row.foodArr.fiber).toFixed(2)}</td>
+				<td>{parseFloat(row.serving * row.foodArr.sugar).toFixed(2)}</td>
 				<td>
 					<button
 						type='button'

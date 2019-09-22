@@ -400,30 +400,30 @@ export class FoodDiary extends Component {
 						<tbody>
 							<tr>
 								<th>Totals</th>
-								<td>{calorieSum}</td>
-								<td>{proteinSum}</td>
-								<td>{fatSum}</td>
-								<td>{carbsSum}</td>
-								<td>{fiberSum}</td>
-								<td>{sugarSum}</td>
+								<td>{parseFloat(calorieSum).toFixed(0)}</td>
+								<td>{parseFloat(proteinSum).toFixed(2)}</td>
+								<td>{parseFloat(fatSum).toFixed(2)}</td>
+								<td>{parseFloat(carbsSum).toFixed(2)}</td>
+								<td>{parseFloat(fiberSum).toFixed(2)}</td>
+								<td>{parseFloat(sugarSum).toFixed(2)}</td>
 							</tr>
 							<tr>
 								<th>Your Daily Goal</th>
-								<td>{goalCalories}</td>
-								<td>{goalProtein}</td>
-								<td>{goalFat}</td>
-								<td>{goalCarbs}</td>
-								<td>{goalFiber}</td>
-								<td>{goalSugar}</td>
+								<td>{parseFloat(goalCalories).toFixed(0)}</td>
+								<td>{parseFloat(goalProtein).toFixed(2)}</td>
+								<td>{parseFloat(goalFat).toFixed(2)}</td>
+								<td>{parseFloat(goalCarbs).toFixed(2)}</td>
+								<td>{parseFloat(goalFiber).toFixed(2)}</td>
+								<td>{parseFloat(goalSugar).toFixed(2)}</td>
 							</tr>
 							<tr>
 								<th>Remaining</th>
-								<td>{goalCalories - calorieSum}</td>
-								<td>{goalProtein - proteinSum}</td>
-								<td>{goalFat - fatSum}</td>
-								<td>{goalCarbs - carbsSum}</td>
-								<td>{goalFiber - fiberSum}</td>
-								<td>{goalSugar - sugarSum}</td>
+								<td>{parseFloat(goalCalories - calorieSum).toFixed(0)}</td>
+								<td>{parseFloat(goalProtein - proteinSum).toFixed(2)}</td>
+								<td>{parseFloat(goalFat - fatSum).toFixed(2)}</td>
+								<td>{parseFloat(goalCarbs - carbsSum).toFixed(2)}</td>
+								<td>{parseFloat(goalFiber - fiberSum).toFixed(2)}</td>
+								<td>{parseFloat(goalSugar - sugarSum).toFixed(2)}</td>
 							</tr>
 							<tr>
 								<th />
