@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const fs = require('fs');
+const multer = require('multer');
+const csv = require('csv-parser');
+
+// for csv file upload/temp directory
+const upload = multer({ dest: 'tmp/csv/' });
 
 // Load Validation
 const validatorFoodInput = require('../../validation/food');
@@ -95,6 +101,64 @@ router.post(
 					.catch(err => res.status(404).json(err));
 			}
 		});
+	}
+);
+
+// @route POST api/foods/csv
+// @desc Create multiple food objects from CSV file
+// @access Private
+router.post(
+	'/csv',
+	upload.single('file'),
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		const fileData = [];
+
+		fs.createReadStream(req.file.path)
+			.pipe(csv())
+			.on('data', line => fileData.push(JSON.parse(JSON.stringify(line))))
+			.on('end', () => {
+				// console.log(fileData.length);
+
+				const newFoodsArray = [];
+
+				for (let i = 0; i < fileData.length; i++) {
+					// Get fields
+					const foodFields = {};
+					foodFields.createdBy = req.user.id;
+
+					if (fileData[i].Name) foodFields.name = fileData[i].Name;
+					if (fileData[i].Default)
+						foodFields.isMeasurementAsDefault =
+							fileData[i].Default === 'M' ? true : false;
+					if (fileData[i].Measurement)
+						foodFields.measurementQty = fileData[i].Measurement;
+					if (fileData[i]['Measurement Unit'])
+						foodFields.measurementUnit = fileData[i]['Measurement Unit'];
+					if (fileData[i].Volume) foodFields.volumeQty = fileData[i].Volume;
+					if (fileData[i]['Volume Unit'])
+						foodFields.volumeUnit = fileData[i]['Volume Unit'];
+					if (fileData[i].Brand) foodFields.brand = fileData[i].Brand;
+					if (fileData[i].Calories) foodFields.calories = fileData[i].Calories;
+					if (fileData[i].Protein) foodFields.protein = fileData[i].Protein;
+					if (fileData[i].Fat) foodFields.fat = fileData[i].Fat;
+					if (fileData[i].Carbs) foodFields.carbs = fileData[i].Carbs;
+					if (fileData[i].Fiber) foodFields.fiber = fileData[i].Fiber;
+					if (fileData[i].Sugar) foodFields.sugar = fileData[i].Sugar;
+					if (fileData[i].Source) foodFields.source = fileData[i].Source;
+					if (fileData[i].Description)
+						foodFields.description = fileData[i].Description;
+
+					newFoodsArray.push(foodFields);
+				}
+				fs.unlinkSync(req.file.path); //remove temp file
+
+				Food.insertMany(newFoodsArray)
+					.then(foods => res.json(foods))
+					.catch(err => res.status(404).json(err));
+
+				console.log('# Foods Added: ' + newFoodsArray.length);
+			});
 	}
 );
 
