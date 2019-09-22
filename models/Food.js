@@ -20,16 +20,14 @@ const FoodSchema = new Schema({
 		default: 'unit'
 	},
 	volumeQty: {
-		type: Number,
-		required: true
+		type: Number
 	},
 	volumeUnit: {
-		type: String,
-		required: true
+		type: String
 	},
 	isMeasurementAsDefault: {
 		type: Boolean,
-		default: true
+		required: true
 	},
 	calories: {
 		type: Number,
@@ -54,6 +52,18 @@ const FoodSchema = new Schema({
 	sugar: {
 		type: Number,
 		required: true
+	},
+	description: {
+		type: String,
+		default: 'N/A'
+	},
+	source: {
+		type: String,
+		default: 'N/A'
+	},
+	createdDate: {
+		type: Date,
+		default: Date.now
 	},
 	createdBy: {
 		type: Schema.Types.ObjectId,
