@@ -16,19 +16,18 @@ const foodDiaryTable = props => {
 	let fiberSum = 0;
 	let sugarSum = 0;
 
-	// console.log('[FoodDiaryTable.js] props', props);
-	const copyFromDates = props.last7Days.map((row, index) => {
-		return (
-			<button
-				key={index}
-				className='dropdown-item'
-				type='button'
-				onClick={() => props.copyFromDate(row, props.selectedDate, props.name)}
-			>
-				{row.toLocaleDateString('en-US', dateOptions)}
-			</button>
-		);
-	});
+	// const copyFromDates = props.last7Days.map((row, index) => {
+	// 	return (
+	// 		<button
+	// 			key={index}
+	// 			className='dropdown-item'
+	// 			type='button'
+	// 			onClick={() => props.copyFromDate(row, props.selectedDate, props.name)}
+	// 		>
+	// 			{row.toLocaleDateString('en-US', dateOptions)}
+	// 		</button>
+	// 	);
+	// });
 
 	const tableData = props.data.map((row, index) => {
 		//console.log('[foodDiaryTable.js] row', row);
@@ -103,22 +102,23 @@ const foodDiaryTable = props => {
 				>
 					Copy yesterday
 				</button>
-				<button
+				{/* <button
 					className='dropdown-item'
 					type='button'
 					onClick={props.toggleShowCopyFrom}
 				>
 					Copy from date
-				</button>
+				</button> */}
 				{/* <button className='dropdown-item' type='button'>
-				Copy to date
-			</button> */}
+					Copy to date
+				</button> */}
 			</form>
 		);
-	} else {
-		dropdownContents = copyFromDates;
-		// dropdownContents = 'copyFromDates';
 	}
+	// else {
+	// 	dropdownContents = copyFromDates;
+	// 	// dropdownContents = 'copyFromDates';
+	// }
 
 	return (
 		<table className='table table-striped'>
