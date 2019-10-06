@@ -77,3 +77,16 @@ export const fetchFoods = () => {
 			});
 	};
 };
+
+export const filterAllFoods = text => {
+	return {
+		type: actionTypes.FILTER_ALL_FOODS,
+		payload: text
+	};
+};
+
+export const clearFilter = () => {
+	return {
+		type: actionTypes.CLEAR_FILTER
+	};
+};

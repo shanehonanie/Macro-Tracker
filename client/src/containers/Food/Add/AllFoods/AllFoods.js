@@ -47,9 +47,14 @@ export class AllFoods extends Component {
 	};
 
 	addMealClickedHandler = event => {
+		let foodData = this.props.foodsDatabase;
+		let filteredFoodsData = this.props.filtered;
+
+		let foodDB = filteredFoodsData !== null ? filteredFoodsData : foodData;
+
 		const newItem = {
-			foodArr: { ...this.props.foodsDatabase[this.state.selectedItem] },
-			food: this.props.foodsDatabase[this.state.selectedItem].name,
+			foodArr: { ...foodDB[this.state.selectedItem] },
+			food: foodDB[this.state.selectedItem].name,
 			mealOfDay: this.state.mealOfDay,
 			serving: this.state.serving,
 			date: this.state.date,
@@ -63,9 +68,15 @@ export class AllFoods extends Component {
 
 	render() {
 		let data = null;
+		let filteredData = null;
 		let displayFoodList = null;
 		let displayFoodItem = null;
 		let displayTable = null;
+		let foodData = this.props.foodsDatabase;
+		let filteredFoodsData = this.props.filtered;
+
+		let foodDB = filteredFoodsData !== null ? filteredFoodsData : foodData;
+		//console.log('AllFoods.js filteredText: ' + this.props.filteredText);
 
 		// Select options for status
 		const options = [
@@ -75,10 +86,11 @@ export class AllFoods extends Component {
 			{ label: 'Snack', value: 'Snack' }
 		];
 
-		if (!this.props.loading && this.props.foodsDatabase) {
-			//console.log('this.props.foodsDatabase', this.props.foodsDatabase);
+		// Map food items to listItems
+		if (!this.props.loading && foodDB) {
+			//console.log('foodDB', foodDB);
 
-			data = this.props.foodsDatabase.map((food, index) => {
+			data = foodDB.map((food, index) => {
 				//console.log(`Food: ${food.name} -- Index: ${index}`);
 				return (
 					<button
@@ -92,16 +104,34 @@ export class AllFoods extends Component {
 				);
 			});
 
+			if (this.props.filtered) {
+				filteredData = this.props.filtered.map((food, index) => {
+					//console.log(`Food: ${food.name} -- Index: ${index}`);
+					return (
+						<button
+							type='button'
+							key={index}
+							onClick={event => this.listItemClickedHandler(event, index)}
+							className='list-group-item list-group-item-action'
+						>
+							{food.name}
+						</button>
+					);
+				});
+			}
+
 			displayFoodList = (
-				<div className='list-group offset-lg-1 col-lg-4'>{data}</div>
+				<div className='list-group offset-lg-1 col-lg-4'>
+					{this.props.filtered ? filteredData : data}
+				</div>
 			);
 		}
 
 		// if an item in the listgroup has been clicked
-		if (this.state.selectedItem !== -1 && this.props.foodsDatabase) {
+		if (this.state.selectedItem !== -1 && foodData) {
 			displayFoodItem = (
 				<div className='offset-lg-1 col-lg-4'>
-					<h1>{this.props.foodsDatabase[this.state.selectedItem].name}</h1>
+					{/* <h1>{foodDB[this.state.selectedItem].name}</h1> */}
 					<div className='row'>
 						<TextFieldGroupNumber
 							placeholder='* Serving'
@@ -112,10 +142,14 @@ export class AllFoods extends Component {
 							info='serving quantity'
 						/>
 						<p>
-							{' '}
-							{` serving of ${
-								this.props.foodsDatabase[this.state.selectedItem].measurement
-							}`}{' '}
+							Serving of{' '}
+							{/* {foodDB[this.state.selectedItem].isMeasurementAsDefault
+								? foodDB[this.state.selectedItem].measurementQty +
+								  ' ' +
+								  foodDB[this.state.selectedItem].measurementUnit
+								: foodDB[this.state.selectedItem].volumeQty +
+								  ' ' +
+								  foodDB[this.state.selectedItem].volumeUnit} */}
 						</p>
 					</div>
 					<div className='row'>

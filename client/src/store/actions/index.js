@@ -2,7 +2,7 @@ export { auth, logout, setAuthRedirectPath, authCheckState } from './auth';
 
 export { addGoal, fetchGoals } from './goal';
 
-export { addFood, fetchFoods } from './food';
+export { addFood, fetchFoods, filterAllFoods, clearFilter } from './food';
 
 export {
 	addProfile,

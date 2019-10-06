@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 
 import AllFoods from './AllFoods/AllFoods';
 import AddMeal from './Meals/AddMeal';
+import AllFoodFilter from '../../../components/UI/AllFoodFilter';
 import * as actions from '../../../store/actions/index';
 
 export class AddToDiary extends Component {
 	state = {
 		selectedDate: '',
 		mealName: '',
-		uniqueMeals: []
+		uniqueMeals: [],
+		filtered: null,
+		filteredText: ''
 	};
 
 	// static getDerivedStateFromProps(nextProps, prevState) {
@@ -109,6 +112,11 @@ export class AddToDiary extends Component {
 		});
 	};
 
+	getTextFromChild = text => {
+		//console.log('AddToDiary.js text: ' + text);
+		this.setState({ filteredText: text });
+	};
+
 	render() {
 		let uniqueMealsTemp = null;
 
@@ -166,11 +174,19 @@ export class AddToDiary extends Component {
 						role='tabpanel'
 						aria-labelledby='nav-allFoods-tab'
 					>
+						<AllFoodFilter
+							filtered={this.props.filtered}
+							filterAllFoods={this.props.onFilterAllFoods}
+							clearFilter={this.props.onClearFilter}
+							gt={this.getTextFromChild}
+						/>
 						<AllFoods
 							date={this.state.selectedDate}
 							mealOfDay={this.state.mealName}
 							foodsDatabase={this.props.foodsDatabase}
 							onSaveAllFoods={this.onSaveAllFoods}
+							filtered={this.props.filtered}
+							filteredText={this.state.filteredText}
 						/>
 					</div>
 					<div
@@ -206,7 +222,8 @@ const mapStateToProps = state => {
 		profile: state.profile.profile,
 		loading: state.profile.loading,
 		error: state.profile.error,
-		foodsDatabase: state.food.foods
+		foodsDatabase: state.food.foods,
+		filtered: state.food.filtered
 	};
 };
 
@@ -217,7 +234,9 @@ const mapDispatchToProps = dispatch => {
 			dispatch(actions.addFoodsHistoryBulk(foodsHistoryData, token)),
 		onDeleteMeal: (mealName, token) =>
 			dispatch(actions.removeMeal(mealName, token)),
-		onGetFoodsDatabase: () => dispatch(actions.fetchFoods())
+		onGetFoodsDatabase: () => dispatch(actions.fetchFoods()),
+		onFilterAllFoods: text => dispatch(actions.filterAllFoods(text)),
+		onClearFilter: () => dispatch(actions.clearFilter())
 	};
 };
 

@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
 	foods: null,
 	error: null,
-	loading: false
+	loading: false,
+	filtered: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -46,6 +47,20 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false
+			};
+		case actionTypes.FILTER_ALL_FOODS:
+			return {
+				...state,
+				filtered: state.foods.filter(f => {
+					// reg exp match text case insensitive
+					const regex = new RegExp(`${action.payload}`, 'gi');
+					return f.name.match(regex);
+				})
+			};
+		case actionTypes.CLEAR_FILTER:
+			return {
+				...state,
+				filtered: null
 			};
 		default:
 			return state;
