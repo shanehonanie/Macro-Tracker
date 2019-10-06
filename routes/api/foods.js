@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
 });
 
 // @route POST api/foods
-// @desc Create or edit food object
+// @desc Create food object
 // @access Private
 router.post(
 	'/',
@@ -66,35 +66,24 @@ router.post(
 		if (req.body.volumeQty) foodFields.volumeQty = req.body.volumeQty;
 		if (req.body.volumeUnit) foodFields.volumeUnit = req.body.volumeUnit;
 		if (req.body.isMeasurementAsDefault)
-			foodFields.isMeasurementAsDefault = req.body.isMeasurementAsDefault;
+			foodFields.isMeasurementAsDefault =
+				req.body.isMeasurementAsDefault === 'Measurement' ? true : false;
 		if (req.body.calories) foodFields.calories = req.body.calories;
 		if (req.body.protein) foodFields.protein = req.body.protein;
 		if (req.body.fat) foodFields.fat = req.body.fat;
 		if (req.body.carbs) foodFields.carbs = req.body.carbs;
 		if (req.body.fiber) foodFields.fiber = req.body.fiber;
 		if (req.body.sugar) foodFields.sugar = req.body.sugar;
+		if (req.body.source) foodFields.source = req.body.source;
+		if (req.body.description) foodFields.description = req.body.description;
 
 		Food.findOne({ name: req.body.name }).then(food => {
-			//Update
+			// Duplicate
 			if (food) {
-				Food.findOneAndUpdate(
-					{ name: req.body.name },
-					{ $set: foodFields },
-					{ new: true }
-				)
-					.then(food => res.json(food)) //Update Success
-					.catch(err => res.status(404).json(err));
+				errors.name = 'That name already exists';
+				return res.status(400).json(errors);
 			} else {
-				//Create
-
-				//Check if name already exists
-				Food.findOne({ name: req.body.name }).then(food => {
-					if (food) {
-						errors.name = 'That name already exists';
-						res.status(400).json(errors);
-					}
-				});
-				//Save Profile
+				// Create & Save Food
 				new Food(foodFields)
 					.save()
 					.then(food => res.json(food))

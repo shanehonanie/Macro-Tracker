@@ -12,12 +12,10 @@ const FoodSchema = new Schema({
 		default: ''
 	},
 	measurementQty: {
-		type: Number,
-		default: 1
+		type: Number
 	},
 	measurementUnit: {
-		type: String,
-		default: 'unit'
+		type: String
 	},
 	volumeQty: {
 		type: Number

@@ -20,6 +20,8 @@ export class Food extends Component {
 		carbs: '',
 		fiber: '',
 		sugar: '',
+		source: '',
+		description: '',
 		error: {}
 	};
 
@@ -49,7 +51,9 @@ export class Food extends Component {
 			protein: this.state.protein,
 			carbs: this.state.carbs,
 			fiber: this.state.fiber,
-			sugar: this.state.sugar
+			sugar: this.state.sugar,
+			source: this.state.source,
+			description: this.state.description
 		};
 
 		this.props.onCreateFood(foodData, this.props.token);
@@ -87,13 +91,13 @@ export class Food extends Component {
 									error={error.name}
 									info='Name of food'
 								/>
-								<TextFieldGroup
-									placeholder='* Brand'
-									name='brand'
-									value={this.state.brand}
+								<SelectListGroup
+									name='isMeasurementAsDefault'
+									value={this.state.isMeasurementAsDefault}
 									onChange={this.inputChangedHandler}
-									error={error.brand}
-									info='Brand of food'
+									options={options}
+									error={null}
+									info='Select the volume or measurement to show as default'
 								/>
 								<TextFieldGroup
 									placeholder='* Measurement Qty'
@@ -127,13 +131,13 @@ export class Food extends Component {
 									error={error.volumeUnit}
 									info='Volume of Measure'
 								/>
-								<SelectListGroup
-									name='isMeasurementAsDefault'
-									value={this.state.isMeasurementAsDefault}
+								<TextFieldGroup
+									placeholder='* Brand'
+									name='brand'
+									value={this.state.brand}
 									onChange={this.inputChangedHandler}
-									options={options}
-									error={null}
-									info='Select the volume or measurement to show as default'
+									error={error.brand}
+									info='Brand of food'
 								/>
 								<TextFieldGroup
 									placeholder='* Calories'
@@ -182,6 +186,22 @@ export class Food extends Component {
 									onChange={this.inputChangedHandler}
 									error={error.sugar}
 									info='Sugar in food'
+								/>
+								<TextFieldGroup
+									placeholder='description'
+									name='description'
+									value={this.state.description}
+									onChange={this.inputChangedHandler}
+									error={error.description}
+									info='description'
+								/>
+								<TextFieldGroup
+									placeholder='source'
+									name='source'
+									value={this.state.source}
+									onChange={this.inputChangedHandler}
+									error={error.source}
+									info='source of nutrition info'
 								/>
 								<input
 									type='submit'

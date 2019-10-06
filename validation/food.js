@@ -69,9 +69,9 @@ module.exports = function validateFoodInput(data) {
 		errors.isMeasurementAsDefault = 'isMeasurementAsDefault is required';
 	}
 
-	if (!Validator.isBoolean(data.isMeasurementAsDefault + '')) {
-		errors.isMeasurementAsDefault = 'isMeasurementAsDefault must be a Boolean';
-	}
+	// if (!Validator.isBoolean(data.isMeasurementAsDefault + '')) {
+	// 	errors.isMeasurementAsDefault = 'isMeasurementAsDefault must be a Boolean';
+	// }
 
 	if (!Validator.isInt(data.calories)) {
 		errors.calories = 'Calories must be a number';
