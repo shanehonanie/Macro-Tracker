@@ -139,7 +139,7 @@ const foodDiaryTable = props => {
 				<tr>
 					<td colSpan='3'>
 						{props.options === true ? (
-							<div className='row'>
+							<div className='row mx-auto'>
 								<Link
 									to={{
 										pathname: '/foodDiary/addToDiary',
