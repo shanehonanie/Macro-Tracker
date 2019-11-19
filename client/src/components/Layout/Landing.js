@@ -21,6 +21,14 @@ const landing = () => {
 								Login
 							</Link>
 						</div>
+						<div className='col-md-12 text-center font-weight-bold'>
+							<p>
+								Create an account or use demo account to login (credentials
+								below)
+							</p>
+							<p>Email: test@test.com</p>
+							<p>Password: password</p>
+						</div>
 					</div>
 				</div>
 			</div>
