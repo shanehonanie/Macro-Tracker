@@ -58,19 +58,28 @@ exports.registerUser = (req, res) => {
 									profileFields.user = user.id;
 									if (req.body.handle) profileFields.handle = req.body.handle;
 
-									//Save Profile
 									new Profile(profileFields)
 										.save()
-										.then(profile =>
-											res.json({
-												success: true,
-												user: user.name,
-												id: user.id,
-												handle: profile.handle,
-												token: 'Bearer ' + token,
-												expiresIn: 3600
-											})
-										)
+										.then(profile => {
+											// Create & Save Goals Object
+											const goalFields = {};
+											goalFields.user = user.id;
+
+											new Goal(goalFields)
+												.save()
+												.then(goals =>
+													res.json({
+														success: true,
+														user: user.name,
+														goals,
+														id: user.id,
+														handle: profile.handle,
+														token: 'Bearer ' + token,
+														expiresIn: 3600
+													})
+												)
+												.catch(err => res.status(404).json(err));
+										})
 										.catch(err => res.status(404).json(err));
 								}
 							);

@@ -40,17 +40,19 @@ export const checkAuthTimeout = expirationTime => {
 	};
 };
 
-export const auth = (name, email, password, password2, isSignUp) => {
+export const auth = (name, handle, email, password, password2, isSignUp) => {
 	return dispatch => {
 		dispatch(authStart());
 
 		let newUser = {};
 		let url = '';
+		console.log('auth isSignUp', isSignUp);
 
 		if (isSignUp) {
 			url = 'api/users/register';
 			newUser = {
 				name: name,
+				handle: handle,
 				email: email,
 				password: password,
 				password2: password2

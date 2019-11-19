@@ -21,7 +21,7 @@ exports.getGoals = (req, res) => {
 // @route POST api/goals
 // @desc Create or edit users goals
 // @access Private
-exports.createGoals = (req, res) => {
+exports.updateGoals = (req, res) => {
 	const { errors, isValid } = validatorGoalInput(req.body);
 
 	//Check Validation
@@ -65,11 +65,6 @@ exports.createGoals = (req, res) => {
 					.then(goal => res.json(goal)) //Update Success
 					.catch(err => res.status(404).json(err));
 			} else {
-				// Create & Save
-				new Goal(goalFields)
-					.save()
-					.then(goal => res.json(goal))
-					.catch(err => res.status(404).json(err));
 			}
 		})
 		.catch(err => res.status(404).json(err));

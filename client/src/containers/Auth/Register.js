@@ -11,6 +11,7 @@ export class Register extends Component {
 		email: '',
 		password: '',
 		password2: '',
+		handle: '',
 		error: {},
 		isSignUp: true
 	};
@@ -36,6 +37,7 @@ export class Register extends Component {
 
 		this.props.onAuth(
 			this.state.name,
+			this.state.handle,
 			this.state.email,
 			this.state.password,
 			this.state.password2,
@@ -66,6 +68,14 @@ export class Register extends Component {
 									value={this.state.name}
 									onChange={this.inputChangedHandler}
 									error={this.state.error.name}
+								/>
+								<TextFieldGroup
+									placeholder='Handle'
+									name='handle'
+									type='handle'
+									value={this.state.handle}
+									onChange={this.inputChangedHandler}
+									error={this.state.error.handle}
 								/>
 								<TextFieldGroup
 									placeholder='Email Address'
@@ -112,13 +122,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onAuth: (name, email, password, password2, isSignup) =>
-			dispatch(actions.auth(name, email, password, password2, isSignup)),
+		onAuth: (name, handle, email, password, password2, isSignup) =>
+			dispatch(
+				actions.auth(name, handle, email, password, password2, isSignup)
+			),
 		onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
