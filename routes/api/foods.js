@@ -14,7 +14,7 @@ const upload = multer({ dest: 'tmp/csv/' });
 
 router
 	.route('/')
-	.get(passport.authenticate('jwt', { session: false }), getAllFood)
+	.get(getAllFood)
 	.post(passport.authenticate('jwt', { session: false }), createFood);
 
 router
