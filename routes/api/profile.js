@@ -5,7 +5,7 @@ const {
 	getAllProfiles,
 	getProfileByUserId,
 	getProfile,
-	createProfile,
+	updateProfile,
 	addFoodsArrayToProfile,
 	addFoodItemToFoodsHistory,
 	editFoodItemInFoodsHistory,
@@ -24,7 +24,7 @@ router.route('/user/:user_id').get(getProfileByUserId);
 router
 	.route('/')
 	.get(passport.authenticate('jwt', { session: false }), getProfile)
-	.post(passport.authenticate('jwt', { session: false }), createProfile);
+	.post(passport.authenticate('jwt', { session: false }), updateProfile);
 
 router
 	.route('/foodsHistoryBulk')

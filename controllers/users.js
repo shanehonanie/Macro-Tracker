@@ -4,19 +4,25 @@ const jwt = require('jsonwebtoken');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 const keys = require('../config/keys');
-const { createProfile } = require('./profile');
 
 // @route POST api/users/register
 // @desc Register User and return JWT Token
 // @access Public
 exports.registerUser = (req, res) => {
-	console.log('inside register User');
 	const { errors, isValid } = validateRegisterInput(req.body);
 
 	// Check Validation
 	if (!isValid) {
 		return res.status(400).json(errors);
 	}
+
+	// Check if the handle exists, if so return error
+	User.findOne({ handle: req.body.handle }).then(user => {
+		if (user) {
+			errors.handle = 'Handle already exists';
+			return res.status(400).json(errors);
+		}
+	});
 
 	// Check if the email exists, if not then create a new user
 	User.findOne({ email: req.body.email }).then(user => {
@@ -47,18 +53,27 @@ exports.registerUser = (req, res) => {
 								keys.secretOrKey,
 								{ expiresIn: 3600 },
 								(err, token) => {
-									res.json({
-										success: true,
-										user: user.name,
-										id: user.id,
-										token: 'Bearer ' + token,
-										expiresIn: 3600
-									});
+									// Create & Save Profile
+									const profileFields = {};
+									profileFields.user = user.id;
+									if (req.body.handle) profileFields.handle = req.body.handle;
+
+									//Save Profile
+									new Profile(profileFields)
+										.save()
+										.then(profile =>
+											res.json({
+												success: true,
+												user: user.name,
+												id: user.id,
+												handle: profile.handle,
+												token: 'Bearer ' + token,
+												expiresIn: 3600
+											})
+										)
+										.catch(err => res.status(404).json(err));
 								}
 							);
-
-							// Create a new profile for the new user
-							//createProfile(req, res);
 						})
 						.catch(err => console.log(err));
 				});

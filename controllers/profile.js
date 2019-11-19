@@ -84,7 +84,7 @@ exports.getProfile = (req, res) => {
 // @route POST api/profile
 // @desc Create user profile
 // @access Private
-exports.createProfile = (req, res) => {
+exports.updateProfile = (req, res) => {
 	const { errors, isValid } = validateProfileInput(req.body);
 
 	// Check Validation
@@ -95,6 +95,7 @@ exports.createProfile = (req, res) => {
 
 	const profileFields = {};
 	profileFields.user = req.user.id;
+	//console.log('req.user.id', req.user.id);
 	if (req.body.handle) profileFields.handle = req.body.handle;
 
 	Profile.findOne({ user: req.user.id })
