@@ -36,10 +36,11 @@ export class Login extends Component {
 		event.preventDefault();
 
 		this.props.onAuth(
-			null,
+			null, //user
+			null, //handle
 			this.state.email,
 			this.state.password,
-			null,
+			null, //password2
 			this.state.isSignUp
 		);
 	};
@@ -101,13 +102,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onAuth: (name, email, password, password2, isSignup) =>
-			dispatch(actions.auth(name, email, password, password2, isSignup)),
+		onAuth: (name, handle, email, password, password2, isSignup) =>
+			dispatch(
+				actions.auth(name, handle, email, password, password2, isSignup)
+			),
 		onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
