@@ -180,17 +180,22 @@ export class Goal extends Component {
 						<thead className='thead-dark'>
 							<tr>
 								<th colSpan='1'>Your Daily Summary</th>
-								<th>Goal</th>
-								<th>Used</th>
+								<th className='d-none d-lg-table-cell'>Goal</th>
+								<th className='d-none d-lg-table-cell'>Used</th>
 								<th>Remaining</th>
 								<th>Utilization</th>
 							</tr>
 						</thead>
 						<tbody>
+							{/* Calories Section */}
 							<tr>
 								<td>Calories</td>
-								<td>{parseFloat(this.props.goal.dailyCalories).toFixed(2)}</td>
-								<td>{parseFloat(allCalorieSum).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(this.props.goal.dailyCalories).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(allCalorieSum).toFixed(2)}
+								</td>
 								<td>
 									{parseFloat(
 										this.props.goal.dailyCalories - allCalorieSum
@@ -223,10 +228,15 @@ export class Goal extends Component {
 									</div>
 								</td>
 							</tr>
+							{/* Protein Section */}
 							<tr>
 								<td>Protein</td>
-								<td>{parseFloat(this.props.goal.dailyProtein).toFixed(2)}</td>
-								<td>{parseFloat(allProteinSum).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(this.props.goal.dailyProtein).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(allProteinSum).toFixed(2)}
+								</td>
 								<td>
 									{parseFloat(
 										this.props.goal.dailyProtein - allProteinSum
@@ -258,10 +268,15 @@ export class Goal extends Component {
 									</div>
 								</td>
 							</tr>
+							{/* Fat Section */}
 							<tr>
 								<td>Fat</td>
-								<td>{parseFloat(this.props.goal.dailyFat).toFixed(2)}</td>
-								<td>{parseFloat(allFatSum).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(this.props.goal.dailyFat).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(allFatSum).toFixed(2)}
+								</td>
 								<td>
 									{parseFloat(this.props.goal.dailyFat - allFatSum).toFixed(2)}
 								</td>
@@ -289,10 +304,15 @@ export class Goal extends Component {
 									</div>
 								</td>
 							</tr>
+							{/* Carbs Section */}
 							<tr>
 								<td>Carbs</td>
-								<td>{parseFloat(this.props.goal.dailyCarbs).toFixed(2)}</td>
-								<td>{parseFloat(allCarbsSum).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(this.props.goal.dailyCarbs).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(allCarbsSum).toFixed(2)}
+								</td>
 								<td>
 									{parseFloat(this.props.goal.dailyCarbs - allCarbsSum).toFixed(
 										2
@@ -324,10 +344,15 @@ export class Goal extends Component {
 									</div>
 								</td>
 							</tr>
+							{/* Fiber Section */}
 							<tr>
 								<td>Fiber</td>
-								<td>{parseFloat(this.props.goal.dailyFiber).toFixed(2)}</td>
-								<td>{parseFloat(allFiberSum).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(this.props.goal.dailyFiber).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(allFiberSum).toFixed(2)}
+								</td>
 								<td>
 									{parseFloat(this.props.goal.dailyFiber - allFiberSum).toFixed(
 										2
@@ -359,10 +384,15 @@ export class Goal extends Component {
 									</div>
 								</td>
 							</tr>
+							{/* Sugar Section */}
 							<tr>
 								<td>Sugar</td>
-								<td>{parseFloat(this.props.goal.dailySugar).toFixed(2)}</td>
-								<td>{parseFloat(allSugarSum).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(this.props.goal.dailySugar).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(allSugarSum).toFixed(2)}
+								</td>
 								<td>
 									{parseFloat(this.props.goal.dailySugar - allSugarSum).toFixed(
 										2
@@ -401,59 +431,65 @@ export class Goal extends Component {
 		}
 		return (
 			<div className='container'>
-				<div className='row'>{goalNutritionForm}</div>
-				<div className='row'>
-					<Chart
-						width={'500px'}
-						height={'300px'}
-						chartType='PieChart'
-						loader={<Spinner />}
-						data={[
-							['Macro', 'In grams'],
-							['Protein', allProteinSum],
-							['Carbs', allCarbsSum],
-							['Fat', allFatSum]
-						]}
-						options={{
-							title: 'Daily Macros'
-						}}
-						rootProps={{ 'data-testid': '1' }}
-					/>
-					<Chart
-						width={'500px'}
-						height={'300px'}
-						chartType='PieChart'
-						loader={<Spinner />}
-						data={[
-							['Meal', 'Calories'],
-							['Breakfest', breakfestCaloriesSum],
-							['Lunch', lunchCaloriesSum],
-							['Dinner', dinnerCaloriesSum]
-						]}
-						options={{
-							title: 'Calories per Meal (No Snack)',
-							pieHole: 0.4
-						}}
-						rootProps={{ 'data-testid': '2' }}
-					/>
-					<Chart
-						width={'500px'}
-						height={'300px'}
-						chartType='PieChart'
-						loader={<Spinner />}
-						data={[
-							['Meal', 'Calories'],
-							['Breakfest', breakfestCaloriesSum],
-							['Lunch', lunchCaloriesSum],
-							['Dinner', dinnerCaloriesSum],
-							['Snack', snackCaloriesSum]
-						]}
-						options={{
-							title: 'Calories per Meal (With Snack)',
-							pieHole: 0.4
-						}}
-						rootProps={{ 'data-testid': '2' }}
-					/>
+				<div className='row justify-content-md-center'>{goalNutritionForm}</div>
+				<div className='row justify-content-md-center'>
+					<div className='col-md-6'>
+						<Chart
+							width={'100%'}
+							height={'350px'}
+							chartType='PieChart'
+							loader={<Spinner />}
+							data={[
+								['Macro', 'In grams'],
+								['Protein', allProteinSum],
+								['Carbs', allCarbsSum],
+								['Fat', allFatSum]
+							]}
+							options={{
+								title: 'Daily Macros'
+							}}
+							rootProps={{ 'data-testid': '1' }}
+						/>
+					</div>
+					<div className='col-md-6'>
+						<Chart
+							width={'100%'}
+							height={'350px'}
+							chartType='PieChart'
+							loader={<Spinner />}
+							data={[
+								['Meal', 'Calories'],
+								['Breakfest', breakfestCaloriesSum],
+								['Lunch', lunchCaloriesSum],
+								['Dinner', dinnerCaloriesSum]
+							]}
+							options={{
+								title: 'Calories per Meal (No Snack)'
+								// pieHole: 0.4
+							}}
+							rootProps={{ 'data-testid': '2' }}
+						/>
+					</div>
+					<div className='col-md-6'>
+						<Chart
+							width={'100%'}
+							height={'350px'}
+							chartType='PieChart'
+							loader={<Spinner />}
+							data={[
+								['Meal', 'Calories'],
+								['Breakfest', breakfestCaloriesSum],
+								['Lunch', lunchCaloriesSum],
+								['Dinner', dinnerCaloriesSum],
+								['Snack', snackCaloriesSum]
+							]}
+							options={{
+								title: 'Calories per Meal (With Snack)'
+								// pieHole: 0.4
+							}}
+							rootProps={{ 'data-testid': '2' }}
+						/>
+					</div>
 				</div>
 			</div>
 		);
@@ -476,7 +512,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Goal);
+export default connect(mapStateToProps, mapDispatchToProps)(Goal);

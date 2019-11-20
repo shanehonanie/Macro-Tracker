@@ -116,7 +116,7 @@ export class Goal extends Component {
 			);
 		}
 		return (
-			<div>
+			<div className='container'>
 				{goalNutritionForm} {goalFitnessForm}
 			</div>
 		);
@@ -137,7 +137,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Goal);
+export default connect(mapStateToProps, mapDispatchToProps)(Goal);
