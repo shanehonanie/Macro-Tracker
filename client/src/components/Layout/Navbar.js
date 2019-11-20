@@ -7,10 +7,10 @@ const Navbar = props => {
 	const authLinks = (
 		<div className='collapse navbar-collapse' id='mobile-nav'>
 			<NavigationItem name={'Dashboard'} to='/dashboard' />
+			<NavigationItem name={'Food Diary'} to='/foodDiary' />
 			<NavigationItem name={'Profile'} to='/profile' />
 			<NavigationItem name={'Goals'} to='/goal' />
 			<NavigationItem name={'Food Database'} to='/food' />
-			<NavigationItem name={'Food'} to='/foodDiary' />
 			<NavigationItem name={'Logout'} to='/logout' margin='ml-' />
 		</div>
 	);
