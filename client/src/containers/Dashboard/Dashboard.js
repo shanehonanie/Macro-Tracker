@@ -181,8 +181,8 @@ export class Goal extends Component {
 							<tr>
 								<th colSpan='1'>Your Daily Summary</th>
 								<th className='d-none d-lg-table-cell'>Goal</th>
-								<th className='d-none d-lg-table-cell'>Used</th>
-								<th>Remaining</th>
+								<th>Used</th>
+								<th className='d-none d-lg-table-cell'>Remaining</th>
 								<th>Utilization</th>
 							</tr>
 						</thead>
@@ -193,16 +193,14 @@ export class Goal extends Component {
 								<td className='d-none d-lg-table-cell'>
 									{parseFloat(this.props.goal.dailyCalories).toFixed(2)}
 								</td>
+								<td>{parseFloat(allCalorieSum).toFixed(2)}</td>
 								<td className='d-none d-lg-table-cell'>
-									{parseFloat(allCalorieSum).toFixed(2)}
-								</td>
-								<td>
 									{parseFloat(
 										this.props.goal.dailyCalories - allCalorieSum
 									).toFixed(2)}
 								</td>
 								<td>
-									<div className='progress' style={{ height: '25px' }}>
+									<div className='progress' style={{ height: '20px' }}>
 										<div
 											className='progress-bar'
 											role='progressbar'
@@ -234,16 +232,14 @@ export class Goal extends Component {
 								<td className='d-none d-lg-table-cell'>
 									{parseFloat(this.props.goal.dailyProtein).toFixed(2)}
 								</td>
+								<td>{parseFloat(allProteinSum).toFixed(2)}</td>
 								<td className='d-none d-lg-table-cell'>
-									{parseFloat(allProteinSum).toFixed(2)}
-								</td>
-								<td>
 									{parseFloat(
 										this.props.goal.dailyProtein - allProteinSum
 									).toFixed(2)}
 								</td>
 								<td>
-									<div className='progress' style={{ height: '25px' }}>
+									<div className='progress' style={{ height: '20px' }}>
 										<div
 											className='progress-bar'
 											role='progressbar'
@@ -274,14 +270,12 @@ export class Goal extends Component {
 								<td className='d-none d-lg-table-cell'>
 									{parseFloat(this.props.goal.dailyFat).toFixed(2)}
 								</td>
+								<td>{parseFloat(allFatSum).toFixed(2)}</td>
 								<td className='d-none d-lg-table-cell'>
-									{parseFloat(allFatSum).toFixed(2)}
-								</td>
-								<td>
 									{parseFloat(this.props.goal.dailyFat - allFatSum).toFixed(2)}
 								</td>
 								<td>
-									<div className='progress' style={{ height: '25px' }}>
+									<div className='progress' style={{ height: '20px' }}>
 										<div
 											className='progress-bar'
 											role='progressbar'
@@ -310,16 +304,14 @@ export class Goal extends Component {
 								<td className='d-none d-lg-table-cell'>
 									{parseFloat(this.props.goal.dailyCarbs).toFixed(2)}
 								</td>
+								<td>{parseFloat(allCarbsSum).toFixed(2)}</td>
 								<td className='d-none d-lg-table-cell'>
-									{parseFloat(allCarbsSum).toFixed(2)}
-								</td>
-								<td>
 									{parseFloat(this.props.goal.dailyCarbs - allCarbsSum).toFixed(
 										2
 									)}
 								</td>
 								<td>
-									<div className='progress' style={{ height: '25px' }}>
+									<div className='progress' style={{ height: '20px' }}>
 										<div
 											className='progress-bar'
 											role='progressbar'
@@ -350,16 +342,14 @@ export class Goal extends Component {
 								<td className='d-none d-lg-table-cell'>
 									{parseFloat(this.props.goal.dailyFiber).toFixed(2)}
 								</td>
+								<td>{parseFloat(allFiberSum).toFixed(2)}</td>
 								<td className='d-none d-lg-table-cell'>
-									{parseFloat(allFiberSum).toFixed(2)}
-								</td>
-								<td>
 									{parseFloat(this.props.goal.dailyFiber - allFiberSum).toFixed(
 										2
 									)}
 								</td>
 								<td>
-									<div className='progress' style={{ height: '25px' }}>
+									<div className='progress' style={{ height: '20px' }}>
 										<div
 											className='progress-bar'
 											role='progressbar'
@@ -390,16 +380,14 @@ export class Goal extends Component {
 								<td className='d-none d-lg-table-cell'>
 									{parseFloat(this.props.goal.dailySugar).toFixed(2)}
 								</td>
+								<td>{parseFloat(allSugarSum).toFixed(2)}</td>
 								<td className='d-none d-lg-table-cell'>
-									{parseFloat(allSugarSum).toFixed(2)}
-								</td>
-								<td>
 									{parseFloat(this.props.goal.dailySugar - allSugarSum).toFixed(
 										2
 									)}
 								</td>
 								<td>
-									<div className='progress' style={{ height: '25px' }}>
+									<div className='progress' style={{ height: '20px' }}>
 										<div
 											className='progress-bar'
 											role='progressbar'
