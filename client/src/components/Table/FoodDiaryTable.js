@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const dateOptions = {
-	weekday: 'long',
-	year: 'numeric',
-	month: 'long',
-	day: 'numeric'
-};
+// const dateOptions = {
+// 	weekday: 'long',
+// 	year: 'numeric',
+// 	month: 'long',
+// 	day: 'numeric'
+// };
 
 const foodDiaryTable = props => {
 	let calorieSum = 0;
@@ -38,15 +38,28 @@ const foodDiaryTable = props => {
 		fiberSum += row.serving * row.food.fiber;
 		sugarSum += row.serving * row.food.sugar;
 		return (
+			// Food Diary Table Data
 			<tr key={index}>
-				<td colSpan='3'>{row.food.name}</td>
-				<td>{parseFloat(row.serving).toFixed(2)}</td>
+				<td className='tble-mealname'>{row.food.name}</td>
+				<td className='d-none d-lg-table-cell'>
+					{parseFloat(row.serving).toFixed(2)}
+				</td>
 				<td>{parseFloat(row.serving * row.food.calories).toFixed(0)}</td>
-				<td>{parseFloat(row.serving * row.food.protein).toFixed(2)}</td>
-				<td>{parseFloat(row.serving * row.food.fat).toFixed(2)}</td>
-				<td>{parseFloat(row.serving * row.food.carbs).toFixed(2)}</td>
-				<td>{parseFloat(row.serving * row.food.fiber).toFixed(2)}</td>
-				<td>{parseFloat(row.serving * row.food.sugar).toFixed(2)}</td>
+				<td className='d-none d-lg-table-cell'>
+					{parseFloat(row.serving * row.food.protein).toFixed(2)}
+				</td>
+				<td className='d-none d-lg-table-cell'>
+					{parseFloat(row.serving * row.food.fat).toFixed(2)}
+				</td>
+				<td className='d-none d-lg-table-cell'>
+					{parseFloat(row.serving * row.food.carbs).toFixed(2)}
+				</td>
+				<td className='d-none d-lg-table-cell'>
+					{parseFloat(row.serving * row.food.fiber).toFixed(2)}
+				</td>
+				<td className='d-none d-lg-table-cell'>
+					{parseFloat(row.serving * row.food.sugar).toFixed(2)}
+				</td>
 				<td>
 					{props.onClickDelete ? (
 						<button
@@ -121,23 +134,25 @@ const foodDiaryTable = props => {
 	// }
 
 	return (
+		// Table Headers
 		<table className='table table-striped'>
 			<thead className='thead'>
 				<tr>
-					<th colSpan='3'>{props.name}</th>
-					<th>Serving</th>
+					<th className='tble-mealname'>{props.name}</th>
+					<th className='d-none d-lg-table-cell'>Serving</th>
 					<th>Calories</th>
-					<th>Protein</th>
-					<th>Fat</th>
-					<th>Carbs</th>
-					<th>Fiber</th>
-					<th>Sugar</th>
+					<th className='d-none d-lg-table-cell'>Protein</th>
+					<th className='d-none d-lg-table-cell'>Fat</th>
+					<th className='d-none d-lg-table-cell'>Carbs</th>
+					<th className='d-none d-lg-table-cell'>Fiber</th>
+					<th className='d-none d-lg-table-cell'>Sugar</th>
+					<th />
 				</tr>
 			</thead>
 			<tbody>
 				{tableData}
 				<tr>
-					<td colSpan='3'>
+					<td>
 						{props.options === true ? (
 							<div className='row mx-auto'>
 								<Link
@@ -148,7 +163,7 @@ const foodDiaryTable = props => {
 								>
 									Add Food
 								</Link>
-								|
+								<p className='mx-1 d-none d-lg-table-cell'>|</p>
 								<div className='dropdown'>
 									<p
 										className='dropdown-toggle'
@@ -169,13 +184,25 @@ const foodDiaryTable = props => {
 							</div>
 						) : null}
 					</td>
-					<td />
+					{/* // Table Macro Sums */}
+					<td className='d-none d-lg-table-cell' />
 					<td>{parseFloat(calorieSum).toFixed(0)}</td>
-					<td>{parseFloat(proteinSum).toFixed(2)}</td>
-					<td>{parseFloat(fatSum).toFixed(2)}</td>
-					<td>{parseFloat(carbsSum).toFixed(2)}</td>
-					<td>{parseFloat(fiberSum).toFixed(2)}</td>
-					<td>{parseFloat(sugarSum).toFixed(2)}</td>
+					<td className='d-none d-lg-table-cell'>
+						{parseFloat(proteinSum).toFixed(2)}
+					</td>
+					<td className='d-none d-lg-table-cell'>
+						{parseFloat(fatSum).toFixed(2)}
+					</td>
+					<td className='d-none d-lg-table-cell'>
+						{parseFloat(carbsSum).toFixed(2)}
+					</td>
+					<td className='d-none d-lg-table-cell'>
+						{parseFloat(fiberSum).toFixed(2)}
+					</td>
+					<td className='d-none d-lg-table-cell'>
+						{parseFloat(sugarSum).toFixed(2)}
+					</td>
+					<td className='' />
 				</tr>
 			</tbody>
 		</table>

@@ -53,3 +53,11 @@ img {
 	background-color: #fff;
 	border: 1px solid #ddd;
 }
+
+.tble-mealname {
+	width: 30%;
+
+	@media (max-width: 767.98px) {
+		width: 40%;
+	}
+}

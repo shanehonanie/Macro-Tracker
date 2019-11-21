@@ -389,50 +389,80 @@ export class FoodDiary extends Component {
 		return (
 			<div className='add-food'>
 				<div className='container'>
-					<DatePicker
-						selected={this.state.calendarDate}
-						onChange={this.handleChange.bind(this)}
-					/>
-				</div>
-				{allTableMeals}
-				<div className='container'>
+					<div className='row justify-content-center'>
+						<DatePicker
+							selected={this.state.calendarDate}
+							onChange={this.handleChange.bind(this)}
+						/>
+					</div>
+					<div className='row'>{allTableMeals}</div>
 					<table className='table'>
 						<tbody>
 							<tr>
 								<th>Totals</th>
 								<td>{parseFloat(calorieSum).toFixed(0)}</td>
-								<td>{parseFloat(proteinSum).toFixed(2)}</td>
-								<td>{parseFloat(fatSum).toFixed(2)}</td>
-								<td>{parseFloat(carbsSum).toFixed(2)}</td>
-								<td>{parseFloat(fiberSum).toFixed(2)}</td>
-								<td>{parseFloat(sugarSum).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(proteinSum).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(fatSum).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(carbsSum).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(fiberSum).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(sugarSum).toFixed(2)}
+								</td>
 							</tr>
 							<tr>
 								<th>Your Daily Goal</th>
 								<td>{parseFloat(goalCalories).toFixed(0)}</td>
-								<td>{parseFloat(goalProtein).toFixed(2)}</td>
-								<td>{parseFloat(goalFat).toFixed(2)}</td>
-								<td>{parseFloat(goalCarbs).toFixed(2)}</td>
-								<td>{parseFloat(goalFiber).toFixed(2)}</td>
-								<td>{parseFloat(goalSugar).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalProtein).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalFat).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalCarbs).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalFiber).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalSugar).toFixed(2)}
+								</td>
 							</tr>
 							<tr>
 								<th>Remaining</th>
 								<td>{parseFloat(goalCalories - calorieSum).toFixed(0)}</td>
-								<td>{parseFloat(goalProtein - proteinSum).toFixed(2)}</td>
-								<td>{parseFloat(goalFat - fatSum).toFixed(2)}</td>
-								<td>{parseFloat(goalCarbs - carbsSum).toFixed(2)}</td>
-								<td>{parseFloat(goalFiber - fiberSum).toFixed(2)}</td>
-								<td>{parseFloat(goalSugar - sugarSum).toFixed(2)}</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalProtein - proteinSum).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalFat - fatSum).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalCarbs - carbsSum).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalFiber - fiberSum).toFixed(2)}
+								</td>
+								<td className='d-none d-lg-table-cell'>
+									{parseFloat(goalSugar - sugarSum).toFixed(2)}
+								</td>
 							</tr>
 							<tr>
 								<th />
 								<th>Calories</th>
-								<th>Protein</th>
-								<th>Fat</th>
-								<th>Carbs</th>
-								<th>Fiber</th>
-								<th>Sugar</th>
+								<th className='d-none d-lg-table-cell'>Protein</th>
+								<th className='d-none d-lg-table-cell'>Fat</th>
+								<th className='d-none d-lg-table-cell'>Carbs</th>
+								<th className='d-none d-lg-table-cell'>Fiber</th>
+								<th className='d-none d-lg-table-cell'>Sugar</th>
 							</tr>
 						</tbody>
 					</table>
@@ -466,7 +496,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(FoodDiary);
+export default connect(mapStateToProps, mapDispatchToProps)(FoodDiary);
