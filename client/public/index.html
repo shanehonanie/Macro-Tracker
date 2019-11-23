@@ -46,5 +46,18 @@
 			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 			crossorigin="anonymous"
 		></script>
+
+		<!-- Close navbar onClick outside of navbar -->
+		<script>
+			$(document).ready(function() {
+				$(document).click(function(event) {
+					var target = $(event.target);
+					var _mobileMenuOpen = $('.navbar-collapse').hasClass('show');
+					if (_mobileMenuOpen === true && !target.hasClass('navbar-toggler')) {
+						$('button.navbar-toggler').click();
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
