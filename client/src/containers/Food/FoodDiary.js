@@ -399,70 +399,74 @@ export class FoodDiary extends Component {
 					<table className='table'>
 						<tbody>
 							<tr>
-								<th>Totals</th>
+								{/* Totals */}
+								<th className='tble-mealname'>Totals</th>
 								<td>{parseFloat(calorieSum).toFixed(0)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(proteinSum).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(fatSum).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(carbsSum).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-md-table-cell'>
 									{parseFloat(fiberSum).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-md-table-cell'>
 									{parseFloat(sugarSum).toFixed(2)}
 								</td>
 							</tr>
 							<tr>
-								<th>Your Daily Goal</th>
+								{/* Daily Goal */}
+								<th className='tble-mealname'>Your Daily Goal</th>
 								<td>{parseFloat(goalCalories).toFixed(0)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(goalProtein).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(goalFat).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(goalCarbs).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-md-table-cell'>
 									{parseFloat(goalFiber).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-md-table-cell'>
 									{parseFloat(goalSugar).toFixed(2)}
 								</td>
 							</tr>
 							<tr>
-								<th>Remaining</th>
+								{/* Remaining */}
+								<th className='tble-mealname'>Remaining</th>
 								<td>{parseFloat(goalCalories - calorieSum).toFixed(0)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(goalProtein - proteinSum).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(goalFat - fatSum).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(goalCarbs - carbsSum).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-md-table-cell'>
 									{parseFloat(goalFiber - fiberSum).toFixed(2)}
 								</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-md-table-cell'>
 									{parseFloat(goalSugar - sugarSum).toFixed(2)}
 								</td>
 							</tr>
 							<tr>
+								{/* Column Header */}
 								<th />
 								<th>Calories</th>
-								<th className='d-none d-lg-table-cell'>Protein</th>
-								<th className='d-none d-lg-table-cell'>Fat</th>
-								<th className='d-none d-lg-table-cell'>Carbs</th>
-								<th className='d-none d-lg-table-cell'>Fiber</th>
-								<th className='d-none d-lg-table-cell'>Sugar</th>
+								<th className='d-none d-sm-table-cell'>Protein</th>
+								<th className='d-none d-sm-table-cell'>Fat</th>
+								<th className='d-none d-sm-table-cell'>Carbs</th>
+								<th className='d-none d-md-table-cell'>Fiber</th>
+								<th className='d-none d-md-table-cell'>Sugar</th>
 							</tr>
 						</tbody>
 					</table>

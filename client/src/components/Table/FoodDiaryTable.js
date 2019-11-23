@@ -41,23 +41,23 @@ const foodDiaryTable = props => {
 			// Food Diary Table Data
 			<tr key={index}>
 				<td className='tble-mealname'>{row.food.name}</td>
-				<td className='d-none d-lg-table-cell'>
+				<td className='d-none d-sm-table-cell'>
 					{parseFloat(row.serving).toFixed(2)}
 				</td>
 				<td>{parseFloat(row.serving * row.food.calories).toFixed(0)}</td>
-				<td className='d-none d-lg-table-cell'>
+				<td className='d-none d-sm-table-cell'>
 					{parseFloat(row.serving * row.food.protein).toFixed(2)}
 				</td>
-				<td className='d-none d-lg-table-cell'>
+				<td className='d-none d-sm-table-cell'>
 					{parseFloat(row.serving * row.food.fat).toFixed(2)}
 				</td>
-				<td className='d-none d-lg-table-cell'>
+				<td className='d-none d-sm-table-cell'>
 					{parseFloat(row.serving * row.food.carbs).toFixed(2)}
 				</td>
-				<td className='d-none d-lg-table-cell'>
+				<td className='d-none d-md-table-cell'>
 					{parseFloat(row.serving * row.food.fiber).toFixed(2)}
 				</td>
-				<td className='d-none d-lg-table-cell'>
+				<td className='d-none d-md-table-cell'>
 					{parseFloat(row.serving * row.food.sugar).toFixed(2)}
 				</td>
 				<td>
@@ -139,13 +139,13 @@ const foodDiaryTable = props => {
 			<thead className='thead'>
 				<tr>
 					<th className='tble-mealname'>{props.name}</th>
-					<th className='d-none d-lg-table-cell'>Serving</th>
+					<th className='d-none d-sm-table-cell'>Serving</th>
 					<th>Calories</th>
-					<th className='d-none d-lg-table-cell'>Protein</th>
-					<th className='d-none d-lg-table-cell'>Fat</th>
-					<th className='d-none d-lg-table-cell'>Carbs</th>
-					<th className='d-none d-lg-table-cell'>Fiber</th>
-					<th className='d-none d-lg-table-cell'>Sugar</th>
+					<th className='d-none d-sm-table-cell'>Protein</th>
+					<th className='d-none d-sm-table-cell'>Fat</th>
+					<th className='d-none d-sm-table-cell'>Carbs</th>
+					<th className='d-none d-md-table-cell'>Fiber</th>
+					<th className='d-none d-md-table-cell'>Sugar</th>
 					<th />
 				</tr>
 			</thead>
@@ -163,7 +163,7 @@ const foodDiaryTable = props => {
 								>
 									Add Food
 								</Link>
-								<p className='mx-1 d-none d-lg-table-cell'>|</p>
+								<p className='mx-1 d-none d-sm-table-cell'>|</p>
 								<div className='dropdown'>
 									<p
 										className='dropdown-toggle'
@@ -185,21 +185,21 @@ const foodDiaryTable = props => {
 						) : null}
 					</td>
 					{/* // Table Macro Sums */}
-					<td className='d-none d-lg-table-cell' />
+					<td className='d-none d-sm-table-cell' />
 					<td>{parseFloat(calorieSum).toFixed(0)}</td>
-					<td className='d-none d-lg-table-cell'>
+					<td className='d-none d-sm-table-cell'>
 						{parseFloat(proteinSum).toFixed(2)}
 					</td>
-					<td className='d-none d-lg-table-cell'>
+					<td className='d-none d-sm-table-cell'>
 						{parseFloat(fatSum).toFixed(2)}
 					</td>
-					<td className='d-none d-lg-table-cell'>
+					<td className='d-none d-sm-table-cell'>
 						{parseFloat(carbsSum).toFixed(2)}
 					</td>
-					<td className='d-none d-lg-table-cell'>
+					<td className='d-none d-md-table-cell'>
 						{parseFloat(fiberSum).toFixed(2)}
 					</td>
-					<td className='d-none d-lg-table-cell'>
+					<td className='d-none d-md-table-cell'>
 						{parseFloat(sugarSum).toFixed(2)}
 					</td>
 					<td className='' />

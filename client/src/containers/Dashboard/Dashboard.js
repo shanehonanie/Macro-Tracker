@@ -179,10 +179,10 @@ export class Goal extends Component {
 					<table className='table table-striped'>
 						<thead className='thead-dark'>
 							<tr>
-								<th colSpan='1'>Your Daily Summary</th>
-								<th className='d-none d-lg-table-cell'>Goal</th>
+								<th colSpan='1'>Daily Summary</th>
+								<th className='d-none d-sm-table-cell'>Goal</th>
 								<th>Used</th>
-								<th className='d-none d-lg-table-cell'>Remaining</th>
+								<th className='d-none d-sm-table-cell'>Remaining</th>
 								<th>Utilization</th>
 							</tr>
 						</thead>
@@ -190,11 +190,11 @@ export class Goal extends Component {
 							{/* Calories Section */}
 							<tr>
 								<td>Calories</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailyCalories).toFixed(2)}
 								</td>
 								<td>{parseFloat(allCalorieSum).toFixed(2)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(
 										this.props.goal.dailyCalories - allCalorieSum
 									).toFixed(2)}
@@ -229,11 +229,11 @@ export class Goal extends Component {
 							{/* Protein Section */}
 							<tr>
 								<td>Protein</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailyProtein).toFixed(2)}
 								</td>
 								<td>{parseFloat(allProteinSum).toFixed(2)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(
 										this.props.goal.dailyProtein - allProteinSum
 									).toFixed(2)}
@@ -267,11 +267,11 @@ export class Goal extends Component {
 							{/* Fat Section */}
 							<tr>
 								<td>Fat</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailyFat).toFixed(2)}
 								</td>
 								<td>{parseFloat(allFatSum).toFixed(2)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailyFat - allFatSum).toFixed(2)}
 								</td>
 								<td>
@@ -301,11 +301,11 @@ export class Goal extends Component {
 							{/* Carbs Section */}
 							<tr>
 								<td>Carbs</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailyCarbs).toFixed(2)}
 								</td>
 								<td>{parseFloat(allCarbsSum).toFixed(2)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailyCarbs - allCarbsSum).toFixed(
 										2
 									)}
@@ -339,11 +339,11 @@ export class Goal extends Component {
 							{/* Fiber Section */}
 							<tr>
 								<td>Fiber</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailyFiber).toFixed(2)}
 								</td>
 								<td>{parseFloat(allFiberSum).toFixed(2)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailyFiber - allFiberSum).toFixed(
 										2
 									)}
@@ -377,11 +377,11 @@ export class Goal extends Component {
 							{/* Sugar Section */}
 							<tr>
 								<td>Sugar</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailySugar).toFixed(2)}
 								</td>
 								<td>{parseFloat(allSugarSum).toFixed(2)}</td>
-								<td className='d-none d-lg-table-cell'>
+								<td className='d-none d-sm-table-cell'>
 									{parseFloat(this.props.goal.dailySugar - allSugarSum).toFixed(
 										2
 									)}

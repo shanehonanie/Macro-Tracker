@@ -56,8 +56,10 @@ img {
 
 .tble-mealname {
 	width: 30%;
+}
 
-	@media (max-width: 767.98px) {
-		width: 40%;
+@media (max-width: 767.98px) {
+	.tble-mealname {
+		width: 50%;
 	}
 }
