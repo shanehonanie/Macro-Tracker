@@ -1,5 +1,6 @@
 img {
 	width: 100%;
+	height: 100%;
 }
 
 .landing {
@@ -8,8 +9,6 @@ img {
 	background-size: cover;
 	background-position: center;
 	height: 100vh;
-	margin-top: -24px;
-	margin-bottom: -50px;
 }
 
 .landing-inner {
@@ -27,11 +26,6 @@ img {
 
 .card-form {
 	opacity: 0.9;
-}
-
-.latest-profiles-img {
-	width: 40px;
-	height: 40px;
 }
 
 .form-control::placeholder {
@@ -54,6 +48,8 @@ img {
 	border: 1px solid #ddd;
 }
 
+/* Macro tables */
+
 .tble-mealname {
 	width: 30%;
 }
@@ -62,4 +58,34 @@ img {
 	.tble-mealname {
 		width: 50%;
 	}
+}
+
+/* Footer */
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+html {
+	height: 100%;
+}
+body {
+	position: relative;
+	min-height: 100%;
+}
+.wrapper {
+	position: relative;
+	overflow: hidden;
+	margin-top: 10px;
+}
+.footerfix {
+	height: 4rem;
+}
+footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
 }

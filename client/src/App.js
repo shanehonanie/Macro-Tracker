@@ -57,7 +57,9 @@ class App extends Component {
 		return (
 			<div className='App'>
 				<Navbar isUserAuthenticated={this.props.isAuthenticated} />
-				{routes}
+				<div className='wrapper'>{routes}</div>
+
+				<div className='footerfix'></div>
 				<Footer />
 			</div>
 		);
