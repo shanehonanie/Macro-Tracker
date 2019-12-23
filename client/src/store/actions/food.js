@@ -43,6 +43,51 @@ export const addFood = (foodData, token) => {
 	};
 };
 
+export const addFoodCSVStart = () => {
+	return {
+		type: actionTypes.ADD_FOOD_CSV_START
+	};
+};
+
+export const addFoodCSVSuccess = file => {
+	return {
+		type: actionTypes.ADD_FOOD_CSV_SUCCESS,
+		file: file
+	};
+};
+
+export const addFoodCSVFail = error => {
+	return {
+		type: actionTypes.ADD_FOOD_CSV_FAIL,
+		error: error
+	};
+};
+
+export const addFoodsCSV = (file, token) => {
+	return dispatch => {
+		dispatch(addFoodCSVStart());
+
+		const headers = {
+			'Content-Type': 'multipart/form-data',
+			Authorization: token
+		};
+
+		let formData = new FormData();
+		formData.append('file', file);
+
+		axios
+			.post('/api/foods/csv', formData, { headers: headers })
+			.then(response => {
+				console.log('[food.js] csv action response.data', response.data);
+				dispatch(addFoodCSVSuccess(file));
+			})
+			.catch(err => {
+				console.log('[food.js] csv actions error', err);
+				dispatch(addFoodCSVFail(err.response.data));
+			});
+	};
+};
+
 export const fetchFoodsStart = () => {
 	return {
 		type: actionTypes.FETCH_FOODS_START

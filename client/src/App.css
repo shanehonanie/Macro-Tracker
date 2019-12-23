@@ -90,3 +90,9 @@ footer {
 	left: 0;
 	padding: 1rem;
 }
+
+/* CSV Image */
+.csv-image {
+	height: 100px;
+	width: 100px;
+}

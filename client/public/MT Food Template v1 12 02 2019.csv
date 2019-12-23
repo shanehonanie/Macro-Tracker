@@ -1,0 +1,4 @@
+"DELETE THIS LINE, REQUIRED is Y","Y - V/Volume, M/Measurement",Measurement Qty/Unit or Volume Qty/Unit Required,Measurement Qty/Unit or Volume Qty/Unit Required,Measurement Qty/Unit or Volume Qty/Unit Required,Measurement Qty/Unit or Volume Qty/Unit Required,N,Y,Y,Y,Y,Y,Y,N,N
+Name,Default,Measurement,Measurement Unit,Volume,Volume Unit,Brand,Calories,Protein,Fat,Carbs,Fiber,Sugar,Verified?,Source
+Avacado,V,,,100,g,,160,2,15,9,7,0.7,X,www.webmd.com
+Milk 2%,M,1,cup,,,Kroger,120,8,5,12,0,12,X,www.webmd.com
