@@ -175,7 +175,7 @@ export class Goal extends Component {
 
 		if (!this.props.loading && this.props.goal) {
 			goalNutritionForm = (
-				<div className='container'>
+				<div className='container mt-5'>
 					<table className='table table-striped'>
 						<thead className='thead-dark'>
 							<tr>
