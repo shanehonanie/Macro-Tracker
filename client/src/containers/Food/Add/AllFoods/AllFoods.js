@@ -121,7 +121,7 @@ export class AllFoods extends Component {
 			}
 
 			displayFoodList = (
-				<div className='list-group offset-lg-1 col-lg-4'>
+				<div className='list-group col-lg-4 mt-1'>
 					{this.props.filtered ? filteredData : data}
 				</div>
 			);
@@ -142,7 +142,7 @@ export class AllFoods extends Component {
 							info='serving quantity'
 						/>
 						<p>
-							Serving of{' '}
+							{/* Serving of{' '} */}
 							{/* {foodDB[this.state.selectedItem].isMeasurementAsDefault
 								? foodDB[this.state.selectedItem].measurementQty +
 								  ' ' +
