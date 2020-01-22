@@ -129,7 +129,7 @@ export class AddToDiary extends Component {
 		// console.log('[AddToDiary.js] uniqueMealsTemp', uniqueMealsTemp);
 
 		return (
-			<div className='container'>
+			<div className='container mt-5'>
 				<nav>
 					<div className='nav nav-tabs' id='nav-tab' role='tablist'>
 						<a
@@ -169,7 +169,7 @@ export class AddToDiary extends Component {
 				</nav>
 				<div className='tab-content' id='nav-tabContent'>
 					<div
-						className='tab-pane fade show active'
+						className='tab-pane fade show active mt-1'
 						id='nav-allFoods'
 						role='tabpanel'
 						aria-labelledby='nav-allFoods-tab'
@@ -240,7 +240,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(AddToDiary);
+export default connect(mapStateToProps, mapDispatchToProps)(AddToDiary);
